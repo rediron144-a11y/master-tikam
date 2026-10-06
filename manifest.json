@@ -2,7 +2,7 @@
   "name": "MASTER TIKAM - Togel Invest Kolaborasi Anak Medan",
   "short_name": "MASTER TIKAM",
   "description": "Deadly Prediction - BBFS 8 + Auto Algo + Password anak medan",
-  "start_url": "./",
+  "start_url": "./index.html?apk=1",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#cc0000",
