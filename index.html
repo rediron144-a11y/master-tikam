@@ -80,22 +80,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-
-<style>
-#btnGenerateAI:disabled{
-  background:#222 !important;
-  border-color:#444 !important;
-  color:#777 !important;
-  cursor:not-allowed !important;
-  opacity:0.6;
-  box-shadow:none !important;
-}
-#btnGenerateAI.locked{
-  background:linear-gradient(135deg,#333,#111) !important;
-  border:1px solid #555 !important;
-}
-</style>
-
 </head>
 <body>
 
@@ -221,7 +205,7 @@ window.addEventListener('load', ()=>{
     <div class="header-text">
       <h2>MASTER TIKAM</h2>
       <p>🔪 TOGEL INVEST KOLABORASI ANAK MEDAN • DEADLY PREDICTION</p>
-      <p style="color:var(--blood);font-weight:bold;margin-top:3px;">V.35 BLOOD DAGGER • BBFS 8 • TRANSFORMASI TERPISAH • SCROLL ISOLATED</p>
+      <p style="color:var(--blood);font-weight:bold;margin-top:3px;">V.44 LUCKY MIMPI • BLOOD DAGGER • BBFS 8 • TRANSFORMASI TERPISAH • SCROLL ISOLATED</p>
     </div>
   </header>
   <div class="trim-toast" id="trimToast"></div>
@@ -232,6 +216,8 @@ window.addEventListener('load', ()=>{
     <button class="tab-btn" onclick="showTab('invest-tab', this)">📊 INVEST</button>
     <button class="tab-btn" onclick="showTab('backup-tab', this)" style="border-color:var(--green);color:var(--green);">💾 BACKUP</button>
     <button class="tab-btn" onclick="showTab('mistik-tab', this)">📚 MISTIK</button>
+    <button class="tab-btn" onclick="showTab('lucky-tab', this)" style="border-color:#ffcc00;color:#ffcc00;">🍀 LUCKY</button>
+    <button class="tab-btn" onclick="showTab('mimpi-tab', this)" style="border-color:#00ffcc;color:#00ffcc;">😴 MIMPI</button>
   </div>
 
   <!-- AI TAB - CLEAN -->
@@ -255,7 +241,7 @@ window.addEventListener('load', ()=>{
       <label>History (baru di bawah):</label><textarea id="inputAI" placeholder="0712&#10;4471&#10;0624" oninput="onAIInput()"></textarea>
       <div class="last-result-box"><div><div class="last-result-label">Result Terakhir</div><div class="last-result-sublabel" id="lastResultCount">-</div></div><div class="last-result-value empty" id="lastResultValue">-</div></div>
       <div style="margin-bottom:8px;"><button class="btn-gen" style="width:100%;background:linear-gradient(135deg,#8b0000,#cc0000);border:1px solid var(--blood);color:#fff;font-size:11px;padding:10px;" onclick="autoSelectBestFromAI()">🏆 AUTO PILIH ALGO TERBAIK DARI DATA</button><div id="aiAutoResult" style="margin-top:6px;"></div></div>
-      <div class="btn-group"><button class="btn-gen" id="btnGenerateAI" onclick="prosesAI()">⚡ GENERATE BBFS 8</button><button class="btn-reset" onclick="resetAI()">🔄</button><button class="btn-copy" onclick="copyFullAI()">📋 SALIN</button></div>
+      <div class="btn-group"><button class="btn-gen" onclick="prosesAI()">⚡ GENERATE BBFS 8</button><button class="btn-reset" onclick="resetAI()">🔄</button><button class="btn-copy" onclick="copyFullAI()">📋 SALIN</button></div>
     </div>
     <div id="hasilAI" class="output"></div>
   </div>
@@ -362,6 +348,86 @@ window.addEventListener('load', ()=>{
   <div id="mistik-tab" class="content-section"><div class="card"><label>📚 TABEL MISTIK</label><div class="grid-3"><select id="mistikViewer" onchange="renderMistikTable()"></select><input type="text" id="testDigit" placeholder="Test: 1234" oninput="testMistikConvert()"><div id="testResult" style="background:#000;padding:10px;border-radius:8px;border:1px solid #444;font-family:'Consolas', 'Courier New', monospace;color:var(--neon);text-align:center;">-</div></div><div id="allMistikTables"></div></div></div>
 </div>
 
+
+  <!-- 🍀 LUCKY NUMBER TAB - V44 NEW -->
+  <div id="lucky-tab" class="content-section">
+    <div class="card" style="border-color:#ffcc00;background:linear-gradient(135deg,#1a1500,#000);">
+      <label>🍀 LUCKY NUMBER - ANGKA HOKI PERSONAL <span style="background:#ffcc00;color:#000;padding:2px 6px;border-radius:4px;font-size:9px;">V.44 NEW</span></label>
+      <div style="font-size:10px;color:#aaa;margin-bottom:12px;">Masukkan nama & tanggal lahir → dapat angka hoki personal turunan 4D→3D→2D</div>
+      
+      <div class="grid-2">
+        <div>
+          <label>👤 Nama Lengkap</label>
+          <input type="text" id="luckyName" placeholder="Contoh: Ragil Bagus" style="width:100%;padding:10px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;">
+        </div>
+        <div>
+          <label>🎂 Tanggal Lahir</label>
+          <input type="date" id="luckyDOB" style="width:100%;padding:10px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;">
+        </div>
+      </div>
+      
+      <div style="margin-top:10px;">
+        <label>📍 Pasaran (Opsional)</label>
+        <select id="luckyPasaran" style="width:100%;padding:10px;background:#111;border:1px solid #444;color:#fff;border-radius:6px;">
+          <option value="">-- Pilih Pasaran --</option>
+          <option value="SGP">SGP</option>
+          <option value="HK">HK</option>
+          <option value="SDY">SDY</option>
+          <option value="MACAU">MACAU</option>
+          <option value="CAMBOJA">CAMBOJA</option>
+        </select>
+      </div>
+
+      <div class="btn-group" style="margin-top:12px;">
+        <button class="btn-gen" id="btnGenerateLucky" onclick="generateLuckyNumber()" style="background:linear-gradient(135deg,#ffcc00,#ff9900);color:#000;font-weight:bold;border-color:#ffcc00;">🍀 GENERATE LUCKY NUMBER</button>
+        <button class="btn-reset" onclick="resetLucky()">🔄</button>
+        <button class="btn-copy" onclick="copyLucky()">📋 SALIN</button>
+      </div>
+      
+      <div id="luckyResult" class="output" style="display:none;margin-top:12px;border-color:#ffcc00;background:#0f0a00;"></div>
+      
+      <div style="margin-top:12px;padding:10px;background:#111;border-radius:6px;border-left:3px solid #ffcc00;">
+        <div style="font-size:10px;color:#ffcc00;font-weight:bold;">💡 CARA KERJA LUCKY NUMBER:</div>
+        <div style="font-size:9px;color:#aaa;margin-top:4px;line-height:1.4;">
+          • Life Path dari tanggal lahir (contoh 15-05-1990 → 1+5+0+5+1+9+9+0=30 → 3)<br>
+          • Nilai nama (A=1, B=2... ) + Shio tahun lahir<br>
+          • BBFS 8 hoki dari kombinasi DOB + Nama<br>
+          • 4D induk → 3D & 2D turunan (1726→726→26)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 😴 ANGKA MIMPI TAB - V44 NEW -->
+  <div id="mimpi-tab" class="content-section">
+    <div class="card" style="border-color:#00ffcc;background:linear-gradient(135deg,#001a15,#000);">
+      <label>😴 BUKU MIMPI - ANGKA MIMPI 2D 3D 4D <span style="background:#00ffcc;color:#000;padding:2px 6px;border-radius:4px;font-size:9px;">101 MIMPI • V.44 NEW</span></label>
+      <div style="font-size:10px;color:#aaa;margin-bottom:12px;">Ketik mimpi bosq → langsung keluar angka 2D 3D 4D turunan</div>
+      
+      <div style="position:relative;margin-bottom:12px;">
+        <input type="text" id="mimpiSearch" placeholder="🔍 Cari mimpi... contoh: ular, uang, bayi, menikah" oninput="searchMimpi()" style="width:100%;padding:12px 12px 12px 40px;background:#111;border:1px solid #00ffcc;color:#fff;border-radius:8px;font-size:13px;">
+        <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px;">🔮</span>
+      </div>
+
+      <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+        <button class="btn-add" onclick="filterMimpiCategory('all')" style="background:#00ffcc;color:#000;">Semua</button>
+        <button class="btn-add" onclick="filterMimpiCategory('binatang')" style="background:#222;border-color:#00ffcc;color:#00ffcc;">🐍 Binatang</button>
+        <button class="btn-add" onclick="filterMimpiCategory('orang')" style="background:#222;border-color:#00ffcc;color:#00ffcc;">👤 Orang</button>
+        <button class="btn-add" onclick="filterMimpiCategory('benda')" style="background:#222;border-color:#00ffcc;color:#00ffcc;">💰 Benda</button>
+        <button class="btn-add" onclick="filterMimpiCategory('alam')" style="background:#222;border-color:#00ffcc;color:#00ffcc;">🌊 Alam</button>
+      </div>
+
+      <div id="mimpiStats" style="font-size:10px;color:#00ffcc;margin-bottom:8px;">📚 Total 101 mimpi • Ketik untuk cari</div>
+      
+      <div id="mimpiList" style="max-height:500px;overflow-y:auto;display:grid;gap:8px;">
+        <!-- Will be populated by JS -->
+      </div>
+
+      <div id="mimpiDetail" class="output" style="display:none;margin-top:12px;border-color:#00ffcc;background:#00110f;"></div>
+    </div>
+  </div>
+
+
 <script>
 const MISTIK_TABLES = {
   ix:{name:'INDEX',map:{'0':'5','1':'6','2':'7','3':'8','4':'9','5':'0','6':'1','7':'2','8':'3','9':'4'}},
@@ -429,21 +495,7 @@ function renderTagList(){ const list=document.getElementById('pasaranList'); lis
 function showAddPasaran(type){ document.getElementById(type==='ai'?'lokasiLainnya':'btLokasiLainnya').style.display='block'; document.getElementById(type==='ai'?'btnAddPasaran':'btnAddBtPasaran').style.display='block'; document.getElementById(type==='ai'?'lokasiLainnya':'btLokasiLainnya').focus(); }
 function addPasaran(type){ const id=type==='ai'?'lokasiLainnya':'btLokasiLainnya'; const nv=document.getElementById(id).value.trim().toUpperCase(); if(!nv) return alert('⚠️ Kosong!'); if(savedPasaran.includes(nv)) return alert('⚠️ Sudah ada!'); savedPasaran.push(nv); localStorage.setItem('tikam_pasaran_list',JSON.stringify(savedPasaran)); document.getElementById(id).value=''; document.getElementById(id).style.display='none'; document.getElementById(type==='ai'?'btnAddPasaran':'btnAddBtPasaran').style.display='none'; if(type==='ai'){ selectPasaranDropdown('ai',nv); saveMarketData('ai',nv,{history:'',algorithm:'hy',putaran:'10',kombinasi:'single',shioOff:false,timestamp:Date.now()}); } else { selectPasaranDropdown('bt',nv); saveMarketData('bt',nv,{history:'',algorithm:'hy',putaran:'10',mode:'2',timestamp:Date.now()}); } populateDropdowns(); }
 function deletePasaran(name,e){ e.stopPropagation(); if(!confirm(`Hapus ${name}?`)) return; savedPasaran=savedPasaran.filter(p=>p!==name); localStorage.setItem('tikam_pasaran_list',JSON.stringify(savedPasaran)); ['ai','invest','bt'].forEach(pre=>localStorage.removeItem(getMarketKey(pre,name))); if(currentAiPasaran===name){ currentAiPasaran=null; localStorage.removeItem('tikam_current_ai'); document.getElementById('inputAI').value=''; } if(currentBtPasaran===name){ currentBtPasaran=null; localStorage.removeItem('tikam_current_bt'); document.getElementById('btInput').value=''; document.getElementById('btTableBody').innerHTML=''; } populateDropdowns(); renderTagList(); updateIndicator(); updateBtIndicator(); }
-function clearAiSelection(){ 
-  currentAiPasaran=null; 
-  localStorage.removeItem('tikam_current_ai'); 
-  document.getElementById('aiTriggerText').textContent='-- Pilih --'; 
-  document.getElementById('inputAI').value=''; 
-  document.getElementById('hasilAI').style.display='none'; 
-  updateIndicator(); 
-  populateDropdowns();
-  const btnGen = document.getElementById('btnGenerateAI');
-  if(btnGen){
-    btnGen.disabled = false;
-    btnGen.classList.remove('locked');
-    btnGen.innerHTML = '⚡ GENERATE BBFS 8';
-  }
-}
+function clearAiSelection(){ currentAiPasaran=null; localStorage.removeItem('tikam_current_ai'); document.getElementById('aiTriggerText').textContent='-- Pilih --'; document.getElementById('inputAI').value=''; document.getElementById('hasilAI').style.display='none'; updateIndicator(); populateDropdowns(); }
 function clearBtSelection(){ currentBtPasaran=null; localStorage.removeItem('tikam_current_bt'); document.getElementById('btTriggerText').textContent='-- Pilih BT --'; document.getElementById('btInput').value=''; document.getElementById('btTableBody').innerHTML=''; document.getElementById('btStats').style.display='none'; document.getElementById('btTableContainer').style.display='none'; document.getElementById('btOutput').style.display='none'; lastBacktestData=null; updateBtIndicator(); populateDropdowns(); }
 function showTab(tabId,el){ document.querySelectorAll('.content-section').forEach(s=>s.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); document.getElementById(tabId).classList.add('active'); el.classList.add('active'); if(tabId==='ai-tab') populateDropdowns(); if(tabId==='backtest-tab') populateDropdowns(); if(tabId==='invest-tab') loadInvestData(); if(tabId==='mistik-tab') renderMistikTable(); }
 function applyMistik(d,a){ const t=MISTIK_TABLES[a]; return t?(t.map[d]||d):d; }
@@ -472,81 +524,32 @@ function copyTransform(){ const t=document.getElementById('transformFullOutput')
 function clearTransform(){ document.getElementById('transformBody').innerHTML='<tr><td colspan="4" style="color:#777;padding:20px;">Belum ada data.</td></tr>'; document.getElementById('transformFullOutput').innerText=''; document.getElementById('transformSummary').style.display='none'; document.getElementById('transformInfo').innerHTML='📁 Data transformasi dibersihkan'; lastTransformData=null; }
 
 function prosesAI(){
-  if(!currentAiPasaran) return alert("⚠️ Pilih pasaran AI dulu!"); 
-  const input=document.getElementById('inputAI').value.trim(); 
-  const raw=input.split(/\s+/).filter(x=>/^\d{4}$/.test(x)); 
-  if(raw.length<3) return alert("⚠️ Minimal 3!");
-  
-  // 🔒 CEK APAKAH SUDAH DI-GENERATE - KUNCI TOMBOL
-  const btnGen = document.getElementById('btnGenerateAI');
-  if(btnGen && btnGen.disabled){
-    return alert("🔒 Sudah Generate bosq! Klik RESET dulu untuk generate lagi.");
-  }
-  
-  const algo=document.getElementById('rumus').value; 
-  const putaran=parseInt(document.getElementById('putaran').value); 
-  const kombi=document.getElementById('kombinasiMode').value; 
-  const shioOff=document.getElementById('shioOff').checked;
-  let base=putaran; 
-  raw.forEach(v=>{ for(let i=0;i<4;i++) base+=v.charCodeAt(i); }); 
-  base+=algo.split('').reduce((a,b)=>a+b.charCodeAt(0),0);
-  const bbfsObj=generateBBFSFromMistik(raw, algo, kombi); 
-  const bbfs=bbfsObj.full; 
-  const last=raw[raw.length-1];
-  const transLast=transformNumber(last, algo, kombi); 
-  const ai1=transLast.slice(0,4).padEnd(4, bbfs[0]); 
-  const ai2=transformNumber(raw[raw.length-2]||last, algo, kombi).slice(0,4).padEnd(4, bbfs[1]);
-  const tbl=MISTIK_TABLES[algo]||MISTIK_TABLES.ix; 
-  const k1=parseInt(last[2])||0; 
-  const e1=parseInt(last[3])||0; 
-  const lk=parseInt(tbl.map[k1.toString()]||k1); 
-  const le=parseInt(tbl.map[e1.toString()]||e1); 
-  const biji=(lk+le)%10; 
-  const ske=Math.abs(lk-le); 
-  let shio=shioOff?'OFF':((parseInt(last.slice(-2))+base+putaran)%12)||12;
-  
-  // ✅ BARU: 4D DULU, LALU 3D & 2D TURUNAN DARI 4D (ALUR JELAS)
-  // Contoh: 4D 1726 -> 3D 726 -> 2D 26
-  const top4=generateTop(bbfs,4,5,base+20);
-  const top4Arr = top4.split('*');
-  const top3Arr = top4Arr.map(n=>n.slice(-3)); // Ambil 3 digit terakhir dari 4D
-  const top2Arr = top4Arr.map(n=>n.slice(-2)); // Ambil 2 digit terakhir dari 4D
-  const top3 = top3Arr.join('*');
-  const top2 = top2Arr.join('*');
-  
-  // ✅ FORMAT BARU DENGAN ALUR TURUNAN YANG JELAS
-  const res=`🔮 V.43 TURUNAN 4D→3D→2D - ${currentAiPasaran}
+  if(!currentAiPasaran) return alert("⚠️ Pilih pasaran AI dulu!"); const input=document.getElementById('inputAI').value.trim(); const raw=input.split(/\s+/).filter(x=>/^\d{4}$/.test(x)); if(raw.length<3) return alert("⚠️ Minimal 3!");
+  const algo=document.getElementById('rumus').value; const putaran=parseInt(document.getElementById('putaran').value); const kombi=document.getElementById('kombinasiMode').value; const shioOff=document.getElementById('shioOff').checked;
+  let base=putaran; raw.forEach(v=>{ for(let i=0;i<4;i++) base+=v.charCodeAt(i); }); base+=algo.split('').reduce((a,b)=>a+b.charCodeAt(0),0);
+  const bbfsObj=generateBBFSFromMistik(raw, algo, kombi); const bbfs=bbfsObj.full; const last=raw[raw.length-1];
+  const transLast=transformNumber(last, algo, kombi); const ai1=transLast.slice(0,4).padEnd(4, bbfs[0]); const ai2=transformNumber(raw[raw.length-2]||last, algo, kombi).slice(0,4).padEnd(4, bbfs[1]);
+  const tbl=MISTIK_TABLES[algo]||MISTIK_TABLES.ix; const k1=parseInt(last[2])||0; const e1=parseInt(last[3])||0; const lk=parseInt(tbl.map[k1.toString()]||k1); const le=parseInt(tbl.map[e1.toString()]||e1); const biji=(lk+le)%10; const ske=Math.abs(lk-le); let shio=shioOff?'OFF':((parseInt(last.slice(-2))+base+putaran)%12)||12;
+  const top2=generateTop(bbfs,2,8,base); const top3=generateTop(bbfs,3,6,base+10); const top4=generateTop(bbfs,4,5,base+20);
+  // ✅ CLEAN PREDIKSI - TANPA TRANSFORMASI & TANPA PENGEMBANG
+  const res=`🔮 V.34 BBFS 8 - ${currentAiPasaran}
 🧮 ALGO: ${MISTIK_TABLES[algo]?.name||algo} (${algo.toUpperCase()}) - ${kombi}
 🎲 BBFS 8: ${bbfs}
 AI-1: ${ai1} | AI-2: ${ai2}
 OFF LK:${lk} LE:${le} BIJI:${biji} SKE:${ske} SHIO:${shio}
 ━━━━━━━━━━━━━━━
-TOP 4D (Induk):
-${top4}
-
-TOP 3D (Turunan dari 4D → ambil 3 digit belakang):
-${top3}
-
-TOP 2D (Turunan dari 4D → ambil 2 digit belakang):
+TOP 2D:
 ${top2}
 
-💡 Alur: 4D 1726 → 3D 726 → 2D 26`;
-  
-  const out=document.getElementById('hasilAI'); 
-  out.innerText=res; 
-  out.style.display='block'; 
-  autoSaveData();
+TOP 3D:
+${top3}
 
-  // 🔒 KUNCI TOMBOL SETELAH GENERATE PERTAMA
-  if(btnGen){
-    btnGen.disabled = true;
-    btnGen.classList.add('locked');
-    btnGen.innerHTML = '🔒 TERKUNCI - RESET DULU';
-    btnGen.title = 'Klik RESET untuk generate lagi';
-  }
+TOP 4D:
+${top4}`;
+  const out=document.getElementById('hasilAI'); out.innerText=res; out.style.display='block'; autoSaveData();
 
   // 🆕 SIMPAN DATA UNTUK TAB TRANSFORMASI TERPISAH
-  lastTransformData={pasaran:currentAiPasaran, algo:algo, algoName:MISTIK_TABLES[algo]?.name||algo, kombi:kombi, bbfs:bbfs, raw:raw, top4:top4, top3:top3, top2:top2, timestamp:Date.now()};
+  lastTransformData={pasaran:currentAiPasaran, algo:algo, algoName:MISTIK_TABLES[algo]?.name||algo, kombi:kombi, bbfs:bbfs, raw:raw, timestamp:Date.now()};
   renderTransformTab();
 }
 function renderTransformTab(){
@@ -566,20 +569,7 @@ function renderTransformTab(){
   fullText+=`━━━━━━━━━━━━━━━━━━━━━━━\nBBFS 8 final: ${bbfs}\n`;
   document.getElementById('transformFullOutput').innerText=fullText;
 }
-function resetAI(){ 
-  document.getElementById('inputAI').value=''; 
-  document.getElementById('hasilAI').style.display='none'; 
-  updateIndicator(); 
-  autoSaveData();
-  // 🔓 BUKA KUNCI TOMBOL GENERATE
-  const btnGen = document.getElementById('btnGenerateAI');
-  if(btnGen){
-    btnGen.disabled = false;
-    btnGen.classList.remove('locked');
-    btnGen.innerHTML = '⚡ GENERATE BBFS 8';
-    btnGen.title = '';
-  }
-}
+function resetAI(){ document.getElementById('inputAI').value=''; document.getElementById('hasilAI').style.display='none'; updateIndicator(); autoSaveData(); }
 function prosesRank(){ const lines=document.getElementById('inputAC').value.trim().split('\n').filter(l=>l.trim()); const mode=parseInt(document.getElementById('modeRank').value); const pasar=document.getElementById('nmPasaran').value.trim().toUpperCase()||"PASARAN"; if(!lines.length) return alert("⚠️ Isi AC!"); const fLK=document.getElementById('p_lk').value.split(/[\s,]+/).filter(x=>x); const fLE=document.getElementById('p_le').value.split(/[\s,]+/).filter(x=>x); const fBiji=document.getElementById('p_biji').value.split(/[\s,]+/).filter(x=>x); const fSKE=document.getElementById('p_ske').value.split(/[\s,]+/).filter(x=>x); const fShio=document.getElementById('p_shio').value.split(/[\s,]+/).filter(x=>x); let top=[]; const max=Math.pow(10,mode); for(let i=0;i<max;i++){ let num=i.toString().padStart(mode,'0'); let hit=0; lines.forEach(l=>{ let ok=false; for(let d of num) if(l.includes(d)) ok=true; if(ok) hit++; }); if(hit!==lines.length) continue; let n2=num.slice(-2), k=n2[0], e=n2[1]; if(fLK.includes(k)||fLE.includes(e)) continue; if(fBiji.includes(((parseInt(k)+parseInt(e))%10).toString())) continue; if(fSKE.includes((Math.abs(parseInt(k)-parseInt(e))).toString())) continue; if(fShio.length){ let val=parseInt(n2)===0?100:parseInt(n2); if(fShio.includes((((val-1)%12)+1).toString())) continue; } top.push(num); } const outStr=top.join('*'); document.getElementById('resultRankOutput').innerText=`📊 INVEST ${pasar} (${top.length})\n━━━━━━━━━━━━━━━\n${outStr}`; document.getElementById('resultRankOutput').style.display='block'; document.getElementById('resultRankVisual').innerHTML=`<div style="border:1px solid #333;border-radius:10px;overflow:hidden;"><div style="background:#222;padding:8px;display:flex;justify-content:space-between;"><span>${top.length} LINE</span><button class="btn-copy" onclick="copyInvestOnly()">📋 SALIN</button></div><div style="padding:10px;color:var(--neon);word-break:break-all;font-family:'Consolas', 'Courier New', monospace;font-size:11px;">${outStr}</div></div>`; autoSaveInvest(); }
 function resetRank(){ document.getElementById('inputAC').value=''; document.querySelectorAll('#invest-tab input').forEach(i=>i.value=''); document.getElementById('resultRankVisual').innerHTML=''; document.getElementById('resultRankOutput').style.display='none'; autoSaveInvest(); }
 function runBacktest(){
@@ -594,6 +584,1082 @@ function resetBacktest(){ if(!currentBtPasaran){ document.getElementById('btInpu
 function initMistikDropdowns(){ const s1=document.getElementById('btRumus'); const s2=document.getElementById('mistikViewer'); [s1,s2].forEach(sel=>{ if(!sel) return; sel.innerHTML=''; Object.keys(MISTIK_TABLES).forEach(k=>{ const o=document.createElement('option'); o.value=k; o.textContent=`${k.toUpperCase()} - ${MISTIK_TABLES[k].name}`; sel.appendChild(o); }); const hy=document.createElement('option'); hy.value='hy'; hy.textContent='HY - HYBRID'; if(sel.id==='btRumus') sel.appendChild(hy); }); document.getElementById('mistikViewer').value='ix'; }
 function renderMistikTable(){ const k=document.getElementById('mistikViewer').value; const tbl=MISTIK_TABLES[k]; if(!tbl) return; const cont=document.getElementById('allMistikTables'); let h=`<div class="card"><h3 style="color:var(--gold);margin:0 0 10px;">${tbl.name} (${k.toUpperCase()})</h3><div class="mistik-grid">`; for(let i=0;i<10;i++){ h+=`<div class="mistik-cell"><b>${i}</b><span>→ ${tbl.map[i.toString()]}</span></div>`; } h+=`</div></div>`; cont.innerHTML=h; }
 function testMistikConvert(){ const k=document.getElementById('mistikViewer').value; const inp=document.getElementById('testDigit').value.trim(); const out=document.getElementById('testResult'); if(!inp){ out.textContent='-'; return; } const clean=inp.replace(/\D/g,''); out.textContent=`${clean} → ${transformNumber(clean,k,'single')}`; }
+const MIMPI_DATA = [
+  {
+    "mimpi": "Ular",
+    "arti": "Mimpi ular pertanda rezeki / musuh",
+    "angka2D": "12",
+    "angka3D": "212",
+    "angka4D": "2212",
+    "keywords": "ular mimpi ular pertanda rezeki / musuh"
+  },
+  {
+    "mimpi": "Kucing",
+    "arti": "Kucing manis, pertanda teman",
+    "angka2D": "23",
+    "angka3D": "623",
+    "angka4D": "0623",
+    "keywords": "kucing kucing manis, pertanda teman"
+  },
+  {
+    "mimpi": "Anjing",
+    "arti": "Anjing setia, penjaga",
+    "angka2D": "34",
+    "angka3D": "034",
+    "angka4D": "8034",
+    "keywords": "anjing anjing setia, penjaga"
+  },
+  {
+    "mimpi": "Ayam",
+    "arti": "Ayam berkokok rezeki pagi",
+    "angka2D": "45",
+    "angka3D": "445",
+    "angka4D": "6445",
+    "keywords": "ayam ayam berkokok rezeki pagi"
+  },
+  {
+    "mimpi": "Harimau",
+    "arti": "Harimau kekuatan besar",
+    "angka2D": "56",
+    "angka3D": "856",
+    "angka4D": "4856",
+    "keywords": "harimau harimau kekuatan besar"
+  },
+  {
+    "mimpi": "Buaya",
+    "arti": "Buaya bahaya tersembunyi",
+    "angka2D": "67",
+    "angka3D": "267",
+    "angka4D": "2267",
+    "keywords": "buaya buaya bahaya tersembunyi"
+  },
+  {
+    "mimpi": "Ikan",
+    "arti": "Ikan rezeki mengalir",
+    "angka2D": "78",
+    "angka3D": "678",
+    "angka4D": "0678",
+    "keywords": "ikan ikan rezeki mengalir"
+  },
+  {
+    "mimpi": "Burung",
+    "arti": "Burung kabar baik",
+    "angka2D": "89",
+    "angka3D": "089",
+    "angka4D": "8089",
+    "keywords": "burung burung kabar baik"
+  },
+  {
+    "mimpi": "Kuda",
+    "arti": "Kuda kerja keras",
+    "angka2D": "90",
+    "angka3D": "490",
+    "angka4D": "6490",
+    "keywords": "kuda kuda kerja keras"
+  },
+  {
+    "mimpi": "Sapi",
+    "arti": "Sapi rezeki melimpah",
+    "angka2D": "11",
+    "angka3D": "811",
+    "angka4D": "4811",
+    "keywords": "sapi sapi rezeki melimpah"
+  },
+  {
+    "mimpi": "Kambing",
+    "arti": "Kambing kurban",
+    "angka2D": "22",
+    "angka3D": "222",
+    "angka4D": "2222",
+    "keywords": "kambing kambing kurban"
+  },
+  {
+    "mimpi": "Monyet",
+    "arti": "Monyet usil",
+    "angka2D": "33",
+    "angka3D": "633",
+    "angka4D": "0633",
+    "keywords": "monyet monyet usil"
+  },
+  {
+    "mimpi": "Gajah",
+    "arti": "Gajah besar rezeki",
+    "angka2D": "44",
+    "angka3D": "044",
+    "angka4D": "8044",
+    "keywords": "gajah gajah besar rezeki"
+  },
+  {
+    "mimpi": "Tikus",
+    "arti": "Tikus pencuri kecil",
+    "angka2D": "55",
+    "angka3D": "455",
+    "angka4D": "6455",
+    "keywords": "tikus tikus pencuri kecil"
+  },
+  {
+    "mimpi": "Bayi",
+    "arti": "Bayi awal baru",
+    "angka2D": "01",
+    "angka3D": "301",
+    "angka4D": "9301",
+    "keywords": "bayi bayi awal baru"
+  },
+  {
+    "mimpi": "Menikah",
+    "arti": "Menikah ikatan baru",
+    "angka2D": "02",
+    "angka3D": "702",
+    "angka4D": "7702",
+    "keywords": "menikah menikah ikatan baru"
+  },
+  {
+    "mimpi": "Meninggal",
+    "arti": "Meninggal umur panjang",
+    "angka2D": "03",
+    "angka3D": "103",
+    "angka4D": "5103",
+    "keywords": "meninggal meninggal umur panjang"
+  },
+  {
+    "mimpi": "Hamil",
+    "arti": "Hamil rezeki",
+    "angka2D": "04",
+    "angka3D": "504",
+    "angka4D": "3504",
+    "keywords": "hamil hamil rezeki"
+  },
+  {
+    "mimpi": "Melahirkan",
+    "arti": "Melahirkan hasil",
+    "angka2D": "05",
+    "angka3D": "905",
+    "angka4D": "1905",
+    "keywords": "melahirkan melahirkan hasil"
+  },
+  {
+    "mimpi": "Berkelahi",
+    "arti": "Berkelahi masalah",
+    "angka2D": "06",
+    "angka3D": "306",
+    "angka4D": "9306",
+    "keywords": "berkelahi berkelahi masalah"
+  },
+  {
+    "mimpi": "Menangis",
+    "arti": "Menangis lepas beban",
+    "angka2D": "07",
+    "angka3D": "707",
+    "angka4D": "7707",
+    "keywords": "menangis menangis lepas beban"
+  },
+  {
+    "mimpi": "Tertawa",
+    "arti": "Tertawa bahagia",
+    "angka2D": "08",
+    "angka3D": "108",
+    "angka4D": "5108",
+    "keywords": "tertawa tertawa bahagia"
+  },
+  {
+    "mimpi": "Terbang",
+    "arti": "Terbang cita tinggi",
+    "angka2D": "09",
+    "angka3D": "509",
+    "angka4D": "3509",
+    "keywords": "terbang terbang cita tinggi"
+  },
+  {
+    "mimpi": "Jatuh",
+    "arti": "Jatuh hati-hati",
+    "angka2D": "10",
+    "angka3D": "910",
+    "angka4D": "1910",
+    "keywords": "jatuh jatuh hati-hati"
+  },
+  {
+    "mimpi": "Lari",
+    "arti": "Lari kejar impian",
+    "angka2D": "13",
+    "angka3D": "513",
+    "angka4D": "1513",
+    "keywords": "lari lari kejar impian"
+  },
+  {
+    "mimpi": "Berenang",
+    "arti": "Berenang emosi",
+    "angka2D": "14",
+    "angka3D": "914",
+    "angka4D": "9914",
+    "keywords": "berenang berenang emosi"
+  },
+  {
+    "mimpi": "Uang",
+    "arti": "Uang rezeki nomplok",
+    "angka2D": "15",
+    "angka3D": "315",
+    "angka4D": "7315",
+    "keywords": "uang uang rezeki nomplok"
+  },
+  {
+    "mimpi": "Emas",
+    "arti": "Emas kemewahan",
+    "angka2D": "16",
+    "angka3D": "716",
+    "angka4D": "5716",
+    "keywords": "emas emas kemewahan"
+  },
+  {
+    "mimpi": "Mobil",
+    "arti": "Mobil perjalanan",
+    "angka2D": "17",
+    "angka3D": "117",
+    "angka4D": "3117",
+    "keywords": "mobil mobil perjalanan"
+  },
+  {
+    "mimpi": "Rumah",
+    "arti": "Rumah ketenangan",
+    "angka2D": "18",
+    "angka3D": "518",
+    "angka4D": "1518",
+    "keywords": "rumah rumah ketenangan"
+  },
+  {
+    "mimpi": "Rumah Baru",
+    "arti": "Rumah baru pindah",
+    "angka2D": "19",
+    "angka3D": "919",
+    "angka4D": "9919",
+    "keywords": "rumah baru rumah baru pindah"
+  },
+  {
+    "mimpi": "Kebakaran",
+    "arti": "Kebakaran emosi",
+    "angka2D": "20",
+    "angka3D": "320",
+    "angka4D": "7320",
+    "keywords": "kebakaran kebakaran emosi"
+  },
+  {
+    "mimpi": "Banjir",
+    "arti": "Banjir rezeki besar",
+    "angka2D": "21",
+    "angka3D": "721",
+    "angka4D": "5721",
+    "keywords": "banjir banjir rezeki besar"
+  },
+  {
+    "mimpi": "Gunung",
+    "arti": "Gunung cita-cita",
+    "angka2D": "24",
+    "angka3D": "324",
+    "angka4D": "5324",
+    "keywords": "gunung gunung cita-cita"
+  },
+  {
+    "mimpi": "Laut",
+    "arti": "Laut luas rezeki",
+    "angka2D": "25",
+    "angka3D": "725",
+    "angka4D": "3725",
+    "keywords": "laut laut luas rezeki"
+  },
+  {
+    "mimpi": "Hujan",
+    "arti": "Hujan berkah",
+    "angka2D": "26",
+    "angka3D": "126",
+    "angka4D": "1126",
+    "keywords": "hujan hujan berkah"
+  },
+  {
+    "mimpi": "Petir",
+    "arti": "Petir kejutan",
+    "angka2D": "27",
+    "angka3D": "527",
+    "angka4D": "9527",
+    "keywords": "petir petir kejutan"
+  },
+  {
+    "mimpi": "Bintang",
+    "arti": "Bintang harapan",
+    "angka2D": "28",
+    "angka3D": "928",
+    "angka4D": "7928",
+    "keywords": "bintang bintang harapan"
+  },
+  {
+    "mimpi": "Bulan",
+    "arti": "Bulan perasaan",
+    "angka2D": "29",
+    "angka3D": "329",
+    "angka4D": "5329",
+    "keywords": "bulan bulan perasaan"
+  },
+  {
+    "mimpi": "Matahari",
+    "arti": "Matahari semangat",
+    "angka2D": "30",
+    "angka3D": "730",
+    "angka4D": "3730",
+    "keywords": "matahari matahari semangat"
+  },
+  {
+    "mimpi": "Kawin Lari",
+    "arti": "Kawin lari nekat",
+    "angka2D": "31",
+    "angka3D": "131",
+    "angka4D": "1131",
+    "keywords": "kawin lari kawin lari nekat"
+  },
+  {
+    "mimpi": "Selir",
+    "arti": "Selir godaan",
+    "angka2D": "32",
+    "angka3D": "532",
+    "angka4D": "9532",
+    "keywords": "selir selir godaan"
+  },
+  {
+    "mimpi": "Pencuri",
+    "arti": "Pencuri kehilangan",
+    "angka2D": "35",
+    "angka3D": "135",
+    "angka4D": "9135",
+    "keywords": "pencuri pencuri kehilangan"
+  },
+  {
+    "mimpi": "Polisi",
+    "arti": "Polisi aturan",
+    "angka2D": "36",
+    "angka3D": "536",
+    "angka4D": "7536",
+    "keywords": "polisi polisi aturan"
+  },
+  {
+    "mimpi": "Tentara",
+    "arti": "Tentara disiplin",
+    "angka2D": "37",
+    "angka3D": "937",
+    "angka4D": "5937",
+    "keywords": "tentara tentara disiplin"
+  },
+  {
+    "mimpi": "Guru",
+    "arti": "Guru ilmu",
+    "angka2D": "38",
+    "angka3D": "338",
+    "angka4D": "3338",
+    "keywords": "guru guru ilmu"
+  },
+  {
+    "mimpi": "Dokter",
+    "arti": "Dokter penyembuh",
+    "angka2D": "39",
+    "angka3D": "739",
+    "angka4D": "1739",
+    "keywords": "dokter dokter penyembuh"
+  },
+  {
+    "mimpi": "Mantan",
+    "arti": "Mantan belum move on",
+    "angka2D": "40",
+    "angka3D": "140",
+    "angka4D": "9140",
+    "keywords": "mantan mantan belum move on"
+  },
+  {
+    "mimpi": "Teman Lama",
+    "arti": "Teman lama rindu",
+    "angka2D": "41",
+    "angka3D": "541",
+    "angka4D": "7541",
+    "keywords": "teman lama teman lama rindu"
+  },
+  {
+    "mimpi": "Kecelakaan",
+    "arti": "Kecelakaan hati-hati",
+    "angka2D": "42",
+    "angka3D": "942",
+    "angka4D": "5942",
+    "keywords": "kecelakaan kecelakaan hati-hati"
+  },
+  {
+    "mimpi": "Sakit",
+    "arti": "Sakit perhatian",
+    "angka2D": "43",
+    "angka3D": "343",
+    "angka4D": "3343",
+    "keywords": "sakit sakit perhatian"
+  },
+  {
+    "mimpi": "Sembuh",
+    "arti": "Sembuh harapan",
+    "angka2D": "46",
+    "angka3D": "946",
+    "angka4D": "3946",
+    "keywords": "sembuh sembuh harapan"
+  },
+  {
+    "mimpi": "Makan",
+    "arti": "Makan rezeki",
+    "angka2D": "47",
+    "angka3D": "347",
+    "angka4D": "1347",
+    "keywords": "makan makan rezeki"
+  },
+  {
+    "mimpi": "Minum",
+    "arti": "Minum segar",
+    "angka2D": "48",
+    "angka3D": "748",
+    "angka4D": "9748",
+    "keywords": "minum minum segar"
+  },
+  {
+    "mimpi": "Sholat",
+    "arti": "Sholat berkah",
+    "angka2D": "49",
+    "angka3D": "149",
+    "angka4D": "7149",
+    "keywords": "sholat sholat berkah"
+  },
+  {
+    "mimpi": "Masjid",
+    "arti": "Masjid ketenangan",
+    "angka2D": "50",
+    "angka3D": "550",
+    "angka4D": "5550",
+    "keywords": "masjid masjid ketenangan"
+  },
+  {
+    "mimpi": "Pesta",
+    "arti": "Pesta kebahagiaan",
+    "angka2D": "51",
+    "angka3D": "951",
+    "angka4D": "3951",
+    "keywords": "pesta pesta kebahagiaan"
+  },
+  {
+    "mimpi": "Hadiah",
+    "arti": "Hadiah kejutan",
+    "angka2D": "52",
+    "angka3D": "352",
+    "angka4D": "1352",
+    "keywords": "hadiah hadiah kejutan"
+  },
+  {
+    "mimpi": "Kunci",
+    "arti": "Kunci solusi",
+    "angka2D": "53",
+    "angka3D": "753",
+    "angka4D": "9753",
+    "keywords": "kunci kunci solusi"
+  },
+  {
+    "mimpi": "Pintu",
+    "arti": "Pintu peluang",
+    "angka2D": "54",
+    "angka3D": "154",
+    "angka4D": "7154",
+    "keywords": "pintu pintu peluang"
+  },
+  {
+    "mimpi": "Jendela",
+    "arti": "Jendela pandangan baru",
+    "angka2D": "57",
+    "angka3D": "757",
+    "angka4D": "7757",
+    "keywords": "jendela jendela pandangan baru"
+  },
+  {
+    "mimpi": "Tangga",
+    "arti": "Tangga naik level",
+    "angka2D": "58",
+    "angka3D": "158",
+    "angka4D": "5158",
+    "keywords": "tangga tangga naik level"
+  },
+  {
+    "mimpi": "Jembatan",
+    "arti": "Jembatan penghubung",
+    "angka2D": "59",
+    "angka3D": "559",
+    "angka4D": "3559",
+    "keywords": "jembatan jembatan penghubung"
+  },
+  {
+    "mimpi": "Jatuh Cinta",
+    "arti": "Jatuh cinta berbunga",
+    "angka2D": "60",
+    "angka3D": "960",
+    "angka4D": "1960",
+    "keywords": "jatuh cinta jatuh cinta berbunga"
+  },
+  {
+    "mimpi": "Putus",
+    "arti": "Putus akhir awal baru",
+    "angka2D": "61",
+    "angka3D": "361",
+    "angka4D": "9361",
+    "keywords": "putus putus akhir awal baru"
+  },
+  {
+    "mimpi": "Cincin",
+    "arti": "Cincin ikatan",
+    "angka2D": "62",
+    "angka3D": "762",
+    "angka4D": "7762",
+    "keywords": "cincin cincin ikatan"
+  },
+  {
+    "mimpi": "Kalung",
+    "arti": "Kalung beban indah",
+    "angka2D": "63",
+    "angka3D": "163",
+    "angka4D": "5163",
+    "keywords": "kalung kalung beban indah"
+  },
+  {
+    "mimpi": "Sepatu",
+    "arti": "Sepatu langkah baru",
+    "angka2D": "64",
+    "angka3D": "564",
+    "angka4D": "3564",
+    "keywords": "sepatu sepatu langkah baru"
+  },
+  {
+    "mimpi": "Baju Baru",
+    "arti": "Baju baru penampilan",
+    "angka2D": "65",
+    "angka3D": "965",
+    "angka4D": "1965",
+    "keywords": "baju baru baju baru penampilan"
+  },
+  {
+    "mimpi": "Rambut Potong",
+    "arti": "Potong rambut perubahan",
+    "angka2D": "66",
+    "angka3D": "366",
+    "angka4D": "9366",
+    "keywords": "rambut potong potong rambut perubahan"
+  },
+  {
+    "mimpi": "Gigi Copot",
+    "arti": "Gigi copot keluarga",
+    "angka2D": "68",
+    "angka3D": "868",
+    "angka4D": "8868",
+    "keywords": "gigi copot gigi copot keluarga"
+  },
+  {
+    "mimpi": "Darah",
+    "arti": "Darah semangat",
+    "angka2D": "69",
+    "angka3D": "269",
+    "angka4D": "6269",
+    "keywords": "darah darah semangat"
+  },
+  {
+    "mimpi": "Hantu",
+    "arti": "Hantu takut",
+    "angka2D": "70",
+    "angka3D": "670",
+    "angka4D": "4670",
+    "keywords": "hantu hantu takut"
+  },
+  {
+    "mimpi": "Kuburan",
+    "arti": "Kuburan ingat akhir",
+    "angka2D": "71",
+    "angka3D": "071",
+    "angka4D": "2071",
+    "keywords": "kuburan kuburan ingat akhir"
+  },
+  {
+    "mimpi": "Mayat",
+    "arti": "Mayat rezeki besar",
+    "angka2D": "72",
+    "angka3D": "472",
+    "angka4D": "0472",
+    "keywords": "mayat mayat rezeki besar"
+  },
+  {
+    "mimpi": "Pocong",
+    "arti": "Pocong kaget",
+    "angka2D": "73",
+    "angka3D": "873",
+    "angka4D": "8873",
+    "keywords": "pocong pocong kaget"
+  },
+  {
+    "mimpi": "Kuntilanak",
+    "arti": "Kuntilanak godaan",
+    "angka2D": "74",
+    "angka3D": "274",
+    "angka4D": "6274",
+    "keywords": "kuntilanak kuntilanak godaan"
+  },
+  {
+    "mimpi": "Tersesat",
+    "arti": "Tersesat cari arah",
+    "angka2D": "75",
+    "angka3D": "675",
+    "angka4D": "4675",
+    "keywords": "tersesat tersesat cari arah"
+  },
+  {
+    "mimpi": "Menang Lotre",
+    "arti": "Menang lotre hoki",
+    "angka2D": "76",
+    "angka3D": "076",
+    "angka4D": "2076",
+    "keywords": "menang lotre menang lotre hoki"
+  },
+  {
+    "mimpi": "Kalah Judi",
+    "arti": "Kalah judi hati-hati",
+    "angka2D": "77",
+    "angka3D": "477",
+    "angka4D": "0477",
+    "keywords": "kalah judi kalah judi hati-hati"
+  },
+  {
+    "mimpi": "Naik Haji",
+    "arti": "Naik haji berkah",
+    "angka2D": "79",
+    "angka3D": "979",
+    "angka4D": "9979",
+    "keywords": "naik haji naik haji berkah"
+  },
+  {
+    "mimpi": "Umroh",
+    "arti": "Umroh bersih",
+    "angka2D": "80",
+    "angka3D": "380",
+    "angka4D": "7380",
+    "keywords": "umroh umroh bersih"
+  },
+  {
+    "mimpi": "Pesawat",
+    "arti": "Pesawat cita tinggi",
+    "angka2D": "81",
+    "angka3D": "781",
+    "angka4D": "5781",
+    "keywords": "pesawat pesawat cita tinggi"
+  },
+  {
+    "mimpi": "Kereta",
+    "arti": "Kereta perjalanan",
+    "angka2D": "82",
+    "angka3D": "182",
+    "angka4D": "3182",
+    "keywords": "kereta kereta perjalanan"
+  },
+  {
+    "mimpi": "Kapal",
+    "arti": "Kapal rezeki laut",
+    "angka2D": "83",
+    "angka3D": "583",
+    "angka4D": "1583",
+    "keywords": "kapal kapal rezeki laut"
+  },
+  {
+    "mimpi": "Motor",
+    "arti": "Motor cepat",
+    "angka2D": "84",
+    "angka3D": "984",
+    "angka4D": "9984",
+    "keywords": "motor motor cepat"
+  },
+  {
+    "mimpi": "Sepeda",
+    "arti": "Sepeda santai",
+    "angka2D": "85",
+    "angka3D": "385",
+    "angka4D": "7385",
+    "keywords": "sepeda sepeda santai"
+  },
+  {
+    "mimpi": "Buku",
+    "arti": "Buku ilmu",
+    "angka2D": "86",
+    "angka3D": "786",
+    "angka4D": "5786",
+    "keywords": "buku buku ilmu"
+  },
+  {
+    "mimpi": "Pensil",
+    "arti": "Pensil tulis takdir",
+    "angka2D": "87",
+    "angka3D": "187",
+    "angka4D": "3187",
+    "keywords": "pensil pensil tulis takdir"
+  },
+  {
+    "mimpi": "Sekolah",
+    "arti": "Sekolah belajar",
+    "angka2D": "88",
+    "angka3D": "588",
+    "angka4D": "1588",
+    "keywords": "sekolah sekolah belajar"
+  },
+  {
+    "mimpi": "Ujian",
+    "arti": "Ujian tantangan",
+    "angka2D": "91",
+    "angka3D": "191",
+    "angka4D": "1191",
+    "keywords": "ujian ujian tantangan"
+  },
+  {
+    "mimpi": "Lulus",
+    "arti": "Lulus berhasil",
+    "angka2D": "92",
+    "angka3D": "592",
+    "angka4D": "9592",
+    "keywords": "lulus lulus berhasil"
+  },
+  {
+    "mimpi": "Gagal",
+    "arti": "Gagal coba lagi",
+    "angka2D": "93",
+    "angka3D": "993",
+    "angka4D": "7993",
+    "keywords": "gagal gagal coba lagi"
+  },
+  {
+    "mimpi": "Buah",
+    "arti": "Buah hasil",
+    "angka2D": "94",
+    "angka3D": "394",
+    "angka4D": "5394",
+    "keywords": "buah buah hasil"
+  },
+  {
+    "mimpi": "Pohon",
+    "arti": "Pohon tumbuh",
+    "angka2D": "95",
+    "angka3D": "795",
+    "angka4D": "3795",
+    "keywords": "pohon pohon tumbuh"
+  },
+  {
+    "mimpi": "Bunga",
+    "arti": "Bunga cinta",
+    "angka2D": "96",
+    "angka3D": "196",
+    "angka4D": "1196",
+    "keywords": "bunga bunga cinta"
+  },
+  {
+    "mimpi": "Kebun",
+    "arti": "Kebun usaha",
+    "angka2D": "97",
+    "angka3D": "597",
+    "angka4D": "9597",
+    "keywords": "kebun kebun usaha"
+  },
+  {
+    "mimpi": "Sawah",
+    "arti": "Sawah panen",
+    "angka2D": "98",
+    "angka3D": "998",
+    "angka4D": "7998",
+    "keywords": "sawah sawah panen"
+  },
+  {
+    "mimpi": "Panen",
+    "arti": "Panen hasil kerja",
+    "angka2D": "99",
+    "angka3D": "399",
+    "angka4D": "5399",
+    "keywords": "panen panen hasil kerja"
+  },
+  {
+    "mimpi": "Memancing",
+    "arti": "Memancing sabar",
+    "angka2D": "00",
+    "angka3D": "700",
+    "angka4D": "3700",
+    "keywords": "memancing memancing sabar"
+  },
+  {
+    "mimpi": "Berburu",
+    "arti": "Berburu target",
+    "angka2D": "00",
+    "angka3D": "000",
+    "angka4D": "0000",
+    "keywords": "berburu berburu target"
+  }
+];
+
+
+// 🍀 LUCKY NUMBER FUNCTIONS - V44
+function getLifePathNumber(dob){
+  // dob format YYYY-MM-DD
+  if(!dob) return 0;
+  const digits = dob.replace(/-/g,'').split('').map(d=>parseInt(d)||0);
+  let sum = digits.reduce((a,b)=>a+b,0);
+  while(sum>9){
+    sum = sum.toString().split('').reduce((a,b)=>a+parseInt(b),0);
+  }
+  return sum;
+}
+
+function getNameValue(name){
+  if(!name) return 0;
+  const upper = name.toUpperCase();
+  let sum = 0;
+  for(let c of upper){
+    if(c>='A' && c<='Z'){
+      sum += c.charCodeAt(0)-64; // A=1
+    }
+  }
+  return sum;
+}
+
+function getShioFromYear(year){
+  const shios = ['Tikus','Kerbau','Macan','Kelinci','Naga','Ular','Kuda','Kambing','Monyet','Ayam','Anjing','Babi'];
+  // 2020 = Tikus, so calculate
+  const baseYear = 2020;
+  const baseIdx = 0;
+  const diff = (year - baseYear) % 12;
+  const idx = (baseIdx + diff + 12) % 12;
+  return {name: shios[idx], index: idx};
+}
+
+function generateLuckyNumber(){
+  const name = document.getElementById('luckyName').value.trim();
+  const dob = document.getElementById('luckyDOB').value;
+  const pasaran = document.getElementById('luckyPasaran').value || 'GENERAL';
+  const btn = document.getElementById('btnGenerateLucky');
+  
+  if(!name) return alert('⚠️ Masukkan nama dulu bosq!');
+  if(!dob) return alert('⚠️ Masukkan tanggal lahir bosq!');
+  
+  if(btn && btn.disabled){
+    return alert('🔒 Sudah generate bosq! Klik RESET dulu');
+  }
+  
+  const dobParts = dob.split('-');
+  const year = parseInt(dobParts[0]);
+  const month = parseInt(dobParts[1]);
+  const day = parseInt(dobParts[2]);
+  
+  const lifePath = getLifePathNumber(dob);
+  const nameVal = getNameValue(name);
+  const shio = getShioFromYear(year);
+  
+  // Base seed dari DOB + Nama + Shio
+  let baseSeed = lifePath*100 + (nameVal % 100) + day + month + (year % 100) + shio.index*7;
+  internalSeed = baseSeed;
+  
+  // Generate BBFS 8 lucky dari DOB + Nama
+  const dobDigits = dob.replace(/-/g,'');
+  const poolSet = new Set();
+  dobDigits.split('').forEach(d=>{ if(/\d/.test(d)) poolSet.add(d); });
+  name.toUpperCase().split('').forEach(c=>{
+    if(c>='A' && c<='Z'){
+      const num = (c.charCodeAt(0)-64) % 10;
+      poolSet.add(num.toString());
+    }
+  });
+  // Fill sampai 8 digit dari lifePath dan shio
+  let extra = [lifePath.toString(), (shio.index % 10).toString(), (month % 10).toString(), (day % 10).toString()];
+  extra.forEach(d=>poolSet.add(d));
+  let poolArr = Array.from(poolSet);
+  while(poolArr.length < 8){
+    const r = Math.floor(sRand()*10).toString();
+    if(!poolArr.includes(r)) poolArr.push(r);
+  }
+  // Ambil 8 pertama, shuffle dengan seed
+  poolArr = poolArr.slice(0,8).sort(()=>0.5-(internalSeed++%2));
+  const bbfs = poolArr.join('');
+  
+  // Generate TOP 4D dari BBFS lucky, lalu turunan
+  const top4 = generateTop(bbfs,4,5,baseSeed+50);
+  const top4Arr = top4.split('*');
+  const top3Arr = top4Arr.map(n=>n.slice(-3));
+  const top2Arr = top4Arr.map(n=>n.slice(-2));
+  const top3 = top3Arr.join('*');
+  const top2 = top2Arr.join('*');
+  
+  // Angka hoki tambahan dari Life Path
+  const angkaHoki = `${lifePath}${nameVal % 100}`.padStart(2,'0').slice(-2);
+  
+  const result = `🍀 LUCKY NUMBER - ${name.toUpperCase()} - ${pasaran}
+🎂 Tgl Lahir: ${dob} | Life Path: ${lifePath} | Shio: ${shio.name} (${shio.index+1})
+🔢 Nilai Nama: ${nameVal} | Seed: ${baseSeed}
+━━━━━━━━━━━━━━━━━━━━━━━
+🎲 BBFS 8 HOKI: ${bbfs}
+🔮 Angka Hoki Personal: ${angkaHoki} (dari Life Path ${lifePath} + Nama)
+
+TOP 4D HOKI (Induk):
+${top4}
+
+TOP 3D (Turunan 4D → 3 digit belakang):
+${top3}
+
+TOP 2D (Turunan 4D → 2 digit belakang):
+${top2}
+
+💡 Alur: 4D ${top4Arr[0]} → 3D ${top3Arr[0]} → 2D ${top2Arr[0]}
+🍀 Shio ${shio.name} membawa hoki di pasaran ${pasaran}!
+`;
+
+  const out = document.getElementById('luckyResult');
+  out.innerText = result;
+  out.style.display = 'block';
+  
+  // Lock button
+  if(btn){
+    btn.disabled = true;
+    btn.classList.add('locked');
+    btn.innerHTML = '🔒 TERKUNCI - RESET DULU';
+  }
+}
+
+function resetLucky(){
+  document.getElementById('luckyName').value = '';
+  document.getElementById('luckyDOB').value = '';
+  document.getElementById('luckyPasaran').value = '';
+  document.getElementById('luckyResult').style.display = 'none';
+  const btn = document.getElementById('btnGenerateLucky');
+  if(btn){
+    btn.disabled = false;
+    btn.classList.remove('locked');
+    btn.innerHTML = '🍀 GENERATE LUCKY NUMBER';
+  }
+}
+
+function copyLucky(){
+  const t = document.getElementById('luckyResult').innerText;
+  if(!t) return alert('⚠️ Generate dulu!');
+  const ta = document.createElement('textarea');
+  ta.value = t;
+  ta.style.position='fixed'; ta.style.left='-9999px';
+  document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+  document.body.removeChild(ta);
+  alert('✅ LUCKY NUMBER DISALIN!');
+}
+
+// 😴 MIMPI FUNCTIONS - V44
+let currentMimpiFilter = 'all';
+
+function renderMimpiList(data){
+  const container = document.getElementById('mimpiList');
+  const stats = document.getElementById('mimpiStats');
+  if(!data.length){
+    container.innerHTML = '<div style="text-align:center;padding:20px;color:#777;">😴 Tidak ada mimpi ditemukan bosq</div>';
+    stats.textContent = '0 mimpi ditemukan';
+    return;
+  }
+  stats.textContent = `📚 Menampilkan ${data.length} mimpi • Tap untuk lihat angka`;
+  let html = '';
+  data.forEach((item, idx)=>{
+    const icon = item.mimpi.toLowerCase().includes('ular') ? '🐍' : 
+                 item.mimpi.toLowerCase().includes('uang') || item.mimpi.toLowerCase().includes('emas') ? '💰' :
+                 item.mimpi.toLowerCase().includes('bayi') || item.mimpi.toLowerCase().includes('hamil') ? '👶' :
+                 item.mimpi.toLowerCase().includes('menikah') || item.mimpi.toLowerCase().includes('cincin') ? '💍' :
+                 item.mimpi.toLowerCase().includes('rumah') ? '🏠' :
+                 item.mimpi.toLowerCase().includes('mobil') || item.mimpi.toLowerCase().includes('motor') ? '🚗' : '🔮';
+    html += `<div class="mimpi-card" onclick="showMimpiDetail(${idx})" data-idx="${idx}" style="background:linear-gradient(135deg,#111,#000);border:1px solid #00ffcc33;border-radius:8px;padding:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+      <div style="flex:1;">
+        <div style="font-weight:bold;color:#00ffcc;font-size:12px;">${icon} ${item.mimpi.toUpperCase()}</div>
+        <div style="font-size:9px;color:#aaa;margin-top:2px;">${item.arti}</div>
+        <div style="font-size:10px;color:#ffcc00;margin-top:4px;">2D: <b>${item.angka2D}</b> | 3D: <b>${item.angka3D}</b> | 4D: <b>${item.angka4D}</b></div>
+      </div>
+      <div style="font-size:18px;">👁️</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+  // Store current filtered data globally for detail view
+  window.currentMimpiData = data;
+}
+
+function searchMimpi(){
+  const query = document.getElementById('mimpiSearch').value.toLowerCase().trim();
+  let filtered = MIMPI_DATA;
+  
+  if(currentMimpiFilter !== 'all'){
+    filtered = filtered.filter(item=>{
+      const k = item.keywords;
+      if(currentMimpiFilter==='binatang') return ['ular','kucing','anjing','ayam','harimau','buaya','ikan','burung','kuda','sapi','kambing','monyet','gajah','tikus'].some(b=>k.includes(b));
+      if(currentMimpiFilter==='orang') return ['bayi','menikah','meninggal','hamil','melahirkan','berkelahi','menangis','teman','mencuri','polisi','guru','mantan'].some(b=>k.includes(b));
+      if(currentMimpiFilter==='benda') return ['uang','emas','mobil','rumah','kunci','cincin','sepatu','baju','pesawat','kereta','buku'].some(b=>k.includes(b));
+      if(currentMimpiFilter==='alam') return ['banjir','gunung','laut','hujan','petir','bintang','bulan','matahari','kebun','sawah','pohon','bunga'].some(b=>k.includes(b));
+      return true;
+    });
+  }
+  
+  if(query){
+    filtered = filtered.filter(item=> item.keywords.includes(query) || item.mimpi.toLowerCase().includes(query));
+  }
+  
+  renderMimpiList(filtered);
+}
+
+function filterMimpiCategory(cat){
+  currentMimpiFilter = cat;
+  // Update button styles
+  document.querySelectorAll('#mimpi-tab .btn-add').forEach(btn=>{
+    btn.style.background = '#222';
+    btn.style.color = '#00ffcc';
+  });
+  event.target.style.background = '#00ffcc';
+  event.target.style.color = '#000';
+  searchMimpi();
+}
+
+function showMimpiDetail(idx){
+  const data = window.currentMimpiData || MIMPI_DATA;
+  const item = data[idx];
+  if(!item) return;
+  
+  const detail = `😴 MIMPI: ${item.mimpi.toUpperCase()}
+📖 Arti: ${item.arti}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ANGKA MIMPI TURUNAN:
+4D: ${item.angka4D} (Induk)
+3D: ${item.angka3D} (Turunan dari 4D → 3 digit belakang)
+2D: ${item.angka2D} (Turunan dari 4D → 2 digit belakang)
+
+💡 Alur: 4D ${item.angka4D} → 3D ${item.angka3D} → 2D ${item.angka2D}
+
+🍀 Cocok untuk pasaran SGP, HK, SDY!
+Tap SALIN untuk copy angka
+`;
+  
+  const out = document.getElementById('mimpiDetail');
+  out.innerText = detail;
+  out.style.display = 'block';
+  out.scrollIntoView({behavior:'smooth'});
+  
+  // Auto copy 4D?
+  window.selectedMimpi = item;
+}
+
+function copyMimpiDetail(){
+  if(!window.selectedMimpi) return alert('⚠️ Pilih mimpi dulu!');
+  const item = window.selectedMimpi;
+  const text = `${item.mimpi} - 2D:${item.angka2D} 3D:${item.angka3D} 4D:${item.angka4D}`;
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position='fixed'; ta.style.left='-9999px';
+  document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+  document.body.removeChild(ta);
+  alert(`✅ ${item.mimpi} DISALIN: ${item.angka4D} → ${item.angka3D} → ${item.angka2D}`);
+}
+
+// Initialize mimpi list on load
+document.addEventListener('DOMContentLoaded', ()=>{
+  setTimeout(()=>{ if(typeof MIMPI_DATA !== 'undefined') renderMimpiList(MIMPI_DATA); }, 500);
+});
+
+
 window.onload=function(){ currentAiPasaran=localStorage.getItem('tikam_current_ai'); currentBtPasaran=localStorage.getItem('tikam_current_bt'); initMistikDropdowns(); populateDropdowns(); if(currentAiPasaran){ loadAIData(); updateIndicator(); } if(currentBtPasaran){ loadBtData(); updateBtIndicator(); } onAlgoChange(); renderMistikTable(); };
 
 const ALGO_LIST = ['ix','ml','mb','ty','m0','m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','m12','m13','m14','m15','m16','m17','m18','m19','hy'];
