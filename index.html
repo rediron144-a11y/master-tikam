@@ -205,7 +205,7 @@ window.addEventListener('load', ()=>{
     <div class="header-text">
       <h2>MASTER TIKAM</h2>
       <p>🔪 TOGEL INVEST KOLABORASI ANAK MEDAN • DEADLY PREDICTION</p>
-      <p style="color:var(--blood);font-weight:bold;margin-top:3px;">V.44 LUCKY MIMPI • BLOOD DAGGER • BBFS 8 • TRANSFORMASI TERPISAH • SCROLL ISOLATED</p>
+      <p style="color:var(--blood);font-weight:bold;margin-top:3px;">V.45 EREK-EREK ASLI • BLOOD DAGGER • BBFS 8 • TRANSFORMASI TERPISAH • SCROLL ISOLATED</p>
     </div>
   </header>
   <div class="trim-toast" id="trimToast"></div>
@@ -401,8 +401,8 @@ window.addEventListener('load', ()=>{
   <!-- 😴 ANGKA MIMPI TAB - V44 NEW -->
   <div id="mimpi-tab" class="content-section">
     <div class="card" style="border-color:#00ffcc;background:linear-gradient(135deg,#001a15,#000);">
-      <label>😴 BUKU MIMPI - ANGKA MIMPI 2D 3D 4D <span style="background:#00ffcc;color:#000;padding:2px 6px;border-radius:4px;font-size:9px;">101 MIMPI • V.44 NEW</span></label>
-      <div style="font-size:10px;color:#aaa;margin-bottom:12px;">Ketik mimpi bosq → langsung keluar angka 2D 3D 4D turunan</div>
+      <label>😴 BUKU MIMPI 2D 00-99 EREK-EREK ASLI 2D 3D 4D <span style="background:#00ffcc;color:#000;padding:2px 6px;border-radius:4px;font-size:9px;">100 MIMPI STANDAR 00-99 • V.44 NEW</span></label>
+      <div style="font-size:10px;color:#aaa;margin-bottom:12px;">Ketik mimpi → angka asli Buku Mimpi 2D Bergambar 00-99 (Ular 32, Bayi 99) → 3D/4D turunan</div>
       
       <div style="position:relative;margin-bottom:12px;">
         <input type="text" id="mimpiSearch" placeholder="🔍 Cari mimpi... contoh: ular, uang, bayi, menikah" oninput="searchMimpi()" style="width:100%;padding:12px 12px 12px 40px;background:#111;border:1px solid #00ffcc;color:#fff;border-radius:8px;font-size:13px;">
@@ -417,7 +417,7 @@ window.addEventListener('load', ()=>{
         <button class="btn-add" onclick="filterMimpiCategory('alam')" style="background:#222;border-color:#00ffcc;color:#00ffcc;">🌊 Alam</button>
       </div>
 
-      <div id="mimpiStats" style="font-size:10px;color:#00ffcc;margin-bottom:8px;">📚 Total 101 mimpi • Ketik untuk cari</div>
+      <div id="mimpiStats" style="font-size:10px;color:#00ffcc;margin-bottom:8px;">📚 Total 100 mimpi standar • Ketik untuk cari</div>
       
       <div id="mimpiList" style="max-height:500px;overflow-y:auto;display:grid;gap:8px;">
         <!-- Will be populated by JS -->
@@ -586,814 +586,907 @@ function renderMistikTable(){ const k=document.getElementById('mistikViewer').va
 function testMistikConvert(){ const k=document.getElementById('mistikViewer').value; const inp=document.getElementById('testDigit').value.trim(); const out=document.getElementById('testResult'); if(!inp){ out.textContent='-'; return; } const clean=inp.replace(/\D/g,''); out.textContent=`${clean} → ${transformNumber(clean,k,'single')}`; }
 const MIMPI_DATA = [
   {
-    "mimpi": "Ular",
-    "arti": "Mimpi ular pertanda rezeki / musuh",
-    "angka2D": "12",
-    "angka3D": "212",
-    "angka4D": "2212",
-    "keywords": "ular mimpi ular pertanda rezeki / musuh"
-  },
-  {
-    "mimpi": "Kucing",
-    "arti": "Kucing manis, pertanda teman",
-    "angka2D": "23",
-    "angka3D": "623",
-    "angka4D": "0623",
-    "keywords": "kucing kucing manis, pertanda teman"
-  },
-  {
-    "mimpi": "Anjing",
-    "arti": "Anjing setia, penjaga",
-    "angka2D": "34",
-    "angka3D": "034",
-    "angka4D": "8034",
-    "keywords": "anjing anjing setia, penjaga"
-  },
-  {
-    "mimpi": "Ayam",
-    "arti": "Ayam berkokok rezeki pagi",
-    "angka2D": "45",
-    "angka3D": "445",
-    "angka4D": "6445",
-    "keywords": "ayam ayam berkokok rezeki pagi"
-  },
-  {
-    "mimpi": "Harimau",
-    "arti": "Harimau kekuatan besar",
-    "angka2D": "56",
-    "angka3D": "856",
-    "angka4D": "4856",
-    "keywords": "harimau harimau kekuatan besar"
-  },
-  {
-    "mimpi": "Buaya",
-    "arti": "Buaya bahaya tersembunyi",
-    "angka2D": "67",
-    "angka3D": "267",
-    "angka4D": "2267",
-    "keywords": "buaya buaya bahaya tersembunyi"
-  },
-  {
-    "mimpi": "Ikan",
-    "arti": "Ikan rezeki mengalir",
-    "angka2D": "78",
-    "angka3D": "678",
-    "angka4D": "0678",
-    "keywords": "ikan ikan rezeki mengalir"
-  },
-  {
-    "mimpi": "Burung",
-    "arti": "Burung kabar baik",
-    "angka2D": "89",
-    "angka3D": "089",
-    "angka4D": "8089",
-    "keywords": "burung burung kabar baik"
-  },
-  {
-    "mimpi": "Kuda",
-    "arti": "Kuda kerja keras",
-    "angka2D": "90",
-    "angka3D": "490",
-    "angka4D": "6490",
-    "keywords": "kuda kuda kerja keras"
-  },
-  {
-    "mimpi": "Sapi",
-    "arti": "Sapi rezeki melimpah",
-    "angka2D": "11",
-    "angka3D": "811",
-    "angka4D": "4811",
-    "keywords": "sapi sapi rezeki melimpah"
-  },
-  {
-    "mimpi": "Kambing",
-    "arti": "Kambing kurban",
-    "angka2D": "22",
-    "angka3D": "222",
-    "angka4D": "2222",
-    "keywords": "kambing kambing kurban"
-  },
-  {
-    "mimpi": "Monyet",
-    "arti": "Monyet usil",
-    "angka2D": "33",
-    "angka3D": "633",
-    "angka4D": "0633",
-    "keywords": "monyet monyet usil"
-  },
-  {
-    "mimpi": "Gajah",
-    "arti": "Gajah besar rezeki",
-    "angka2D": "44",
-    "angka3D": "044",
-    "angka4D": "8044",
-    "keywords": "gajah gajah besar rezeki"
-  },
-  {
-    "mimpi": "Tikus",
-    "arti": "Tikus pencuri kecil",
-    "angka2D": "55",
-    "angka3D": "455",
-    "angka4D": "6455",
-    "keywords": "tikus tikus pencuri kecil"
-  },
-  {
-    "mimpi": "Bayi",
-    "arti": "Bayi awal baru",
-    "angka2D": "01",
-    "angka3D": "301",
-    "angka4D": "9301",
-    "keywords": "bayi bayi awal baru"
-  },
-  {
-    "mimpi": "Menikah",
-    "arti": "Menikah ikatan baru",
-    "angka2D": "02",
-    "angka3D": "702",
-    "angka4D": "7702",
-    "keywords": "menikah menikah ikatan baru"
-  },
-  {
-    "mimpi": "Meninggal",
-    "arti": "Meninggal umur panjang",
-    "angka2D": "03",
-    "angka3D": "103",
-    "angka4D": "5103",
-    "keywords": "meninggal meninggal umur panjang"
-  },
-  {
-    "mimpi": "Hamil",
-    "arti": "Hamil rezeki",
-    "angka2D": "04",
-    "angka3D": "504",
-    "angka4D": "3504",
-    "keywords": "hamil hamil rezeki"
-  },
-  {
-    "mimpi": "Melahirkan",
-    "arti": "Melahirkan hasil",
-    "angka2D": "05",
-    "angka3D": "905",
-    "angka4D": "1905",
-    "keywords": "melahirkan melahirkan hasil"
-  },
-  {
-    "mimpi": "Berkelahi",
-    "arti": "Berkelahi masalah",
-    "angka2D": "06",
-    "angka3D": "306",
-    "angka4D": "9306",
-    "keywords": "berkelahi berkelahi masalah"
-  },
-  {
-    "mimpi": "Menangis",
-    "arti": "Menangis lepas beban",
-    "angka2D": "07",
-    "angka3D": "707",
-    "angka4D": "7707",
-    "keywords": "menangis menangis lepas beban"
-  },
-  {
-    "mimpi": "Tertawa",
-    "arti": "Tertawa bahagia",
-    "angka2D": "08",
-    "angka3D": "108",
-    "angka4D": "5108",
-    "keywords": "tertawa tertawa bahagia"
-  },
-  {
-    "mimpi": "Terbang",
-    "arti": "Terbang cita tinggi",
-    "angka2D": "09",
-    "angka3D": "509",
-    "angka4D": "3509",
-    "keywords": "terbang terbang cita tinggi"
-  },
-  {
-    "mimpi": "Jatuh",
-    "arti": "Jatuh hati-hati",
-    "angka2D": "10",
-    "angka3D": "910",
-    "angka4D": "1910",
-    "keywords": "jatuh jatuh hati-hati"
-  },
-  {
-    "mimpi": "Lari",
-    "arti": "Lari kejar impian",
-    "angka2D": "13",
-    "angka3D": "513",
-    "angka4D": "1513",
-    "keywords": "lari lari kejar impian"
-  },
-  {
-    "mimpi": "Berenang",
-    "arti": "Berenang emosi",
-    "angka2D": "14",
-    "angka3D": "914",
-    "angka4D": "9914",
-    "keywords": "berenang berenang emosi"
-  },
-  {
-    "mimpi": "Uang",
-    "arti": "Uang rezeki nomplok",
-    "angka2D": "15",
-    "angka3D": "315",
-    "angka4D": "7315",
-    "keywords": "uang uang rezeki nomplok"
-  },
-  {
-    "mimpi": "Emas",
-    "arti": "Emas kemewahan",
-    "angka2D": "16",
-    "angka3D": "716",
-    "angka4D": "5716",
-    "keywords": "emas emas kemewahan"
-  },
-  {
-    "mimpi": "Mobil",
-    "arti": "Mobil perjalanan",
-    "angka2D": "17",
-    "angka3D": "117",
-    "angka4D": "3117",
-    "keywords": "mobil mobil perjalanan"
-  },
-  {
-    "mimpi": "Rumah",
-    "arti": "Rumah ketenangan",
-    "angka2D": "18",
-    "angka3D": "518",
-    "angka4D": "1518",
-    "keywords": "rumah rumah ketenangan"
-  },
-  {
-    "mimpi": "Rumah Baru",
-    "arti": "Rumah baru pindah",
-    "angka2D": "19",
-    "angka3D": "919",
-    "angka4D": "9919",
-    "keywords": "rumah baru rumah baru pindah"
-  },
-  {
-    "mimpi": "Kebakaran",
-    "arti": "Kebakaran emosi",
-    "angka2D": "20",
-    "angka3D": "320",
-    "angka4D": "7320",
-    "keywords": "kebakaran kebakaran emosi"
-  },
-  {
-    "mimpi": "Banjir",
-    "arti": "Banjir rezeki besar",
-    "angka2D": "21",
-    "angka3D": "721",
-    "angka4D": "5721",
-    "keywords": "banjir banjir rezeki besar"
-  },
-  {
-    "mimpi": "Gunung",
-    "arti": "Gunung cita-cita",
-    "angka2D": "24",
-    "angka3D": "324",
-    "angka4D": "5324",
-    "keywords": "gunung gunung cita-cita"
-  },
-  {
-    "mimpi": "Laut",
-    "arti": "Laut luas rezeki",
-    "angka2D": "25",
-    "angka3D": "725",
-    "angka4D": "3725",
-    "keywords": "laut laut luas rezeki"
-  },
-  {
-    "mimpi": "Hujan",
-    "arti": "Hujan berkah",
-    "angka2D": "26",
-    "angka3D": "126",
-    "angka4D": "1126",
-    "keywords": "hujan hujan berkah"
-  },
-  {
-    "mimpi": "Petir",
-    "arti": "Petir kejutan",
-    "angka2D": "27",
-    "angka3D": "527",
-    "angka4D": "9527",
-    "keywords": "petir petir kejutan"
-  },
-  {
-    "mimpi": "Bintang",
-    "arti": "Bintang harapan",
-    "angka2D": "28",
-    "angka3D": "928",
-    "angka4D": "7928",
-    "keywords": "bintang bintang harapan"
-  },
-  {
-    "mimpi": "Bulan",
-    "arti": "Bulan perasaan",
-    "angka2D": "29",
-    "angka3D": "329",
-    "angka4D": "5329",
-    "keywords": "bulan bulan perasaan"
-  },
-  {
-    "mimpi": "Matahari",
-    "arti": "Matahari semangat",
-    "angka2D": "30",
-    "angka3D": "730",
-    "angka4D": "3730",
-    "keywords": "matahari matahari semangat"
-  },
-  {
-    "mimpi": "Kawin Lari",
-    "arti": "Kawin lari nekat",
-    "angka2D": "31",
-    "angka3D": "131",
-    "angka4D": "1131",
-    "keywords": "kawin lari kawin lari nekat"
-  },
-  {
-    "mimpi": "Selir",
-    "arti": "Selir godaan",
-    "angka2D": "32",
-    "angka3D": "532",
-    "angka4D": "9532",
-    "keywords": "selir selir godaan"
-  },
-  {
-    "mimpi": "Pencuri",
-    "arti": "Pencuri kehilangan",
-    "angka2D": "35",
-    "angka3D": "135",
-    "angka4D": "9135",
-    "keywords": "pencuri pencuri kehilangan"
-  },
-  {
-    "mimpi": "Polisi",
-    "arti": "Polisi aturan",
-    "angka2D": "36",
-    "angka3D": "536",
-    "angka4D": "7536",
-    "keywords": "polisi polisi aturan"
-  },
-  {
-    "mimpi": "Tentara",
-    "arti": "Tentara disiplin",
-    "angka2D": "37",
-    "angka3D": "937",
-    "angka4D": "5937",
-    "keywords": "tentara tentara disiplin"
-  },
-  {
-    "mimpi": "Guru",
-    "arti": "Guru ilmu",
-    "angka2D": "38",
-    "angka3D": "338",
-    "angka4D": "3338",
-    "keywords": "guru guru ilmu"
-  },
-  {
-    "mimpi": "Dokter",
-    "arti": "Dokter penyembuh",
-    "angka2D": "39",
-    "angka3D": "739",
-    "angka4D": "1739",
-    "keywords": "dokter dokter penyembuh"
-  },
-  {
-    "mimpi": "Mantan",
-    "arti": "Mantan belum move on",
-    "angka2D": "40",
-    "angka3D": "140",
-    "angka4D": "9140",
-    "keywords": "mantan mantan belum move on"
-  },
-  {
-    "mimpi": "Teman Lama",
-    "arti": "Teman lama rindu",
-    "angka2D": "41",
-    "angka3D": "541",
-    "angka4D": "7541",
-    "keywords": "teman lama teman lama rindu"
-  },
-  {
-    "mimpi": "Kecelakaan",
-    "arti": "Kecelakaan hati-hati",
-    "angka2D": "42",
-    "angka3D": "942",
-    "angka4D": "5942",
-    "keywords": "kecelakaan kecelakaan hati-hati"
-  },
-  {
-    "mimpi": "Sakit",
-    "arti": "Sakit perhatian",
-    "angka2D": "43",
-    "angka3D": "343",
-    "angka4D": "3343",
-    "keywords": "sakit sakit perhatian"
-  },
-  {
-    "mimpi": "Sembuh",
-    "arti": "Sembuh harapan",
-    "angka2D": "46",
-    "angka3D": "946",
-    "angka4D": "3946",
-    "keywords": "sembuh sembuh harapan"
-  },
-  {
-    "mimpi": "Makan",
-    "arti": "Makan rezeki",
-    "angka2D": "47",
-    "angka3D": "347",
-    "angka4D": "1347",
-    "keywords": "makan makan rezeki"
-  },
-  {
-    "mimpi": "Minum",
-    "arti": "Minum segar",
-    "angka2D": "48",
-    "angka3D": "748",
-    "angka4D": "9748",
-    "keywords": "minum minum segar"
-  },
-  {
-    "mimpi": "Sholat",
-    "arti": "Sholat berkah",
-    "angka2D": "49",
-    "angka3D": "149",
-    "angka4D": "7149",
-    "keywords": "sholat sholat berkah"
-  },
-  {
-    "mimpi": "Masjid",
-    "arti": "Masjid ketenangan",
-    "angka2D": "50",
-    "angka3D": "550",
-    "angka4D": "5550",
-    "keywords": "masjid masjid ketenangan"
-  },
-  {
-    "mimpi": "Pesta",
-    "arti": "Pesta kebahagiaan",
-    "angka2D": "51",
-    "angka3D": "951",
-    "angka4D": "3951",
-    "keywords": "pesta pesta kebahagiaan"
-  },
-  {
-    "mimpi": "Hadiah",
-    "arti": "Hadiah kejutan",
-    "angka2D": "52",
-    "angka3D": "352",
-    "angka4D": "1352",
-    "keywords": "hadiah hadiah kejutan"
-  },
-  {
-    "mimpi": "Kunci",
-    "arti": "Kunci solusi",
-    "angka2D": "53",
-    "angka3D": "753",
-    "angka4D": "9753",
-    "keywords": "kunci kunci solusi"
-  },
-  {
-    "mimpi": "Pintu",
-    "arti": "Pintu peluang",
-    "angka2D": "54",
-    "angka3D": "154",
-    "angka4D": "7154",
-    "keywords": "pintu pintu peluang"
-  },
-  {
-    "mimpi": "Jendela",
-    "arti": "Jendela pandangan baru",
-    "angka2D": "57",
-    "angka3D": "757",
-    "angka4D": "7757",
-    "keywords": "jendela jendela pandangan baru"
-  },
-  {
-    "mimpi": "Tangga",
-    "arti": "Tangga naik level",
-    "angka2D": "58",
-    "angka3D": "158",
-    "angka4D": "5158",
-    "keywords": "tangga tangga naik level"
-  },
-  {
-    "mimpi": "Jembatan",
-    "arti": "Jembatan penghubung",
-    "angka2D": "59",
-    "angka3D": "559",
-    "angka4D": "3559",
-    "keywords": "jembatan jembatan penghubung"
-  },
-  {
-    "mimpi": "Jatuh Cinta",
-    "arti": "Jatuh cinta berbunga",
-    "angka2D": "60",
-    "angka3D": "960",
-    "angka4D": "1960",
-    "keywords": "jatuh cinta jatuh cinta berbunga"
-  },
-  {
-    "mimpi": "Putus",
-    "arti": "Putus akhir awal baru",
-    "angka2D": "61",
-    "angka3D": "361",
-    "angka4D": "9361",
-    "keywords": "putus putus akhir awal baru"
-  },
-  {
-    "mimpi": "Cincin",
-    "arti": "Cincin ikatan",
-    "angka2D": "62",
-    "angka3D": "762",
-    "angka4D": "7762",
-    "keywords": "cincin cincin ikatan"
-  },
-  {
-    "mimpi": "Kalung",
-    "arti": "Kalung beban indah",
-    "angka2D": "63",
-    "angka3D": "163",
-    "angka4D": "5163",
-    "keywords": "kalung kalung beban indah"
-  },
-  {
-    "mimpi": "Sepatu",
-    "arti": "Sepatu langkah baru",
-    "angka2D": "64",
-    "angka3D": "564",
-    "angka4D": "3564",
-    "keywords": "sepatu sepatu langkah baru"
-  },
-  {
-    "mimpi": "Baju Baru",
-    "arti": "Baju baru penampilan",
-    "angka2D": "65",
-    "angka3D": "965",
-    "angka4D": "1965",
-    "keywords": "baju baru baju baru penampilan"
-  },
-  {
-    "mimpi": "Rambut Potong",
-    "arti": "Potong rambut perubahan",
-    "angka2D": "66",
-    "angka3D": "366",
-    "angka4D": "9366",
-    "keywords": "rambut potong potong rambut perubahan"
-  },
-  {
-    "mimpi": "Gigi Copot",
-    "arti": "Gigi copot keluarga",
-    "angka2D": "68",
-    "angka3D": "868",
-    "angka4D": "8868",
-    "keywords": "gigi copot gigi copot keluarga"
-  },
-  {
-    "mimpi": "Darah",
-    "arti": "Darah semangat",
-    "angka2D": "69",
-    "angka3D": "269",
-    "angka4D": "6269",
-    "keywords": "darah darah semangat"
-  },
-  {
-    "mimpi": "Hantu",
-    "arti": "Hantu takut",
-    "angka2D": "70",
-    "angka3D": "670",
-    "angka4D": "4670",
-    "keywords": "hantu hantu takut"
-  },
-  {
-    "mimpi": "Kuburan",
-    "arti": "Kuburan ingat akhir",
-    "angka2D": "71",
-    "angka3D": "071",
-    "angka4D": "2071",
-    "keywords": "kuburan kuburan ingat akhir"
-  },
-  {
-    "mimpi": "Mayat",
-    "arti": "Mayat rezeki besar",
-    "angka2D": "72",
-    "angka3D": "472",
-    "angka4D": "0472",
-    "keywords": "mayat mayat rezeki besar"
-  },
-  {
-    "mimpi": "Pocong",
-    "arti": "Pocong kaget",
-    "angka2D": "73",
-    "angka3D": "873",
-    "angka4D": "8873",
-    "keywords": "pocong pocong kaget"
-  },
-  {
-    "mimpi": "Kuntilanak",
-    "arti": "Kuntilanak godaan",
-    "angka2D": "74",
-    "angka3D": "274",
-    "angka4D": "6274",
-    "keywords": "kuntilanak kuntilanak godaan"
-  },
-  {
-    "mimpi": "Tersesat",
-    "arti": "Tersesat cari arah",
-    "angka2D": "75",
-    "angka3D": "675",
-    "angka4D": "4675",
-    "keywords": "tersesat tersesat cari arah"
-  },
-  {
-    "mimpi": "Menang Lotre",
-    "arti": "Menang lotre hoki",
-    "angka2D": "76",
-    "angka3D": "076",
-    "angka4D": "2076",
-    "keywords": "menang lotre menang lotre hoki"
-  },
-  {
-    "mimpi": "Kalah Judi",
-    "arti": "Kalah judi hati-hati",
-    "angka2D": "77",
-    "angka3D": "477",
-    "angka4D": "0477",
-    "keywords": "kalah judi kalah judi hati-hati"
-  },
-  {
-    "mimpi": "Naik Haji",
-    "arti": "Naik haji berkah",
-    "angka2D": "79",
-    "angka3D": "979",
-    "angka4D": "9979",
-    "keywords": "naik haji naik haji berkah"
-  },
-  {
-    "mimpi": "Umroh",
-    "arti": "Umroh bersih",
-    "angka2D": "80",
-    "angka3D": "380",
-    "angka4D": "7380",
-    "keywords": "umroh umroh bersih"
-  },
-  {
-    "mimpi": "Pesawat",
-    "arti": "Pesawat cita tinggi",
-    "angka2D": "81",
-    "angka3D": "781",
-    "angka4D": "5781",
-    "keywords": "pesawat pesawat cita tinggi"
-  },
-  {
-    "mimpi": "Kereta",
-    "arti": "Kereta perjalanan",
-    "angka2D": "82",
-    "angka3D": "182",
-    "angka4D": "3182",
-    "keywords": "kereta kereta perjalanan"
-  },
-  {
-    "mimpi": "Kapal",
-    "arti": "Kapal rezeki laut",
-    "angka2D": "83",
-    "angka3D": "583",
-    "angka4D": "1583",
-    "keywords": "kapal kapal rezeki laut"
-  },
-  {
-    "mimpi": "Motor",
-    "arti": "Motor cepat",
-    "angka2D": "84",
-    "angka3D": "984",
-    "angka4D": "9984",
-    "keywords": "motor motor cepat"
-  },
-  {
-    "mimpi": "Sepeda",
-    "arti": "Sepeda santai",
-    "angka2D": "85",
-    "angka3D": "385",
-    "angka4D": "7385",
-    "keywords": "sepeda sepeda santai"
-  },
-  {
-    "mimpi": "Buku",
-    "arti": "Buku ilmu",
-    "angka2D": "86",
-    "angka3D": "786",
-    "angka4D": "5786",
-    "keywords": "buku buku ilmu"
-  },
-  {
-    "mimpi": "Pensil",
-    "arti": "Pensil tulis takdir",
-    "angka2D": "87",
-    "angka3D": "187",
-    "angka4D": "3187",
-    "keywords": "pensil pensil tulis takdir"
-  },
-  {
-    "mimpi": "Sekolah",
-    "arti": "Sekolah belajar",
-    "angka2D": "88",
-    "angka3D": "588",
-    "angka4D": "1588",
-    "keywords": "sekolah sekolah belajar"
-  },
-  {
-    "mimpi": "Ujian",
-    "arti": "Ujian tantangan",
-    "angka2D": "91",
-    "angka3D": "191",
-    "angka4D": "1191",
-    "keywords": "ujian ujian tantangan"
-  },
-  {
-    "mimpi": "Lulus",
-    "arti": "Lulus berhasil",
-    "angka2D": "92",
-    "angka3D": "592",
-    "angka4D": "9592",
-    "keywords": "lulus lulus berhasil"
-  },
-  {
-    "mimpi": "Gagal",
-    "arti": "Gagal coba lagi",
-    "angka2D": "93",
-    "angka3D": "993",
-    "angka4D": "7993",
-    "keywords": "gagal gagal coba lagi"
-  },
-  {
-    "mimpi": "Buah",
-    "arti": "Buah hasil",
-    "angka2D": "94",
-    "angka3D": "394",
-    "angka4D": "5394",
-    "keywords": "buah buah hasil"
-  },
-  {
-    "mimpi": "Pohon",
-    "arti": "Pohon tumbuh",
-    "angka2D": "95",
-    "angka3D": "795",
-    "angka4D": "3795",
-    "keywords": "pohon pohon tumbuh"
-  },
-  {
-    "mimpi": "Bunga",
-    "arti": "Bunga cinta",
-    "angka2D": "96",
-    "angka3D": "196",
-    "angka4D": "1196",
-    "keywords": "bunga bunga cinta"
-  },
-  {
-    "mimpi": "Kebun",
-    "arti": "Kebun usaha",
-    "angka2D": "97",
-    "angka3D": "597",
-    "angka4D": "9597",
-    "keywords": "kebun kebun usaha"
-  },
-  {
-    "mimpi": "Sawah",
-    "arti": "Sawah panen",
-    "angka2D": "98",
-    "angka3D": "998",
-    "angka4D": "7998",
-    "keywords": "sawah sawah panen"
-  },
-  {
-    "mimpi": "Panen",
-    "arti": "Panen hasil kerja",
-    "angka2D": "99",
-    "angka3D": "399",
-    "angka4D": "5399",
-    "keywords": "panen panen hasil kerja"
-  },
-  {
-    "mimpi": "Memancing",
-    "arti": "Memancing sabar",
-    "angka2D": "00",
-    "angka3D": "700",
-    "angka4D": "3700",
-    "keywords": "memancing memancing sabar"
-  },
-  {
-    "mimpi": "Berburu",
-    "arti": "Berburu target",
+    "mimpi": "Penyair",
+    "arti": "Erek Erek 2D 00 = Penyair – Tapir – Sempritan – Rembulan – Kalender/Tanggalan – Kumbakarna | Gaya Baru & Pelarian",
     "angka2D": "00",
     "angka3D": "000",
     "angka4D": "0000",
-    "keywords": "berburu berburu target"
+    "keywords": "penyair – tapir – sempritan – rembulan – kalender/tanggalan – kumbakarna penyair erek erek 00 000 0000",
+    "nomor": 0
+  },
+  {
+    "mimpi": "Setan",
+    "arti": "Erek Erek 2D 01 = Setan – Bandeng – Obor – Jambu Mente – Tangan – Bacang – Betara Kala | Gaya Baru & Pelarian",
+    "angka2D": "01",
+    "angka3D": "301",
+    "angka4D": "7301",
+    "keywords": "setan – bandeng – obor – jambu mente – tangan – bacang – betara kala setan erek erek 01 301 7301",
+    "nomor": 1
+  },
+  {
+    "mimpi": "Sarjana",
+    "arti": "Erek Erek 2D 02 = Sarjana – Bekicot – Loncat Tinggi – Wortel – Sandal – Jangkar – Betara Brahma | Gaya Baru & Pelarian",
+    "angka2D": "02",
+    "angka3D": "602",
+    "angka4D": "4602",
+    "keywords": "sarjana – bekicot – loncat tinggi – wortel – sandal – jangkar – betara brahma sarjana erek erek 02 602 4602",
+    "nomor": 2
+  },
+  {
+    "mimpi": "Angsa",
+    "arti": "Erek Erek 2D 03 = Orang Mati – Angsa – Lompat Galah – Sawi – Kaki – Cemburu – Subali | Gaya Baru & Pelarian",
+    "angka2D": "03",
+    "angka3D": "903",
+    "angka4D": "1903",
+    "keywords": "orang mati – angsa – lompat galah – sawi – kaki – cemburu – subali angsa erek erek 03 903 1903",
+    "nomor": 3
+  },
+  {
+    "mimpi": "Kwan Im",
+    "arti": "Erek Erek 2D 04 = Kwan Im – Merak – Lompat Jauh – Kangkung – Balon – Petai – Dewi Ratih | Gaya Baru & Pelarian",
+    "angka2D": "04",
+    "angka3D": "204",
+    "angka4D": "8204",
+    "keywords": "kwan im – merak – lompat jauh – kangkung – balon – petai – dewi ratih kwan im erek erek 04 204 8204",
+    "nomor": 4
+  },
+  {
+    "mimpi": "Kepala Rampok",
+    "arti": "Erek Erek 2D 05 = Kepala Rampok – Singa – Loncat Indah – Merica – Kayu Manis – Kereta Api – Jemur Baju – Garu Langit | Gaya Baru & Pelarian",
+    "angka2D": "05",
+    "angka3D": "505",
+    "angka4D": "5505",
+    "keywords": "kepala rampok – singa – loncat indah – merica – kayu manis – kereta api – jemur baju – garu langit kepala rampok erek erek 05 505 5505",
+    "nomor": 5
+  },
+  {
+    "mimpi": "Dewi Bulan",
+    "arti": "Erek Erek 2D 06 = Dewi Bulan – Kelinci – Renang – Kapas – Boneka – Bantuan – Dewi Sri | Gaya Baru & Pelarian",
+    "angka2D": "06",
+    "angka3D": "806",
+    "angka4D": "2806",
+    "keywords": "dewi bulan – kelinci – renang – kapas – boneka – bantuan – dewi sri dewi bulan erek erek 06 806 2806",
+    "nomor": 6
+  },
+  {
+    "mimpi": "Pelayan",
+    "arti": "Erek Erek 2D 07 = Pelayan – Babi – Perahu Layar – Bawang – Pancing – Arang – Sulatri | Gaya Baru & Pelarian",
+    "angka2D": "07",
+    "angka3D": "107",
+    "angka4D": "9107",
+    "keywords": "pelayan – babi – perahu layar – bawang – pancing – arang – sulatri pelayan erek erek 07 107 9107",
+    "nomor": 7
+  },
+  {
+    "mimpi": "Maling Kecil",
+    "arti": "Erek Erek 2D 08 = Maling Kecil – Macan – Motor Boat – Kecubung – Pasar – Daun Sop – Talamaria | Gaya Baru & Pelarian",
+    "angka2D": "08",
+    "angka3D": "408",
+    "angka4D": "6408",
+    "keywords": "maling kecil – macan – motor boat – kecubung – pasar – daun sop – talamaria maling kecil erek erek 08 408 6408",
+    "nomor": 8
+  },
+  {
+    "mimpi": "Jendral",
+    "arti": "Erek Erek 2D 09 = Jendral – Kerbau – Mendayung – Kates (Pepaya) – Jala – Gadis – Bima | Gaya Baru & Pelarian",
+    "angka2D": "09",
+    "angka3D": "709",
+    "angka4D": "3709",
+    "keywords": "jendral – kerbau – mendayung – kates (pepaya) – jala – gadis – bima jendral erek erek 09 709 3709",
+    "nomor": 9
+  },
+  {
+    "mimpi": "Kelenteng",
+    "arti": "Erek Erek 2D 10 = Kelenteng – Kelabang/Lipan – Menyelam – Kelapa – Bir – Rileks – Sang Pamuji | Gaya Baru & Pelarian",
+    "angka2D": "10",
+    "angka3D": "010",
+    "angka4D": "0010",
+    "keywords": "kelenteng – kelabang/lipan – menyelam – kelapa – bir – rileks – sang pamuji kelenteng erek erek 10 010 0010",
+    "nomor": 10
+  },
+  {
+    "mimpi": "Anjing",
+    "arti": "Erek Erek 2D 11 = Menteri Serakah – Anjing – Lari Cepat – Kipas – Sapu – Kerudung – Sengkuni | Gaya Baru & Pelarian",
+    "angka2D": "11",
+    "angka3D": "600",
+    "angka4D": "0456",
+    "keywords": "menteri serakah – anjing – lari cepat – kipas – sapu – kerudung – sengkuni anjing erek erek 11 600 0456",
+    "nomor": 11
+  },
+  {
+    "mimpi": "Kuda",
+    "arti": "Erek Erek 2D 12 = Penasehat Perang – Kuda – Lari Gawang – Lemon – Bola Lampu – Luku – Wibisana | Gaya Baru & Pelarian",
+    "angka2D": "12",
+    "angka3D": "595",
+    "angka4D": "0467",
+    "keywords": "penasehat perang – kuda – lari gawang – lemon – bola lampu – luku – wibisana kuda erek erek 12 595 0467",
+    "nomor": 12
+  },
+  {
+    "mimpi": "Gajah",
+    "arti": "Erek Erek 2D 13 = Penjaga Pintu – Gajah – Lari Estafet – Kipas Angin – Keris – Prabukesa | Gaya Baru & Pelarian",
+    "angka2D": "13",
+    "angka3D": "509",
+    "angka4D": "0467",
+    "keywords": "penjaga pintu – gajah – lari estafet – kipas angin – keris – prabukesa gajah erek erek 13 509 0467",
+    "nomor": 13
+  },
+  {
+    "mimpi": "Potong Babi",
+    "arti": "Erek Erek 2D 14 = Potong Babi – Onta – Tolak Peluru Jembatan – Spet (Suntikan) – Jaya Langsuan | Gaya Baru & Pelarian",
+    "angka2D": "14",
+    "angka3D": "214",
+    "angka4D": "8214",
+    "keywords": "potong babi – onta – tolak peluru jembatan – spet (suntikan) – jaya langsuan potong babi erek erek 14 214 8214",
+    "nomor": 14
+  },
+  {
+    "mimpi": "Tikus",
+    "arti": "Erek Erek 2D 15 = Hakim – Tikus – Lempar Martil – Kantor Pos – Sekrup – Karantina – Kresna | Gaya Baru & Pelarian",
+    "angka2D": "15",
+    "angka3D": "876",
+    "angka4D": "2697",
+    "keywords": "hakim – tikus – lempar martil – kantor pos – sekrup – karantina – kresna tikus erek erek 15 876 2697",
+    "nomor": 15
+  },
+  {
+    "mimpi": "Tawon",
+    "arti": "Erek Erek 2D 16 = Orang Sakit Gudig – Tawon – Lempar Cakram – Surat – Nanas – Jembawan – Duren – pohon pisang | Gaya Baru & Pelarian",
+    "angka2D": "16",
+    "angka3D": "816",
+    "angka4D": "2816",
+    "keywords": "orang sakit gudig – tawon – lempar cakram – surat – nanas – jembawan – duren – pohon pisang tawon erek erek 16 816 2816",
+    "nomor": 16
+  },
+  {
+    "mimpi": "Pemadat",
+    "arti": "Erek Erek 2D 17 = Pemadat – Bangau – Aren – Lempar Lembing – Durian – Telepon – Api – Buto Terong | Gaya Baru & Pelarian",
+    "angka2D": "17",
+    "angka3D": "117",
+    "angka4D": "9117",
+    "keywords": "pemadat – bangau – aren – lempar lembing – durian – telepon – api – buto terong pemadat erek erek 17 117 9117",
+    "nomor": 17
+  },
+  {
+    "mimpi": "Kucing",
+    "arti": "Erek Erek 2D 18 = Kas Uang – Parang – Kucing – Polo Air – Lombok – Kantor Polisi – Bisma – Jual es | Gaya Baru & Pelarian",
+    "angka2D": "18",
+    "angka3D": "596",
+    "angka4D": "0456",
+    "keywords": "kas uang – parang – kucing – polo air – lombok – kantor polisi – bisma – jual es kucing erek erek 18 596 0456",
+    "nomor": 18
+  },
+  {
+    "mimpi": "Wanita Panggilan",
+    "arti": "Erek Erek 2D 19 = Wanita Panggilan – Kupu Kupu – Sepakbola – Lotre – Srikaya – Ban Sepeda – Banowati – Cabut gigi | Gaya Baru & Pelarian",
+    "angka2D": "19",
+    "angka3D": "719",
+    "angka4D": "3719",
+    "keywords": "wanita panggilan – kupu kupu – sepakbola – lotre – srikaya – ban sepeda – banowati – cabut gigi wanita panggilan erek erek 19 719 3719",
+    "nomor": 19
+  },
+  {
+    "mimpi": "Istri Sejati",
+    "arti": "Erek Erek 2D 20 = Istri Sejati – Lalat – Volley ball – Palu – Ban Mobil – Setiawati | Gaya Baru & Pelarian",
+    "angka2D": "20",
+    "angka3D": "020",
+    "angka4D": "0020",
+    "keywords": "istri sejati – lalat – volley ball – palu – ban mobil – setiawati istri sejati erek erek 20 020 0020",
+    "nomor": 20
+  },
+  {
+    "mimpi": "Pelacur",
+    "arti": "Erek Erek 2D 21 = Pelacur – Walet – Bulu tangkis – Permen – Kapak – Lesmanawati | Gaya Baru & Pelarian",
+    "angka2D": "21",
+    "angka3D": "321",
+    "angka4D": "7321",
+    "keywords": "pelacur – walet – bulu tangkis – permen – kapak – lesmanawati pelacur erek erek 21 321 7321",
+    "nomor": 21
+  },
+  {
+    "mimpi": "Peti Mati",
+    "arti": "Erek Erek 2D 22 = Peti Mati – Capung – Tenis – Terong – Harmonika – Arjuna dan Sembadra | Gaya Baru & Pelarian",
+    "angka2D": "22",
+    "angka3D": "622",
+    "angka4D": "4622",
+    "keywords": "peti mati – capung – tenis – terong – harmonika – arjuna dan sembadra peti mati erek erek 22 622 4622",
+    "nomor": 22
+  },
+  {
+    "mimpi": "Setan Gantung",
+    "arti": "Erek Erek 2D 23 = Setan Gantung – Kera – Bola Basket – Pisang – Piano – Wilkampana | Gaya Baru & Pelarian",
+    "angka2D": "23",
+    "angka3D": "923",
+    "angka4D": "1923",
+    "keywords": "setan gantung – kera – bola basket – pisang – piano – wilkampana setan gantung erek erek 23 923 1923",
+    "nomor": 23
+  },
+  {
+    "mimpi": "Sumber Air",
+    "arti": "Erek Erek 2D 24 = Sumber Air – Katak – Tenis Meja – Sikat Gigi – Padi – Dewa Ruci | Gaya Baru & Pelarian",
+    "angka2D": "24",
+    "angka3D": "224",
+    "angka4D": "8224",
+    "keywords": "sumber air – katak – tenis meja – sikat gigi – padi – dewa ruci sumber air erek erek 24 224 8224",
+    "nomor": 24
+  },
+  {
+    "mimpi": "Menantu Raja",
+    "arti": "Erek Erek 2D 25 = Menantu Raja – Rajawali – Baseball Jagung – Tapal Gigi – Kangsa Dewa | Gaya Baru & Pelarian",
+    "angka2D": "25",
+    "angka3D": "525",
+    "angka4D": "5525",
+    "keywords": "menantu raja – rajawali – baseball jagung – tapal gigi – kangsa dewa menantu raja erek erek 25 525 5525",
+    "nomor": 25
+  },
+  {
+    "mimpi": "Raja",
+    "arti": "Erek Erek 2D 26 = Raja – Naga – Hockey – Uang Logam – Ganggang – Mesin Jahit – Samiaji | Gaya Baru & Pelarian",
+    "angka2D": "26",
+    "angka3D": "826",
+    "angka4D": "2826",
+    "keywords": "raja – naga – hockey – uang logam – ganggang – mesin jahit – samiaji raja erek erek 26 826 2826",
+    "nomor": 26
+  },
+  {
+    "mimpi": "Wanita Cantik",
+    "arti": "Erek Erek 2D 27 = Wanita Cantik – Kura Kura – Bola Sodok Sabun Bubuk – Otak – Dewi Supraba | Gaya Baru & Pelarian",
+    "angka2D": "27",
+    "angka3D": "127",
+    "angka4D": "9127",
+    "keywords": "wanita cantik – kura kura – bola sodok sabun bubuk – otak – dewi supraba wanita cantik erek erek 27 127 9127",
+    "nomor": 27
+  },
+  {
+    "mimpi": "Ayam",
+    "arti": "Erek Erek 2D 28 = Pencari Kayu – Ayam – Menembak – Tomat – Jarum – Nakula | Gaya Baru & Pelarian",
+    "angka2D": "28",
+    "angka3D": "594",
+    "angka4D": "0464",
+    "keywords": "pencari kayu – ayam – menembak – tomat – jarum – nakula ayam erek erek 28 594 0464",
+    "nomor": 28
+  },
+  {
+    "mimpi": "Belut",
+    "arti": "Erek Erek 2D 29 = Pendeta Sakti – Belut – Panahan – Kursi – Koran – Uang Perak – Sidiwacana | Gaya Baru & Pelarian",
+    "angka2D": "29",
+    "angka3D": "729",
+    "angka4D": "3729",
+    "keywords": "pendeta sakti – belut – panahan – kursi – koran – uang perak – sidiwacana belut erek erek 29 729 3729",
+    "nomor": 29
+  },
+  {
+    "mimpi": "Ikan Mas",
+    "arti": "Erek Erek 2D 30 = Nelayan – Ikan Mas – Angkat Besi – Belimbing – WC – Nagatatmala | Gaya Baru & Pelarian",
+    "angka2D": "30",
+    "angka3D": "516",
+    "angka4D": "0476",
+    "keywords": "nelayan – ikan mas – angkat besi – belimbing – wc – nagatatmala ikan mas erek erek 30 516 0476",
+    "nomor": 30
+  },
+  {
+    "mimpi": "Udang",
+    "arti": "Erek Erek 2D 31 = Anggota Kelamin – Udang – Senam – Cacing Pita – Sangkar Burung – Yuyu Rumpung | Gaya Baru & Pelarian",
+    "angka2D": "31",
+    "angka3D": "331",
+    "angka4D": "7331",
+    "keywords": "anggota kelamin – udang – senam – cacing pita – sangkar burung – yuyu rumpung udang erek erek 31 331 7331",
+    "nomor": 31
+  },
+  {
+    "mimpi": "Ular",
+    "arti": "Erek Erek 2D 32 = Ahli Nujum – Ular – Yudo – Kamar Mandi – Tali – Abiyasa | Gaya Baru & Pelarian",
+    "angka2D": "32",
+    "angka3D": "592",
+    "angka4D": "0469",
+    "keywords": "ahli nujum – ular – yudo – kamar mandi – tali – abiyasa ular erek erek 32 592 0469",
+    "nomor": 32
+  },
+  {
+    "mimpi": "Laba Laba",
+    "arti": "Erek Erek 2D 33 = Pengemis – Laba Laba – Gulat – Gigi – Sabun – Petruk | Gaya Baru & Pelarian",
+    "angka2D": "33",
+    "angka3D": "933",
+    "angka4D": "1933",
+    "keywords": "pengemis – laba laba – gulat – gigi – sabun – petruk laba laba erek erek 33 933 1933",
+    "nomor": 33
+  },
+  {
+    "mimpi": "Rusa",
+    "arti": "Erek Erek 2D 34 = Orang Buta – Rusa – Silat – Merpati – Jamu – Paru Paru – Destarata | Gaya Baru & Pelarian",
+    "angka2D": "34",
+    "angka3D": "234",
+    "angka4D": "8234",
+    "keywords": "orang buta – rusa – silat – merpati – jamu – paru paru – destarata rusa erek erek 34 234 8234",
+    "nomor": 34
+  },
+  {
+    "mimpi": "Wanita",
+    "arti": "Erek Erek 2D 35 = Wanita – Kambing – Tinju – Lambung – Jalan Jalan – Drupadi | Gaya Baru & Pelarian",
+    "angka2D": "35",
+    "angka3D": "535",
+    "angka4D": "5535",
+    "keywords": "wanita – kambing – tinju – lambung – jalan jalan – drupadi wanita erek erek 35 535 5535",
+    "nomor": 35
+  },
+  {
+    "mimpi": "Musang",
+    "arti": "Erek Erek 2D 36 = Pendeta Wanita – Musang – Balap Sepeda – Manggis – Rumah Obat – Sayempraba | Gaya Baru & Pelarian",
+    "angka2D": "36",
+    "angka3D": "836",
+    "angka4D": "2836",
+    "keywords": "pendeta wanita – musang – balap sepeda – manggis – rumah obat – sayempraba musang erek erek 36 836 2836",
+    "nomor": 36
+  },
+  {
+    "mimpi": "Ikan Gabus",
+    "arti": "Erek Erek 2D 37 = Orang Bongkok – Ikan Gabus – Balap Mobil – Anggur – Beha – Truk – Gareng | Gaya Baru & Pelarian",
+    "angka2D": "37",
+    "angka3D": "137",
+    "angka4D": "9137",
+    "keywords": "orang bongkok – ikan gabus – balap mobil – anggur – beha – truk – gareng ikan gabus erek erek 37 137 9137",
+    "nomor": 37
+  },
+  {
+    "mimpi": "Cendrawasih",
+    "arti": "Erek Erek 2D 38 = Putri Raja – Cendrawasih – Balap Sepeda Motor Engsel – Drum/Tong – Hamil – Untari | Gaya Baru & Pelarian",
+    "angka2D": "38",
+    "angka3D": "438",
+    "angka4D": "6438",
+    "keywords": "putri raja – cendrawasih – balap sepeda motor engsel – drum/tong – hamil – untari cendrawasih erek erek 38 438 6438",
+    "nomor": 38
+  },
+  {
+    "mimpi": "Kalajengking",
+    "arti": "Erek Erek 2D 39 = Kekasih – Kalajengking – Balap Kuda – Topi – Bemo – Narasuma | Gaya Baru & Pelarian",
+    "angka2D": "39",
+    "angka3D": "739",
+    "angka4D": "3739",
+    "keywords": "kekasih – kalajengking – balap kuda – topi – bemo – narasuma kalajengking erek erek 39 739 3739",
+    "nomor": 39
+  },
+  {
+    "mimpi": "Gelatik",
+    "arti": "Erek Erek 2D 40 = Penolong – Gelatik – Golf Tang – Peci – Widura | Gaya Baru & Pelarian",
+    "angka2D": "40",
+    "angka3D": "040",
+    "angka4D": "0040",
+    "keywords": "penolong – gelatik – golf tang – peci – widura gelatik erek erek 40 040 0040",
+    "nomor": 40
+  },
+  {
+    "mimpi": "Kepiting",
+    "arti": "Erek Erek 2D 41 = Pahlawan – Kepiting – Lompat Kuda – Lilin – Sabuk – Warsaya | Gaya Baru & Pelarian",
+    "angka2D": "41",
+    "angka3D": "341",
+    "angka4D": "7341",
+    "keywords": "pahlawan – kepiting – lompat kuda – lilin – sabuk – warsaya kepiting erek erek 41 341 7341",
+    "nomor": 41
+  },
+  {
+    "mimpi": "Buaya",
+    "arti": "Erek Erek 2D 42 = Jejaka Tua – Buaya – Gerak Jalan Catur – Dokter – Lesmana Widakta | Gaya Baru & Pelarian",
+    "angka2D": "42",
+    "angka3D": "606",
+    "angka4D": "0486",
+    "keywords": "jejaka tua – buaya – gerak jalan catur – dokter – lesmana widakta buaya erek erek 42 606 0486",
+    "nomor": 42
+  },
+  {
+    "mimpi": "Ikan Suro",
+    "arti": "Erek Erek 2D 43 = Janda Muda – Ikan Suro – Anggar – Mawar – Grendel – Sumbadra | Gaya Baru & Pelarian",
+    "angka2D": "43",
+    "angka3D": "943",
+    "angka4D": "1943",
+    "keywords": "janda muda – ikan suro – anggar – mawar – grendel – sumbadra ikan suro erek erek 43 943 1943",
+    "nomor": 43
+  },
+  {
+    "mimpi": "Badak",
+    "arti": "Erek Erek 2D 44 = Berandal – Badak – Ski Air – Seruling – Sisir – Citraksa | Gaya Baru & Pelarian",
+    "angka2D": "44",
+    "angka3D": "244",
+    "angka4D": "8244",
+    "keywords": "berandal – badak – ski air – seruling – sisir – citraksa badak erek erek 44 244 8244",
+    "nomor": 44
+  },
+  {
+    "mimpi": "Banteng",
+    "arti": "Erek Erek 2D 45 = Pengembara – Banteng – Terbang Layang – Kendi – Tas – Rama | Gaya Baru & Pelarian",
+    "angka2D": "45",
+    "angka3D": "545",
+    "angka4D": "5545",
+    "keywords": "pengembara – banteng – terbang layang – kendi – tas – rama banteng erek erek 45 545 5545",
+    "nomor": 45
+  },
+  {
+    "mimpi": "Orang Utan",
+    "arti": "Erek Erek 2D 46 = Nenek Moyang – Orang Utan – Terjun Bebas – Sikat – Toko – Hyang Wenang | Gaya Baru & Pelarian",
+    "angka2D": "46",
+    "angka3D": "846",
+    "angka4D": "2846",
+    "keywords": "nenek moyang – orang utan – terjun bebas – sikat – toko – hyang wenang orang utan erek erek 46 846 2846",
+    "nomor": 46
+  },
+  {
+    "mimpi": "Zebra",
+    "arti": "Erek Erek 2D 47 = Bencong – Zebra – Upacara Bendera – Tangga – Hotel – Stuna | Gaya Baru & Pelarian",
+    "angka2D": "47",
+    "angka3D": "147",
+    "angka4D": "9147",
+    "keywords": "bencong – zebra – upacara bendera – tangga – hotel – stuna zebra erek erek 47 147 9147",
+    "nomor": 47
+  },
+  {
+    "mimpi": "Si Ceroboh",
+    "arti": "Erek Erek 2D 48 = Si Ceroboh – Landak – Main Catur Garuk – Gedung Bioskop – Dasamuka | Gaya Baru & Pelarian",
+    "angka2D": "48",
+    "angka3D": "448",
+    "angka4D": "6448",
+    "keywords": "si ceroboh – landak – main catur garuk – gedung bioskop – dasamuka si ceroboh erek erek 48 448 6448",
+    "nomor": 48
+  },
+  {
+    "mimpi": "Kelelawar",
+    "arti": "Erek Erek 2D 49 = Drakula – Kelelawar – Mendaki Gunung – Cetok – Rok – Betari Durga | Gaya Baru & Pelarian",
+    "angka2D": "49",
+    "angka3D": "749",
+    "angka4D": "3749",
+    "keywords": "drakula – kelelawar – mendaki gunung – cetok – rok – betari durga kelelawar erek erek 49 749 3749",
+    "nomor": 49
+  },
+  {
+    "mimpi": "Beruang",
+    "arti": "Erek Erek 2D 50 = Orang Eskimo – Beruang – Pembawa Obor Pacul – Guru – Bagong | Gaya Baru & Pelarian",
+    "angka2D": "50",
+    "angka3D": "050",
+    "angka4D": "0050",
+    "keywords": "orang eskimo – beruang – pembawa obor pacul – guru – bagong beruang erek erek 50 050 0050",
+    "nomor": 50
+  },
+  {
+    "mimpi": "Kerang",
+    "arti": "Erek Erek 2D 51 = Ahli Filsafat – Kerang – Patil lele – Tebu – Celana – Narodo | Gaya Baru & Pelarian",
+    "angka2D": "51",
+    "angka3D": "351",
+    "angka4D": "7351",
+    "keywords": "ahli filsafat – kerang – patil lele – tebu – celana – narodo kerang erek erek 51 351 7351",
+    "nomor": 51
+  },
+  {
+    "mimpi": "Raja Laut",
+    "arti": "Erek Erek 2D 52 = Raja Laut – Ikan Paus – Main Tali – Matahari – Dompet – Antasena | Gaya Baru & Pelarian",
+    "angka2D": "52",
+    "angka3D": "652",
+    "angka4D": "4652",
+    "keywords": "raja laut – ikan paus – main tali – matahari – dompet – antasena raja laut erek erek 52 652 4652",
+    "nomor": 52
+  },
+  {
+    "mimpi": "Penjual Silat",
+    "arti": "Erek Erek 2D 53 = Penjual Silat – Ikan Duri – Akrobat – Rambutan – Taxi – Abimanyu | Gaya Baru & Pelarian",
+    "angka2D": "53",
+    "angka3D": "953",
+    "angka4D": "1953",
+    "keywords": "penjual silat – ikan duri – akrobat – rambutan – taxi – abimanyu penjual silat erek erek 53 953 1953",
+    "nomor": 53
+  },
+  {
+    "mimpi": "Raja Kera",
+    "arti": "Erek Erek 2D 54 = Raja Kera – Ikan Lele – Sepatu Roda – Kalung – Dokar – Kera Hanoman | Gaya Baru & Pelarian",
+    "angka2D": "54",
+    "angka3D": "254",
+    "angka4D": "8254",
+    "keywords": "raja kera – ikan lele – sepatu roda – kalung – dokar – kera hanoman raja kera erek erek 54 254 8254",
+    "nomor": 54
+  },
+  {
+    "mimpi": "Pertapa",
+    "arti": "Erek Erek 2D 55 = Pertapa – Kangguru – Kasti Gelang – Kemaron – Rd Seta | Gaya Baru & Pelarian",
+    "angka2D": "55",
+    "angka3D": "555",
+    "angka4D": "5555",
+    "keywords": "pertapa – kangguru – kasti gelang – kemaron – rd seta pertapa erek erek 55 555 5555",
+    "nomor": 55
+  },
+  {
+    "mimpi": "Budak",
+    "arti": "Erek Erek 2D 56 = Budak – Ikan Duyung – Ringen – Kenanga – Cikar – Limbuk | Gaya Baru & Pelarian",
+    "angka2D": "56",
+    "angka3D": "856",
+    "angka4D": "2856",
+    "keywords": "budak – ikan duyung – ringen – kenanga – cikar – limbuk budak erek erek 56 856 2856",
+    "nomor": 56
+  },
+  {
+    "mimpi": "Anak Sakti",
+    "arti": "Erek Erek 2D 57 = Anak Sakti – Ulat Sutera – Layang Layang Sepatu – Ranjang – Gatotkaca | Gaya Baru & Pelarian",
+    "angka2D": "57",
+    "angka3D": "157",
+    "angka4D": "9157",
+    "keywords": "anak sakti – ulat sutera – layang layang sepatu – ranjang – gatotkaca anak sakti erek erek 57 157 9157",
+    "nomor": 57
+  },
+  {
+    "mimpi": "Penari",
+    "arti": "Erek Erek 2D 58 = Penari – Cumi Cumi – Main Kelereng – Rumah – Sekolahan – Selir | Gaya Baru & Pelarian",
+    "angka2D": "58",
+    "angka3D": "458",
+    "angka4D": "6458",
+    "keywords": "penari – cumi cumi – main kelereng – rumah – sekolahan – selir penari erek erek 58 458 6458",
+    "nomor": 58
+  },
+  {
+    "mimpi": "Putra Raja",
+    "arti": "Erek Erek 2D 59 = Putra Raja – Kakak Tua – Dakon – Kedondong – Kaos – Rd Lesmana | Gaya Baru & Pelarian",
+    "angka2D": "59",
+    "angka3D": "759",
+    "angka4D": "3759",
+    "keywords": "putra raja – kakak tua – dakon – kedondong – kaos – rd lesmana putra raja erek erek 59 759 3759",
+    "nomor": 59
+  },
+  {
+    "mimpi": "Kepala Polisi",
+    "arti": "Erek Erek 2D 60 = Kepala Polisi – Cecak – Karambol – Delima – Handuk – Sentiyaki | Gaya Baru & Pelarian",
+    "angka2D": "60",
+    "angka3D": "060",
+    "angka4D": "0060",
+    "keywords": "kepala polisi – cecak – karambol – delima – handuk – sentiyaki kepala polisi erek erek 60 060 0060",
+    "nomor": 60
+  },
+  {
+    "mimpi": "Pedagang",
+    "arti": "Erek Erek 2D 61 = Pedagang – Kecoak – Gendongan – Kacamata – Buku – Baladewa | Gaya Baru & Pelarian",
+    "angka2D": "61",
+    "angka3D": "361",
+    "angka4D": "7361",
+    "keywords": "pedagang – kecoak – gendongan – kacamata – buku – baladewa pedagang erek erek 61 361 7361",
+    "nomor": 61
+  },
+  {
+    "mimpi": "Pagoda",
+    "arti": "Erek Erek 2D 62 = Pagoda – Walang Kadung – Petan – Termos – Selendang Pelangi – Candi Sapta Arga | Gaya Baru & Pelarian",
+    "angka2D": "62",
+    "angka3D": "662",
+    "angka4D": "4662",
+    "keywords": "pagoda – walang kadung – petan – termos – selendang pelangi – candi sapta arga pagoda erek erek 62 662 4662",
+    "nomor": 62
+  },
+  {
+    "mimpi": "Pendekar Wanita",
+    "arti": "Erek Erek 2D 63 = Pendekar Wanita – Kumbang – Treksando – Bantal – Jendela – Larasati | Gaya Baru & Pelarian",
+    "angka2D": "63",
+    "angka3D": "963",
+    "angka4D": "1963",
+    "keywords": "pendekar wanita – kumbang – treksando – bantal – jendela – larasati pendekar wanita erek erek 63 963 1963",
+    "nomor": 63
+  },
+  {
+    "mimpi": "Dewa Uang",
+    "arti": "Erek Erek 2D 64 = Dewa Uang – Kuda Laut – Bandulan – Apel – Guling – Betara Indra | Gaya Baru & Pelarian",
+    "angka2D": "64",
+    "angka3D": "264",
+    "angka4D": "8264",
+    "keywords": "dewa uang – kuda laut – bandulan – apel – guling – betara indra dewa uang erek erek 64 264 8264",
+    "nomor": 64
+  },
+  {
+    "mimpi": "Raja Setan",
+    "arti": "Erek Erek 2D 65 = Raja Setan – Ikan Hiu – Kayang – Klompen – Petromak – Kala Srenggi | Gaya Baru & Pelarian",
+    "angka2D": "65",
+    "angka3D": "565",
+    "angka4D": "5565",
+    "keywords": "raja setan – ikan hiu – kayang – klompen – petromak – kala srenggi raja setan erek erek 65 565 5565",
+    "nomor": 65
+  },
+  {
+    "mimpi": "Dewa Bumi",
+    "arti": "Erek Erek 2D 66 = Dewa Bumi – Jerapah – Sawatan – Sukun – Gelas – Anta Boga | Gaya Baru & Pelarian",
+    "angka2D": "66",
+    "angka3D": "866",
+    "angka4D": "2866",
+    "keywords": "dewa bumi – jerapah – sawatan – sukun – gelas – anta boga dewa bumi erek erek 66 866 2866",
+    "nomor": 66
+  },
+  {
+    "mimpi": "Penjual Daging",
+    "arti": "Erek Erek 2D 67 = Penjual Daging – Burung Onta – Engrang – Sendok – Korek Api – Abilawa | Gaya Baru & Pelarian",
+    "angka2D": "67",
+    "angka3D": "167",
+    "angka4D": "9167",
+    "keywords": "penjual daging – burung onta – engrang – sendok – korek api – abilawa penjual daging erek erek 67 167 9167",
+    "nomor": 67
+  },
+  {
+    "mimpi": "Pembuat Pedang",
+    "arti": "Erek Erek 2D 68 = Pembuat Pedang – Burung Hantu – Panjat Pinang – Pisau – Garpu – Cepot | Gaya Baru & Pelarian",
+    "angka2D": "68",
+    "angka3D": "468",
+    "angka4D": "6468",
+    "keywords": "pembuat pedang – burung hantu – panjat pinang – pisau – garpu – cepot pembuat pedang erek erek 68 468 6468",
+    "nomor": 68
+  },
+  {
+    "mimpi": "Mimi",
+    "arti": "Erek Erek 2D 69 = Pencari Jejak – Mimi – Engkleh – Gunting – Gunung – Antareja | Gaya Baru & Pelarian",
+    "angka2D": "69",
+    "angka3D": "769",
+    "angka4D": "3769",
+    "keywords": "pencari jejak – mimi – engkleh – gunting – gunung – antareja mimi erek erek 69 769 3769",
+    "nomor": 69
+  },
+  {
+    "mimpi": "Keledai",
+    "arti": "Erek Erek 2D 70 = Panglima – Keledai – Tarik Tambang – Lampu Minyak – Rumah Makan – Adipati Karna | Gaya Baru & Pelarian",
+    "angka2D": "70",
+    "angka3D": "070",
+    "angka4D": "0070",
+    "keywords": "panglima – keledai – tarik tambang – lampu minyak – rumah makan – adipati karna keledai erek erek 70 070 0070",
+    "nomor": 70
+  },
+  {
+    "mimpi": "Macan Tutul",
+    "arti": "Erek Erek 2D 71 = Pemburu – Macan Tutul – Lempar Karet – Sumur – Baju – Pandu | Gaya Baru & Pelarian",
+    "angka2D": "71",
+    "angka3D": "371",
+    "angka4D": "7371",
+    "keywords": "pemburu – macan tutul – lempar karet – sumur – baju – pandu macan tutul erek erek 71 371 7371",
+    "nomor": 71
+  },
+  {
+    "mimpi": "Dewa Langit",
+    "arti": "Erek Erek 2D 72 = Dewa Langit – Ikan Terbang – Ik Ol – Kran Air – Arloji – Betara Guru | Gaya Baru & Pelarian",
+    "angka2D": "72",
+    "angka3D": "672",
+    "angka4D": "4672",
+    "keywords": "dewa langit – ikan terbang – ik ol – kran air – arloji – betara guru dewa langit erek erek 72 672 4672",
+    "nomor": 72
+  },
+  {
+    "mimpi": "Tuan Tanah",
+    "arti": "Erek Erek 2D 73 = Tuan Tanah – Semut – Tulupan – Anting Anting – Bintang – Dursasana | Gaya Baru & Pelarian",
+    "angka2D": "73",
+    "angka3D": "973",
+    "angka4D": "1973",
+    "keywords": "tuan tanah – semut – tulupan – anting anting – bintang – dursasana tuan tanah erek erek 73 973 1973",
+    "nomor": 73
+  },
+  {
+    "mimpi": "Bajak Laut",
+    "arti": "Erek Erek 2D 74 = Bajak Laut – Pinguin – Setipan – Gentong – Radio – Indrajit | Gaya Baru & Pelarian",
+    "angka2D": "74",
+    "angka3D": "274",
+    "angka4D": "8274",
+    "keywords": "bajak laut – pinguin – setipan – gentong – radio – indrajit bajak laut erek erek 74 274 8274",
+    "nomor": 74
+  },
+  {
+    "mimpi": "Suami Istri",
+    "arti": "Erek Erek 2D 75 = Suami Istri – Bebek – Balapan Lari – Nangka – Lemari – Ratih dan Kamajaya | Gaya Baru & Pelarian",
+    "angka2D": "75",
+    "angka3D": "575",
+    "angka4D": "5575",
+    "keywords": "suami istri – bebek – balapan lari – nangka – lemari – ratih dan kamajaya suami istri erek erek 75 575 5575",
+    "nomor": 75
+  },
+  {
+    "mimpi": "Jendral Wanita",
+    "arti": "Erek Erek 2D 76 = Jendral Wanita – Nyamuk – Teplekan – Mata – Timbangan – Srikandi | Gaya Baru & Pelarian",
+    "angka2D": "76",
+    "angka3D": "876",
+    "angka4D": "2876",
+    "keywords": "jendral wanita – nyamuk – teplekan – mata – timbangan – srikandi jendral wanita erek erek 76 876 2876",
+    "nomor": 76
+  },
+  {
+    "mimpi": "Walikota",
+    "arti": "Erek Erek 2D 77 = Walikota – Penyu – Bekel – Cincin – Payung – Togog | Gaya Baru & Pelarian",
+    "angka2D": "77",
+    "angka3D": "177",
+    "angka4D": "9177",
+    "keywords": "walikota – penyu – bekel – cincin – payung – togog walikota erek erek 77 177 9177",
+    "nomor": 77
+  },
+  {
+    "mimpi": "Ikan Gergaji",
+    "arti": "Erek Erek 2D 78 = Orang Kaya – Ikan Gergaji – Balap Becak – Semangka – Wajan – Lesmana Mandrakumara | Gaya Baru & Pelarian",
+    "angka2D": "78",
+    "angka3D": "478",
+    "angka4D": "6478",
+    "keywords": "orang kaya – ikan gergaji – balap becak – semangka – wajan – lesmana mandrakumara ikan gergaji erek erek 78 478 6478",
+    "nomor": 78
+  },
+  {
+    "mimpi": "Jendral Serakah",
+    "arti": "Erek Erek 2D 79 = Jendral Serakah – Orong Orong – Okol – Jeruk Bali – Kompor – Suyudana | Gaya Baru & Pelarian",
+    "angka2D": "79",
+    "angka3D": "779",
+    "angka4D": "3779",
+    "keywords": "jendral serakah – orong orong – okol – jeruk bali – kompor – suyudana jendral serakah erek erek 79 779 3779",
+    "nomor": 79
+  },
+  {
+    "mimpi": "Kepala Desa",
+    "arti": "Erek Erek 2D 80 = Kepala Desa – Bajing – Apollo – Pensil – Ceret – Semar | Gaya Baru & Pelarian",
+    "angka2D": "80",
+    "angka3D": "080",
+    "angka4D": "0080",
+    "keywords": "kepala desa – bajing – apollo – pensil – ceret – semar kepala desa erek erek 80 080 0080",
+    "nomor": 80
+  },
+  {
+    "mimpi": "Penipu",
+    "arti": "Erek Erek 2D 81 = Penipu – Kancil – Damdaman – Hidung – Cangkir – Aswatama | Gaya Baru & Pelarian",
+    "angka2D": "81",
+    "angka3D": "381",
+    "angka4D": "7381",
+    "keywords": "penipu – kancil – damdaman – hidung – cangkir – aswatama penipu erek erek 81 381 7381",
+    "nomor": 81
+  },
+  {
+    "mimpi": "Gembala Sapi",
+    "arti": "Erek Erek 2D 82 = Gembala Sapi – Kuda Nil – Lilin – Kartu As – Telinga – Berlian – Lencana – Udawa | Gaya Baru & Pelarian",
+    "angka2D": "82",
+    "angka3D": "682",
+    "angka4D": "4682",
+    "keywords": "gembala sapi – kuda nil – lilin – kartu as – telinga – berlian – lencana – udawa gembala sapi erek erek 82 682 4682",
+    "nomor": 82
+  },
+  {
+    "mimpi": "Ibu Suri",
+    "arti": "Erek Erek 2D 83 = Ibu Suri – Ikan Layur – Dadu Kumis – Pipa – Buncis – Berkasihan – Dewi Kunti | Gaya Baru & Pelarian",
+    "angka2D": "83",
+    "angka3D": "983",
+    "angka4D": "1983",
+    "keywords": "ibu suri – ikan layur – dadu kumis – pipa – buncis – berkasihan – dewi kunti ibu suri erek erek 83 983 1983",
+    "nomor": 83
+  },
+  {
+    "mimpi": "Budha",
+    "arti": "Erek Erek 2D 84 = Budha – Kalkun – Salto – Bibir – Kol – Kacang Tanah – Koprol – Bagaspati | Gaya Baru & Pelarian",
+    "angka2D": "84",
+    "angka3D": "284",
+    "angka4D": "8284",
+    "keywords": "budha – kalkun – salto – bibir – kol – kacang tanah – koprol – bagaspati budha erek erek 84 284 8284",
+    "nomor": 84
+  },
+  {
+    "mimpi": "Wanita Sihir",
+    "arti": "Erek Erek 2D 85 = Wanita Sihir – Jangkrik – Latihan Hansip – Teratai – Pintu – Sarpakenaka | Gaya Baru & Pelarian",
+    "angka2D": "85",
+    "angka3D": "585",
+    "angka4D": "5585",
+    "keywords": "wanita sihir – jangkrik – latihan hansip – teratai – pintu – sarpakenaka wanita sihir erek erek 85 585 5585",
+    "nomor": 85
+  },
+  {
+    "mimpi": "Dewa maut",
+    "arti": "Erek Erek 2D 86 = Dewa maut – Ikan Sampan – Gerak Badan – Salak – Rokok – Yamadipati | Gaya Baru & Pelarian",
+    "angka2D": "86",
+    "angka3D": "886",
+    "angka4D": "2886",
+    "keywords": "dewa maut – ikan sampan – gerak badan – salak – rokok – yamadipati dewa maut erek erek 86 886 2886",
+    "nomor": 86
+  },
+  {
+    "mimpi": "Betet",
+    "arti": "Erek Erek 2D 87 = Orang Gila – Betet – Kerja Bakti – Botol – Toilet – Buriswara | Gaya Baru & Pelarian",
+    "angka2D": "87",
+    "angka3D": "187",
+    "angka4D": "9187",
+    "keywords": "orang gila – betet – kerja bakti – botol – toilet – buriswara betet erek erek 87 187 9187",
+    "nomor": 87
+  },
+  {
+    "mimpi": "Dewi Mega",
+    "arti": "Erek Erek 2D 88 = Dewi Mega – Domba – Balap Karung – Jeruk Manis – Piring – Wilutama | Gaya Baru & Pelarian",
+    "angka2D": "88",
+    "angka3D": "488",
+    "angka4D": "6488",
+    "keywords": "dewi mega – domba – balap karung – jeruk manis – piring – wilutama dewi mega erek erek 88 488 6488",
+    "nomor": 88
+  },
+  {
+    "mimpi": "Pemabuk",
+    "arti": "Erek Erek 2D 89 = Pemabuk – Ikan Bendera – Setopan – Jeruk Keprok – Ember – Bomanarakasura | Gaya Baru & Pelarian",
+    "angka2D": "89",
+    "angka3D": "789",
+    "angka4D": "3789",
+    "keywords": "pemabuk – ikan bendera – setopan – jeruk keprok – ember – bomanarakasura pemabuk erek erek 89 789 3789",
+    "nomor": 89
+  },
+  {
+    "mimpi": "Tawanan",
+    "arti": "Erek Erek 2D 90 = Tawanan – Trenggiling – Perempatan Jalan – Pil – Ke Pasar – Sawah – Shinta | Gaya Baru & Pelarian",
+    "angka2D": "90",
+    "angka3D": "090",
+    "angka4D": "0090",
+    "keywords": "tawanan – trenggiling – perempatan jalan – pil – ke pasar – sawah – shinta tawanan erek erek 90 090 0090",
+    "nomor": 90
+  },
+  {
+    "mimpi": "Siluman Air",
+    "arti": "Erek Erek 2D 91 = Siluman Air – Serigala – Ambulans – Bambu – Toples – Witaksini | Gaya Baru & Pelarian",
+    "angka2D": "91",
+    "angka3D": "391",
+    "angka4D": "7391",
+    "keywords": "siluman air – serigala – ambulans – bambu – toples – witaksini siluman air erek erek 91 391 7391",
+    "nomor": 91
+  },
+  {
+    "mimpi": "Pendekar Kipas Besi",
+    "arti": "Erek Erek 2D 92 = Pendekar Kipas Besi – Ikan Tengiri – Garis Finish – Apokat – Sarung – Siti Sundari | Gaya Baru & Pelarian",
+    "angka2D": "92",
+    "angka3D": "692",
+    "angka4D": "4692",
+    "keywords": "pendekar kipas besi – ikan tengiri – garis finish – apokat – sarung – siti sundari pendekar kipas besi erek erek 92 692 4692",
+    "nomor": 92
+  },
+  {
+    "mimpi": "Penjilat",
+    "arti": "Erek Erek 2D 93 = Penjilat – Babi Hutan – Perahu Layar – Kaos Kaki – Lapangan – Durna | Gaya Baru & Pelarian",
+    "angka2D": "93",
+    "angka3D": "993",
+    "angka4D": "1993",
+    "keywords": "penjilat – babi hutan – perahu layar – kaos kaki – lapangan – durna penjilat erek erek 93 993 1993",
+    "nomor": 93
+  },
+  {
+    "mimpi": "Kwan Kong",
+    "arti": "Erek Erek 2D 94 = Kwan Kong – Ikan Kakap – Pemandian – Jambu – Pen – P.Salya | Gaya Baru & Pelarian",
+    "angka2D": "94",
+    "angka3D": "294",
+    "angka4D": "8294",
+    "keywords": "kwan kong – ikan kakap – pemandian – jambu – pen – p.salya kwan kong erek erek 94 294 8294",
+    "nomor": 94
+  },
+  {
+    "mimpi": "Petani",
+    "arti": "Erek Erek 2D 95 = Petani – Perkutut – Jalan Raya – Kunci – Pisau Cukur – Irawan | Gaya Baru & Pelarian",
+    "angka2D": "95",
+    "angka3D": "595",
+    "angka4D": "5595",
+    "keywords": "petani – perkutut – jalan raya – kunci – pisau cukur – irawan petani erek erek 95 595 5595",
+    "nomor": 95
+  },
+  {
+    "mimpi": "Prajurit",
+    "arti": "Erek Erek 2D 96 = Prajurit – Ikan Nus – Laut – Mangga – Minyak Angin – Citrayuda | Gaya Baru & Pelarian",
+    "angka2D": "96",
+    "angka3D": "896",
+    "angka4D": "2896",
+    "keywords": "prajurit – ikan nus – laut – mangga – minyak angin – citrayuda prajurit erek erek 96 896 2896",
+    "nomor": 96
+  },
+  {
+    "mimpi": "Raksasa",
+    "arti": "Erek Erek 2D 97 = Raksasa – Tokek – Kali Brantas – Sirsak – Lemari Es – Prahasta | Gaya Baru & Pelarian",
+    "angka2D": "97",
+    "angka3D": "197",
+    "angka4D": "9197",
+    "keywords": "raksasa – tokek – kali brantas – sirsak – lemari es – prahasta raksasa erek erek 97 197 9197",
+    "nomor": 97
+  },
+  {
+    "mimpi": "Tongkol",
+    "arti": "Erek Erek 2D 98 = Penjaga Malam – Tongkol – TV – Lengkeng – Kecelakaan – Trijati | Gaya Baru & Pelarian",
+    "angka2D": "98",
+    "angka3D": "498",
+    "angka4D": "6498",
+    "keywords": "penjaga malam – tongkol – tv – lengkeng – kecelakaan – trijati tongkol erek erek 98 498 6498",
+    "nomor": 98
+  },
+  {
+    "mimpi": "Bayi",
+    "arti": "Erek Erek 2D 99 = Hidung Belang – Burung Jalak – Bayi – Kodak – Meja – Arjuna | Gaya Baru & Pelarian",
+    "angka2D": "99",
+    "angka3D": "447",
+    "angka4D": "0223",
+    "keywords": "hidung belang – burung jalak – bayi – kodak – meja – arjuna bayi erek erek 99 447 0223",
+    "nomor": 99
   }
 ];
+// ✅ V.45 CORRECTED - Referensi Buku Mimpi 2D Bergambar 00-99 Erek Erek Standar - Ular 32=03-60-18-10, Bayi 99=91-30-60-80 - Sumber buku tafsir mimpi 2D bergambar
 
 
 // 🍀 LUCKY NUMBER FUNCTIONS - V44
