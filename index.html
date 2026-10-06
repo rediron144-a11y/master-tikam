@@ -80,6 +80,22 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+
+<style>
+#btnGenerateAI:disabled{
+  background:#222 !important;
+  border-color:#444 !important;
+  color:#777 !important;
+  cursor:not-allowed !important;
+  opacity:0.6;
+  box-shadow:none !important;
+}
+#btnGenerateAI.locked{
+  background:linear-gradient(135deg,#333,#111) !important;
+  border:1px solid #555 !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -239,7 +255,7 @@ window.addEventListener('load', ()=>{
       <label>History (baru di bawah):</label><textarea id="inputAI" placeholder="0712&#10;4471&#10;0624" oninput="onAIInput()"></textarea>
       <div class="last-result-box"><div><div class="last-result-label">Result Terakhir</div><div class="last-result-sublabel" id="lastResultCount">-</div></div><div class="last-result-value empty" id="lastResultValue">-</div></div>
       <div style="margin-bottom:8px;"><button class="btn-gen" style="width:100%;background:linear-gradient(135deg,#8b0000,#cc0000);border:1px solid var(--blood);color:#fff;font-size:11px;padding:10px;" onclick="autoSelectBestFromAI()">🏆 AUTO PILIH ALGO TERBAIK DARI DATA</button><div id="aiAutoResult" style="margin-top:6px;"></div></div>
-      <div class="btn-group"><button class="btn-gen" onclick="prosesAI()">⚡ GENERATE BBFS 8</button><button class="btn-reset" onclick="resetAI()">🔄</button><button class="btn-copy" onclick="copyFullAI()">📋 SALIN</button></div>
+      <div class="btn-group"><button class="btn-gen" id="btnGenerateAI" onclick="prosesAI()">⚡ GENERATE BBFS 8</button><button class="btn-reset" onclick="resetAI()">🔄</button><button class="btn-copy" onclick="copyFullAI()">📋 SALIN</button></div>
     </div>
     <div id="hasilAI" class="output"></div>
   </div>
@@ -413,7 +429,21 @@ function renderTagList(){ const list=document.getElementById('pasaranList'); lis
 function showAddPasaran(type){ document.getElementById(type==='ai'?'lokasiLainnya':'btLokasiLainnya').style.display='block'; document.getElementById(type==='ai'?'btnAddPasaran':'btnAddBtPasaran').style.display='block'; document.getElementById(type==='ai'?'lokasiLainnya':'btLokasiLainnya').focus(); }
 function addPasaran(type){ const id=type==='ai'?'lokasiLainnya':'btLokasiLainnya'; const nv=document.getElementById(id).value.trim().toUpperCase(); if(!nv) return alert('⚠️ Kosong!'); if(savedPasaran.includes(nv)) return alert('⚠️ Sudah ada!'); savedPasaran.push(nv); localStorage.setItem('tikam_pasaran_list',JSON.stringify(savedPasaran)); document.getElementById(id).value=''; document.getElementById(id).style.display='none'; document.getElementById(type==='ai'?'btnAddPasaran':'btnAddBtPasaran').style.display='none'; if(type==='ai'){ selectPasaranDropdown('ai',nv); saveMarketData('ai',nv,{history:'',algorithm:'hy',putaran:'10',kombinasi:'single',shioOff:false,timestamp:Date.now()}); } else { selectPasaranDropdown('bt',nv); saveMarketData('bt',nv,{history:'',algorithm:'hy',putaran:'10',mode:'2',timestamp:Date.now()}); } populateDropdowns(); }
 function deletePasaran(name,e){ e.stopPropagation(); if(!confirm(`Hapus ${name}?`)) return; savedPasaran=savedPasaran.filter(p=>p!==name); localStorage.setItem('tikam_pasaran_list',JSON.stringify(savedPasaran)); ['ai','invest','bt'].forEach(pre=>localStorage.removeItem(getMarketKey(pre,name))); if(currentAiPasaran===name){ currentAiPasaran=null; localStorage.removeItem('tikam_current_ai'); document.getElementById('inputAI').value=''; } if(currentBtPasaran===name){ currentBtPasaran=null; localStorage.removeItem('tikam_current_bt'); document.getElementById('btInput').value=''; document.getElementById('btTableBody').innerHTML=''; } populateDropdowns(); renderTagList(); updateIndicator(); updateBtIndicator(); }
-function clearAiSelection(){ currentAiPasaran=null; localStorage.removeItem('tikam_current_ai'); document.getElementById('aiTriggerText').textContent='-- Pilih --'; document.getElementById('inputAI').value=''; document.getElementById('hasilAI').style.display='none'; updateIndicator(); populateDropdowns(); }
+function clearAiSelection(){ 
+  currentAiPasaran=null; 
+  localStorage.removeItem('tikam_current_ai'); 
+  document.getElementById('aiTriggerText').textContent='-- Pilih --'; 
+  document.getElementById('inputAI').value=''; 
+  document.getElementById('hasilAI').style.display='none'; 
+  updateIndicator(); 
+  populateDropdowns();
+  const btnGen = document.getElementById('btnGenerateAI');
+  if(btnGen){
+    btnGen.disabled = false;
+    btnGen.classList.remove('locked');
+    btnGen.innerHTML = '⚡ GENERATE BBFS 8';
+  }
+}
 function clearBtSelection(){ currentBtPasaran=null; localStorage.removeItem('tikam_current_bt'); document.getElementById('btTriggerText').textContent='-- Pilih BT --'; document.getElementById('btInput').value=''; document.getElementById('btTableBody').innerHTML=''; document.getElementById('btStats').style.display='none'; document.getElementById('btTableContainer').style.display='none'; document.getElementById('btOutput').style.display='none'; lastBacktestData=null; updateBtIndicator(); populateDropdowns(); }
 function showTab(tabId,el){ document.querySelectorAll('.content-section').forEach(s=>s.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); document.getElementById(tabId).classList.add('active'); el.classList.add('active'); if(tabId==='ai-tab') populateDropdowns(); if(tabId==='backtest-tab') populateDropdowns(); if(tabId==='invest-tab') loadInvestData(); if(tabId==='mistik-tab') renderMistikTable(); }
 function applyMistik(d,a){ const t=MISTIK_TABLES[a]; return t?(t.map[d]||d):d; }
@@ -442,32 +472,81 @@ function copyTransform(){ const t=document.getElementById('transformFullOutput')
 function clearTransform(){ document.getElementById('transformBody').innerHTML='<tr><td colspan="4" style="color:#777;padding:20px;">Belum ada data.</td></tr>'; document.getElementById('transformFullOutput').innerText=''; document.getElementById('transformSummary').style.display='none'; document.getElementById('transformInfo').innerHTML='📁 Data transformasi dibersihkan'; lastTransformData=null; }
 
 function prosesAI(){
-  if(!currentAiPasaran) return alert("⚠️ Pilih pasaran AI dulu!"); const input=document.getElementById('inputAI').value.trim(); const raw=input.split(/\s+/).filter(x=>/^\d{4}$/.test(x)); if(raw.length<3) return alert("⚠️ Minimal 3!");
-  const algo=document.getElementById('rumus').value; const putaran=parseInt(document.getElementById('putaran').value); const kombi=document.getElementById('kombinasiMode').value; const shioOff=document.getElementById('shioOff').checked;
-  let base=putaran; raw.forEach(v=>{ for(let i=0;i<4;i++) base+=v.charCodeAt(i); }); base+=algo.split('').reduce((a,b)=>a+b.charCodeAt(0),0);
-  const bbfsObj=generateBBFSFromMistik(raw, algo, kombi); const bbfs=bbfsObj.full; const last=raw[raw.length-1];
-  const transLast=transformNumber(last, algo, kombi); const ai1=transLast.slice(0,4).padEnd(4, bbfs[0]); const ai2=transformNumber(raw[raw.length-2]||last, algo, kombi).slice(0,4).padEnd(4, bbfs[1]);
-  const tbl=MISTIK_TABLES[algo]||MISTIK_TABLES.ix; const k1=parseInt(last[2])||0; const e1=parseInt(last[3])||0; const lk=parseInt(tbl.map[k1.toString()]||k1); const le=parseInt(tbl.map[e1.toString()]||e1); const biji=(lk+le)%10; const ske=Math.abs(lk-le); let shio=shioOff?'OFF':((parseInt(last.slice(-2))+base+putaran)%12)||12;
-  const top2=generateTop(bbfs,2,8,base); const top3=generateTop(bbfs,3,6,base+10); const top4=generateTop(bbfs,4,5,base+20);
-  // ✅ CLEAN PREDIKSI - TANPA TRANSFORMASI & TANPA PENGEMBANG
-  const res=`🔮 V.34 BBFS 8 - ${currentAiPasaran}
+  if(!currentAiPasaran) return alert("⚠️ Pilih pasaran AI dulu!"); 
+  const input=document.getElementById('inputAI').value.trim(); 
+  const raw=input.split(/\s+/).filter(x=>/^\d{4}$/.test(x)); 
+  if(raw.length<3) return alert("⚠️ Minimal 3!");
+  
+  // 🔒 CEK APAKAH SUDAH DI-GENERATE - KUNCI TOMBOL
+  const btnGen = document.getElementById('btnGenerateAI');
+  if(btnGen && btnGen.disabled){
+    return alert("🔒 Sudah Generate bosq! Klik RESET dulu untuk generate lagi.");
+  }
+  
+  const algo=document.getElementById('rumus').value; 
+  const putaran=parseInt(document.getElementById('putaran').value); 
+  const kombi=document.getElementById('kombinasiMode').value; 
+  const shioOff=document.getElementById('shioOff').checked;
+  let base=putaran; 
+  raw.forEach(v=>{ for(let i=0;i<4;i++) base+=v.charCodeAt(i); }); 
+  base+=algo.split('').reduce((a,b)=>a+b.charCodeAt(0),0);
+  const bbfsObj=generateBBFSFromMistik(raw, algo, kombi); 
+  const bbfs=bbfsObj.full; 
+  const last=raw[raw.length-1];
+  const transLast=transformNumber(last, algo, kombi); 
+  const ai1=transLast.slice(0,4).padEnd(4, bbfs[0]); 
+  const ai2=transformNumber(raw[raw.length-2]||last, algo, kombi).slice(0,4).padEnd(4, bbfs[1]);
+  const tbl=MISTIK_TABLES[algo]||MISTIK_TABLES.ix; 
+  const k1=parseInt(last[2])||0; 
+  const e1=parseInt(last[3])||0; 
+  const lk=parseInt(tbl.map[k1.toString()]||k1); 
+  const le=parseInt(tbl.map[e1.toString()]||e1); 
+  const biji=(lk+le)%10; 
+  const ske=Math.abs(lk-le); 
+  let shio=shioOff?'OFF':((parseInt(last.slice(-2))+base+putaran)%12)||12;
+  
+  // ✅ BARU: 4D DULU, LALU 3D & 2D TURUNAN DARI 4D (ALUR JELAS)
+  // Contoh: 4D 1726 -> 3D 726 -> 2D 26
+  const top4=generateTop(bbfs,4,5,base+20);
+  const top4Arr = top4.split('*');
+  const top3Arr = top4Arr.map(n=>n.slice(-3)); // Ambil 3 digit terakhir dari 4D
+  const top2Arr = top4Arr.map(n=>n.slice(-2)); // Ambil 2 digit terakhir dari 4D
+  const top3 = top3Arr.join('*');
+  const top2 = top2Arr.join('*');
+  
+  // ✅ FORMAT BARU DENGAN ALUR TURUNAN YANG JELAS
+  const res=`🔮 V.43 TURUNAN 4D→3D→2D - ${currentAiPasaran}
 🧮 ALGO: ${MISTIK_TABLES[algo]?.name||algo} (${algo.toUpperCase()}) - ${kombi}
 🎲 BBFS 8: ${bbfs}
 AI-1: ${ai1} | AI-2: ${ai2}
 OFF LK:${lk} LE:${le} BIJI:${biji} SKE:${ske} SHIO:${shio}
 ━━━━━━━━━━━━━━━
-TOP 2D:
-${top2}
+TOP 4D (Induk):
+${top4}
 
-TOP 3D:
+TOP 3D (Turunan dari 4D → ambil 3 digit belakang):
 ${top3}
 
-TOP 4D:
-${top4}`;
-  const out=document.getElementById('hasilAI'); out.innerText=res; out.style.display='block'; autoSaveData();
+TOP 2D (Turunan dari 4D → ambil 2 digit belakang):
+${top2}
+
+💡 Alur: 4D 1726 → 3D 726 → 2D 26`;
+  
+  const out=document.getElementById('hasilAI'); 
+  out.innerText=res; 
+  out.style.display='block'; 
+  autoSaveData();
+
+  // 🔒 KUNCI TOMBOL SETELAH GENERATE PERTAMA
+  if(btnGen){
+    btnGen.disabled = true;
+    btnGen.classList.add('locked');
+    btnGen.innerHTML = '🔒 TERKUNCI - RESET DULU';
+    btnGen.title = 'Klik RESET untuk generate lagi';
+  }
 
   // 🆕 SIMPAN DATA UNTUK TAB TRANSFORMASI TERPISAH
-  lastTransformData={pasaran:currentAiPasaran, algo:algo, algoName:MISTIK_TABLES[algo]?.name||algo, kombi:kombi, bbfs:bbfs, raw:raw, timestamp:Date.now()};
+  lastTransformData={pasaran:currentAiPasaran, algo:algo, algoName:MISTIK_TABLES[algo]?.name||algo, kombi:kombi, bbfs:bbfs, raw:raw, top4:top4, top3:top3, top2:top2, timestamp:Date.now()};
   renderTransformTab();
 }
 function renderTransformTab(){
@@ -487,7 +566,20 @@ function renderTransformTab(){
   fullText+=`━━━━━━━━━━━━━━━━━━━━━━━\nBBFS 8 final: ${bbfs}\n`;
   document.getElementById('transformFullOutput').innerText=fullText;
 }
-function resetAI(){ document.getElementById('inputAI').value=''; document.getElementById('hasilAI').style.display='none'; updateIndicator(); autoSaveData(); }
+function resetAI(){ 
+  document.getElementById('inputAI').value=''; 
+  document.getElementById('hasilAI').style.display='none'; 
+  updateIndicator(); 
+  autoSaveData();
+  // 🔓 BUKA KUNCI TOMBOL GENERATE
+  const btnGen = document.getElementById('btnGenerateAI');
+  if(btnGen){
+    btnGen.disabled = false;
+    btnGen.classList.remove('locked');
+    btnGen.innerHTML = '⚡ GENERATE BBFS 8';
+    btnGen.title = '';
+  }
+}
 function prosesRank(){ const lines=document.getElementById('inputAC').value.trim().split('\n').filter(l=>l.trim()); const mode=parseInt(document.getElementById('modeRank').value); const pasar=document.getElementById('nmPasaran').value.trim().toUpperCase()||"PASARAN"; if(!lines.length) return alert("⚠️ Isi AC!"); const fLK=document.getElementById('p_lk').value.split(/[\s,]+/).filter(x=>x); const fLE=document.getElementById('p_le').value.split(/[\s,]+/).filter(x=>x); const fBiji=document.getElementById('p_biji').value.split(/[\s,]+/).filter(x=>x); const fSKE=document.getElementById('p_ske').value.split(/[\s,]+/).filter(x=>x); const fShio=document.getElementById('p_shio').value.split(/[\s,]+/).filter(x=>x); let top=[]; const max=Math.pow(10,mode); for(let i=0;i<max;i++){ let num=i.toString().padStart(mode,'0'); let hit=0; lines.forEach(l=>{ let ok=false; for(let d of num) if(l.includes(d)) ok=true; if(ok) hit++; }); if(hit!==lines.length) continue; let n2=num.slice(-2), k=n2[0], e=n2[1]; if(fLK.includes(k)||fLE.includes(e)) continue; if(fBiji.includes(((parseInt(k)+parseInt(e))%10).toString())) continue; if(fSKE.includes((Math.abs(parseInt(k)-parseInt(e))).toString())) continue; if(fShio.length){ let val=parseInt(n2)===0?100:parseInt(n2); if(fShio.includes((((val-1)%12)+1).toString())) continue; } top.push(num); } const outStr=top.join('*'); document.getElementById('resultRankOutput').innerText=`📊 INVEST ${pasar} (${top.length})\n━━━━━━━━━━━━━━━\n${outStr}`; document.getElementById('resultRankOutput').style.display='block'; document.getElementById('resultRankVisual').innerHTML=`<div style="border:1px solid #333;border-radius:10px;overflow:hidden;"><div style="background:#222;padding:8px;display:flex;justify-content:space-between;"><span>${top.length} LINE</span><button class="btn-copy" onclick="copyInvestOnly()">📋 SALIN</button></div><div style="padding:10px;color:var(--neon);word-break:break-all;font-family:'Consolas', 'Courier New', monospace;font-size:11px;">${outStr}</div></div>`; autoSaveInvest(); }
 function resetRank(){ document.getElementById('inputAC').value=''; document.querySelectorAll('#invest-tab input').forEach(i=>i.value=''); document.getElementById('resultRankVisual').innerHTML=''; document.getElementById('resultRankOutput').style.display='none'; autoSaveInvest(); }
 function runBacktest(){
