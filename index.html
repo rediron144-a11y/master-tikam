@@ -115,28 +115,46 @@ if ('serviceWorker' in navigator) {
 </style>
 
 <script>
+// 🔒 MASTER TIKAM - FORCE PASSWORD UNTUK APK - V.46 FIX TWA
 let passwordVisible = false;
 function togglePassword(){
   const inp = document.getElementById('passwordInput');
+  if(!inp) return;
   passwordVisible = !passwordVisible;
   inp.type = passwordVisible ? 'text' : 'password';
 }
 
+function isAPKMode(){
+  try{
+    const hasApkParam = window.location.search.includes('apk=1') || window.location.search.includes('pwa') || window.location.search.includes('source=pwa');
+    const refIsAndroid = document.referrer.includes('android-app://');
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches;
+    const isWV = /; wv\)/.test(navigator.userAgent);
+    const isTWA = hasApkParam || refIsAndroid || isStandalone;
+    return hasApkParam || refIsAndroid || isStandalone || isWV || isTWA;
+  }catch(e){
+    return window.location.search.includes('apk');
+  }
+}
+
 function checkPassword(){
-  const input = document.getElementById('passwordInput').value;
+  const inputEl = document.getElementById('passwordInput');
   const errorEl = document.getElementById('passwordError');
   const lockEl = document.getElementById('lockScreen');
-  
-  // Password: "anak medan" (case-insensitive, trim)
+  if(!inputEl || !lockEl) return;
+  const input = inputEl.value;
   if(input.trim().toLowerCase() === 'anak medan'){
+    sessionStorage.setItem('tikam_auth', 'true');
     localStorage.setItem('tikam_auth', 'true');
     localStorage.setItem('tikam_auth_time', Date.now().toString());
     lockEl.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     lockEl.style.opacity = '0';
     lockEl.style.transform = 'scale(1.1)';
-    setTimeout(()=>{ lockEl.style.display='none'; }, 500);
-    
-    // Welcome toast
+    setTimeout(()=>{
+      lockEl.style.display='none';
+      lockEl.style.opacity='1';
+      lockEl.style.transform='scale(1)';
+    }, 500);
     setTimeout(()=>{
       const toast = document.getElementById('trimToast');
       if(toast){
@@ -145,48 +163,76 @@ function checkPassword(){
         setTimeout(()=>toast.classList.remove('show'), 3000);
       }
     }, 600);
-    
   } else {
-    errorEl.textContent = '❌ Password salah bosq! Hint: anak medan';
-    lockEl.querySelector('div').classList.add('shake');
-    setTimeout(()=>lockEl.querySelector('div').classList.remove('shake'), 300);
-    document.getElementById('passwordInput').value = '';
-    document.getElementById('passwordInput').focus();
+    if(errorEl) errorEl.textContent = '❌ Password salah bosq! Hint: anak medan';
+    const box = lockEl.querySelector('div');
+    if(box){
+      box.classList.add('shake');
+      setTimeout(()=>box.classList.remove('shake'), 300);
+    }
+    inputEl.value = '';
+    inputEl.focus();
   }
 }
 
 function logoutTikam(){
-  if(confirm('🔒 Logout dari MASTER TIKAM?\nNanti perlu masukkan password lagi.')){
+  if(confirm('🔒 Logout dari MASTER TIKAM?
+Nanti perlu masukkan password lagi.')){
     localStorage.removeItem('tikam_auth');
     localStorage.removeItem('tikam_auth_time');
+    sessionStorage.removeItem('tikam_auth');
     location.reload();
   }
 }
 
-// Check auth on load
 window.addEventListener('load', ()=>{
-  const isAuth = localStorage.getItem('tikam_auth') === 'true';
   const lockEl = document.getElementById('lockScreen');
-  if(isAuth){
-    lockEl.style.display = 'none';
+  const passInput = document.getElementById('passwordInput');
+  if(!lockEl) return;
+  const isAPK = isAPKMode();
+  const hasSession = sessionStorage.getItem('tikam_auth') === 'true';
+  const hasLocal = localStorage.getItem('tikam_auth') === 'true';
+  const authTime = localStorage.getItem('tikam_auth_time');
+  console.log('TIKAM AUTH CHECK - isAPK:', isAPK, 'hasSession:', hasSession, 'hasLocal:', hasLocal, 'search:', window.location.search, 'ref:', document.referrer);
+  if(isAPK){
+    if(!hasSession){
+      localStorage.removeItem('tikam_auth');
+      localStorage.removeItem('tikam_auth_time');
+      lockEl.style.display='flex';
+      if(passInput) setTimeout(()=>passInput.focus(), 800);
+      return;
+    } else {
+      lockEl.style.display='none';
+      return;
+    }
   } else {
-    lockEl.style.display = 'flex';
-    setTimeout(()=>document.getElementById('passwordInput').focus(), 1500);
+    if(authTime){
+      const diff = Date.now() - parseInt(authTime);
+      if(diff > 24*60*60*1000){
+        localStorage.removeItem('tikam_auth');
+        localStorage.removeItem('tikam_auth_time');
+        sessionStorage.removeItem('tikam_auth');
+        lockEl.style.display='flex';
+        return;
+      }
+    }
+    if(hasLocal || hasSession){
+      lockEl.style.display='none';
+    } else {
+      lockEl.style.display='flex';
+      if(passInput) setTimeout(()=>passInput.focus(), 800);
+    }
   }
 });
 
-// Auto logout after 24 jam (optional security)
-(function(){
-  const authTime = localStorage.getItem('tikam_auth_time');
-  if(authTime){
-    const diff = Date.now() - parseInt(authTime);
-    const oneDay = 24*60*60*1000;
-    if(diff > oneDay){
-      localStorage.removeItem('tikam_auth');
-      localStorage.removeItem('tikam_auth_time');
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter'){
+    const lockEl = document.getElementById('lockScreen');
+    if(lockEl && lockEl.style.display !== 'none' && lockEl.style.display !== ''){
+      checkPassword();
     }
   }
-})();
+});
 </script>
 
 <div id="splash">
