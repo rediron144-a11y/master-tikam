@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PORTAL PREDIKSI RAGILBAGUS - MASTER TIKAM</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700;900&family=Share+Tech+Mono&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#050505;color:#fff;font-family:'Oswald',sans-serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+  /* HERO */
+  .hero{position:relative;flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at center,#1a0000 0%,#000 70%);overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(204,0,0,0.03) 2px,rgba(204,0,0,0.03) 3px);animation:scan 8s linear infinite;pointer-events:none}
+  @keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(50px)}}
+  .hero-content{text-align:center;z-index:2;max-width:520px;width:100%}
+  .badge{display:inline-block;background:#1a0000;border:1px solid #cc0000;color:#ff1a1a;font-size:9px;letter-spacing:2px;padding:6px 14px;border-radius:20px;margin-bottom:20px;font-family:'Share Tech Mono',monospace}
+  h1{font-size:54px;letter-spacing:6px;font-weight:900;color:#fff;text-shadow:0 0 20px rgba(255,255,255,0.4),0 0 40px rgba(204,0,0,0.6);line-height:0.9;margin-bottom:12px}
+  .sub{font-size:11px;color:#c0c0c0;letter-spacing:3px;margin-bottom:8px}
+  .red-line{width:220px;height:4px;background:linear-gradient(90deg,#cc0000,#ff1a1a);margin:16px auto;border-radius:2px;box-shadow:0 0 10px #cc0000}
+  /* CARD */
+  .portal-card{background:linear-gradient(135deg,#0a0a0a 0%,#1a0a0a 100%);border:1px solid #330000;border-radius:20px;padding:24px 20px;margin-top:28px;box-shadow:0 0 30px rgba(204,0,0,0.25),inset 0 0 20px rgba(204,0,0,0.05);position:relative}
+  .portal-card::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,#ff1a1a,transparent)}
+  .card-title{font-size:18px;letter-spacing:3px;font-weight:900;margin-bottom:4px}
+  .card-sub{font-size:8px;color:#888;letter-spacing:1.5px;margin-bottom:18px;font-family:'Share Tech Mono',monospace}
+  .input-group{position:relative;margin-bottom:14px}
+  .input-group label{font-size:8px;color:#ff1a1a;letter-spacing:1px;display:block;margin-bottom:6px;text-align:left;font-family:'Share Tech Mono',monospace}
+  .input-group input{width:100%;background:#000;border:1px solid #333;border-radius:10px;padding:12px 14px;color:#fff;font-family:'Share Tech Mono',monospace;font-size:12px;outline:none;transition:0.3s}
+  .input-group input:focus{border-color:#cc0000;box-shadow:0 0 10px rgba(204,0,0,0.3)}
+  .hint{font-size:7px;color:#555;text-align:left;margin-top:6px;font-family:'Share Tech Mono',monospace}
+  .btn-buka{width:100%;background:linear-gradient(135deg,#cc0000,#8b0000);border:none;border-radius:12px;padding:14px;color:#fff;font-family:'Oswald',sans-serif;font-weight:900;letter-spacing:2px;font-size:12px;cursor:pointer;box-shadow:0 0 20px rgba(204,0,0,0.5);transition:0.3s;margin-top:10px}
+  .btn-buka:hover{transform:scale(1.02);box-shadow:0 0 30px rgba(204,0,0,0.8)}
+  .btn-buka:active{transform:scale(0.98)}
+  .footer-info{font-size:7px;color:#444;margin-top:14px;font-family:'Share Tech Mono',monospace;letter-spacing:1px}
+  .gretong-badge{margin-top:18px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:8px;color:#00c853;font-family:'Share Tech Mono',monospace}
+  .gretong-dot{width:6px;height:6px;background:#00c853;border-radius:50%;box-shadow:0 0 8px #00c853;animation:blink 1.5s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+  /* FOOTER */
+  .site-footer{text-align:center;padding:14px;font-size:7px;color:#333;font-family:'Share Tech Mono',monospace;letter-spacing:1px;border-top:1px solid #111}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-content">
+      <div class="badge">● PORTAL PREDIKSI RAGILBAGUS - PRIVATE ACCESS</div>
+      <h1>MASTER<br>TIKAM</h1>
+      <div class="sub">TOGEL INVEST KOLABORASI ANAK MEDAN • DEADLY PREDICTION</div>
+      <div class="red-line"></div>
+      
+      <div class="portal-card" id="portalCard">
+        <div class="card-title">MASTER TIKAM</div>
+        <div class="card-sub">TOGEL INVEST KOLABORASI ANAK MEDAN • V.51 TEMPUR - PRIVATE ACCESS</div>
+        
+        <div class="input-group">
+          <label>🔑 PASSWORD</label>
+          <input type="password" id="passInput" placeholder="Masukkan password..." onkeypress="if(event.key==='Enter')bukaTikam()">
+          <div class="hint">💡 Hint: __ __ (2 kata, lower case)</div>
+        </div>
+        
+        <button class="btn-buka" onclick="bukaTikam()">🔓 BUKA MASTER TIKAM</button>
+        <div class="footer-info">V.51 TEMPUR - 14 TAB - EREK-EREK ASLI 00-99</div>
+        
+        <div class="gretong-badge"><div class="gretong-dot"></div> GRETONG - HOSTING GITHUB PAGES • 100% GRATIS SELAMANYA</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="site-footer">PORTAL PREDIKSI RAGILBAGUS © 2026 • KOLABORASI ANAK MEDAN • DEADLY PREDICTION • GRETONG EDITION</div>
+
+<script>
+function bukaTikam(){
+  const p = document.getElementById('passInput').value.trim().toLowerCase();
+  // Password V51 = "anak medan" (sesuai hint 2 kata lower case)
+  if(p === 'anak medan' || p === 'anakmedan' || p === ''){
+    // Jika password benar atau kosong (untuk demo di Google Sites), langsung ke GitHub
+    window.open('https://ediron144-a11y.github.io/?v=51', '_blank');
+    document.getElementById('portalCard').innerHTML = '<div style="padding:20px;text-align:center;"><div style="font-size:40px;">✅</div><div style="margin-top:10px;font-size:14px;letter-spacing:2px;">AKSES DITERIMA</div><div style="font-size:9px;color:#888;margin-top:8px;font-family:monospace;">Membuka MASTER TIKAM V51 di tab baru...<br>Jika tidak terbuka, klik <a href="https://ediron144-a11y.github.io/?v=51" target="_blank" style="color:#ff1a1a;">di sini</a></div></div>';
+  } else {
+    alert('❌ Password salah bosq! Hint: __ __ (2 kata, lower case)');
+    document.getElementById('passInput').value='';
+    document.getElementById('passInput').focus();
+  }
+}
+</script>
+</body>
+</html>
