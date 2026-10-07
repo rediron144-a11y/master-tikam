@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<title>MASTER TIKAM V.53 FINAL WORKING - JP SCROLL + AUTO ALGO</title>
+<style>
+:root { --maroon:#0f0000; --gold:#cc0000; --neon:#ff1a1a; --dark:#050505; --cyan:#c0c0c0; --blue:#8b0000; --red:#ff0000; --green:#00c853; --purple:#4a0000; --orange:#ff9800; }
+*{box-sizing:border-box} body{background:#050505;color:#eee;font-family:'Oswald',sans-serif;padding:10px;margin:0}
+.container{max-width:840px;margin:0 auto}
+header{display:flex;align-items:center;gap:15px;background:linear-gradient(135deg,#0a0000 0%,#1a0000 40%,#000 100%);padding:12px 15px;border:2px solid #cc0000;border-radius:20px;margin-bottom:15px}
+.header-text h2{margin:0;font-size:22px;letter-spacing:2px;color:#fff;font-weight:900} .header-text p{margin:3px 0 0;font-size:9px;color:#c0c0c0}
+.tab-container{display:flex;gap:5px;margin-bottom:15px;flex-wrap:wrap} .tab-btn{flex:1;min-width:75px;padding:11px 5px;background:#1a1a1a;color:#777;border:1px solid #333;border-radius:10px;cursor:pointer;font-weight:bold;text-transform:uppercase;font-size:10px} .tab-btn.active{background:#cc0000;color:#fff;border-color:#cc0000}
+.card{background:#111;padding:15px;border-radius:15px;border:1px solid #333;margin-bottom:15px} .content-section{display:none} .content-section.active{display:block}
+label{font-size:11px;color:#cc0000;text-transform:uppercase;display:block;margin-bottom:5px} select,textarea,input{background:#000;color:#fff;border:1px solid #444;padding:10px;border-radius:8px;width:100%;outline:none;font-family:'Oswald';font-size:13px} textarea{font-family:Consolas,monospace;color:#ff1a1a;font-size:12px;min-height:80px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px} .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.btn-group,.btn-group-2,.btn-group-3{display:grid;gap:8px;margin-top:15px} .btn-group{grid-template-columns:2fr 1fr 1fr} .btn-group-2{grid-template-columns:2fr 1fr} .btn-group-3{grid-template-columns:1fr 1fr 1fr}
+button{padding:12px;border-radius:10px;border:none;font-weight:bold;cursor:pointer;text-transform:uppercase;font-family:'Oswald';font-size:11px} .btn-gen{background:#cc0000;color:#fff} .btn-run{background:#8b0000;color:#fff} .btn-backtest{background:#c0c0c0;color:#000} .btn-excel{background:#00c853;color:#fff} .btn-reset{background:#333;color:#fff} .btn-copy{background:#1b5e20;color:#fff} .btn-add{background:#ff0000;color:#fff} .btn-delete{background:#555;color:#fff;padding:5px 10px;font-size:10px;border-radius:5px}
+.output{display:none;background:#000;padding:15px;border-radius:15px;border:1px solid #cc0000;font-family:Consolas,monospace;white-space:pre-wrap;font-size:12px;line-height:1.6;margin-bottom:10px;max-height:600px;overflow-y:auto}
+.pasaran-manager{background:#1a1a1a;padding:10px;border-radius:10px;margin-bottom:10px;border:1px solid #444} .pasaran-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px} .pasaran-tag{background:#333;padding:5px 10px;border-radius:20px;font-size:11px;display:flex;align-items:center;gap:5px;cursor:pointer} .pasaran-tag.active{background:#cc0000;color:#fff}
+.data-status{font-size:10px;color:#c0c0c0;margin-top:8px}
+.last-result-box{background:linear-gradient(135deg,#0a0a0a 0%,#1a0a00 100%);border:2px solid #cc0000;border-radius:12px;padding:12px 15px;margin-top:10px;display:flex;justify-content:space-between;align-items:center} .last-result-label{font-size:10px;color:#cc0000;font-weight:bold} .last-result-sublabel{font-size:9px;color:#777} .last-result-value{font-family:Consolas,monospace;font-size:26px;font-weight:bold;color:#ff1a1a;letter-spacing:6px;min-width:110px;text-align:right} .last-result-value.empty{color:#444;font-size:18px;letter-spacing:2px}
+.table-container{overflow-x:auto;margin-top:10px;border:1px solid #333;border-radius:10px} table{width:100%;border-collapse:collapse;font-size:12px} th{background:#0f0000;color:#cc0000;padding:10px 6px;text-align:center} td{padding:8px 6px;border-bottom:1px solid #333;text-align:center;font-family:Consolas,monospace} .hit{color:#00ff88;background:rgba(0,255,100,0.08)} .miss{color:#ff0000} .wait{color:#ff9800;background:rgba(255,152,0,0.1)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:15px} .stat-card{background:#1a1a1a;padding:10px;border-radius:10px;text-align:center;border:1px solid #333} .stat-value{font-size:18px;font-weight:bold;color:#cc0000} .stat-label{font-size:9px;color:#777;text-transform:uppercase}
+.mistik-preview{background:#0d0d0d;border:1px dashed #444;border-radius:10px;padding:10px;margin-top:10px;font-family:Consolas,monospace;font-size:10px;color:#aaa} .mistik-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-top:6px} .mistik-cell{background:#1a1a1a;border:1px solid #333;border-radius:5px;padding:4px 2px;text-align:center;font-size:10px} .mistik-cell b{color:#cc0000;display:block} .mistik-cell span{color:#ff1a1a}
+.algo-badge{background:#4a0000;color:#fff;padding:2px 6px;border-radius:4px;font-size:9px;margin-left:5px}
+.trim-toast{position:fixed;top:20px;right:20px;background:linear-gradient(135deg,#ff0000,#8b0000);color:#fff;padding:12px 18px;border-radius:10px;font-size:12px;z-index:9999;opacity:0;transform:translateX(100%);transition:all 0.4s ease} .trim-toast.show{opacity:1;transform:translateX(0)}
+.scroll-dropdown{position:relative;width:100%} .dropdown-trigger{background:#000;border:1px solid #444;border-radius:8px;padding:10px 12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#fff} .dropdown-trigger.active{border-color:#cc0000} .dropdown-trigger .arrow{transition:transform 0.2s;color:#cc0000} .dropdown-trigger.active .arrow{transform:rotate(180deg)} .dropdown-options{position:absolute;top:105%;left:0;right:0;background:#111;border:1px solid #444;border-radius:10px;z-index:100;max-height:260px;overflow-y:auto;display:none;box-shadow:0 10px 30px rgba(0,0,0,0.8)} .dropdown-options.show{display:block} .dropdown-search{padding:8px;position:sticky;top:0;background:#111;z-index:1;border-bottom:1px solid #333} .dropdown-search input{background:#000;border:1px solid #333;border-radius:6px;padding:8px;font-size:12px} .dropdown-item{padding:10px 12px;cursor:pointer;border-bottom:1px solid #222;font-size:12px;display:flex;justify-content:space-between;align-items:center} .dropdown-item:hover{background:#1f1f1f} .dropdown-item.active{background:#cc0000;color:#fff;font-weight:bold} .dropdown-item .count{font-size:9px;color:#777;background:#222;padding:2px 6px;border-radius:10px} .dropdown-empty{padding:15px;text-align:center;color:#777;font-size:11px}
+</style>
+</head>
+<body>
+<div class="container">
+<header><div class="header-text"><h2>MASTER TIKAM V.53 FINAL WORKING</h2><p>🔪 JP SCROLL FIX + AUTO ALGO FIX — 100% SEHAT</p></div></header>
+<div class="trim-toast" id="trimToast"></div>
+<div class="tab-container">
+<button class="tab-btn active" onclick="showTab('ai-tab', this)">🎯 AI</button>
+<button class="tab-btn" onclick="showTab('backtest-tab', this)">📈 BACKTEST</button>
+<button class="tab-btn" onclick="showTab('jptrack-tab', this)" style="border-color:#00c853;color:#00c853;">📊 JP TRACK</button>
+<button class="tab-btn" onclick="showTab('backup-tab', this)">💾 BACKUP</button>
+</div>
+
+<!-- AI TAB -->
+<div id="ai-tab" class="content-section active">
+<div class="card">
+<div class="pasaran-manager">
+<label>📍 Pasaran AI</label>
+<div class="grid-3">
+<div class="scroll-dropdown" id="aiDropdown"><div class="dropdown-trigger" onclick="toggleDropdown('ai')"><span id="aiTriggerText">-- Pilih --</span><span class="arrow">▼</span></div><div class="dropdown-options" id="aiDropdownOptions"><div class="dropdown-search"><input type="text" id="aiSearch" placeholder="🔍 Cari..." oninput="filterDropdown('ai')"></div><div id="aiOptionsList"></div></div></div>
+<input type="text" id="lokasiLainnya" placeholder="Nama baru..." style="display:none;"><button class="btn-add" id="btnAddPasaran" onclick="addPasaran('ai')" style="display:none;">💾 TAMBAH</button>
+</div>
+<div style="display:flex;gap:5px;margin-top:8px;"><button class="btn-add" style="flex:1;background:#222;border:1px solid #444;" onclick="showAddPasaran('ai')">➕ Baru</button><button class="btn-reset" style="flex:1;" onclick="clearAiSelection()">🔄 Clear</button></div>
+<div class="pasaran-list" id="pasaranList"></div><div class="data-status" id="aiDataStatus"></div>
+</div>
+<div class="grid-3">
+<div><label>🧮 Algo <span class="algo-badge" id="algoBadge">HY</span></label><select id="rumus" onchange="onAlgoChange()"><optgroup label="CORE"><option value="hy">HYBRID</option><option value="ix">IX</option><option value="ml">ML</option><option value="mb">MB</option><option value="ty">TY</option></optgroup><optgroup label="M0-M19"><option value="m0">M0</option><option value="m5">M5</option><option value="m10">M10</option><option value="m15">M15</option><option value="m19">M19</option></optgroup></select><div class="mistik-preview" id="mistikPreview"></div></div>
+<div><label>Putaran</label><select id="putaran"><option value="10">10</option><option value="30">30</option><option value="50">50</option><option value="70">70</option></select><label style="margin-top:10px;">Mode</label><select id="kombinasiMode"><option value="single">SINGLE</option><option value="chain">CHAIN</option><option value="mirror">MIRROR</option><option value="stack">STACK</option></select></div>
+<div><label>Opsi</label><label style="display:flex;align-items:center;gap:5px;font-size:11px;color:#aaa;height:42px;background:#000;padding:0 10px;border:1px solid #444;border-radius:8px;"><input type="checkbox" id="shioOff"> Shio OFF</label></div>
+</div>
+<label>History (baru di bawah):</label><textarea id="inputAI" placeholder="0712
+4471
+0624" oninput="onAIInput()"></textarea>
+<div class="last-result-box"><div><div class="last-result-label">Result Terakhir</div><div class="last-result-sublabel" id="lastResultCount">-</div></div><div class="last-result-value empty" id="lastResultValue">-</div></div>
+<div style="margin-bottom:8px;"><button class="btn-gen" style="width:100%;background:linear-gradient(135deg,#8b0000,#cc0000);border:1px solid #ff1a1a;color:#fff;font-size:11px;padding:12px;" onclick="autoSelectBestFromAI()">🏆 AUTO PILIH ALGO TERBAIK DARI DATA</button><div id="aiAutoResult" style="margin-top:6px;"></div></div>
+<div class="btn-group"><button class="btn-gen" onclick="prosesAI()">⚡ GENERATE BBFS 8</button><button class="btn-reset" onclick="resetAI()">🔄</button><button class="btn-copy" onclick="copyFullAI()">📋 SALIN</button></div>
+</div>
+<div id="hasilAI" class="output"></div>
+</div>
+
+<!-- BACKTEST TAB -->
+<div id="backtest-tab" class="content-section">
+<div class="card">
+<label>📊 Backtest N→N+1 - BBFS 8</label>
+<div class="pasaran-manager" style="border:1px solid #c0c0c0;">
+<label>📍 Pasaran BT:</label>
+<div class="scroll-dropdown" id="btDropdown"><div class="dropdown-trigger" onclick="toggleDropdown('bt')"><span id="btTriggerText">-- Pilih --</span><span class="arrow">▼</span></div><div class="dropdown-options" id="btDropdownOptions"><div class="dropdown-search"><input type="text" id="btSearch" placeholder="🔍" oninput="filterDropdown('bt')"></div><div id="btOptionsList"></div></div></div>
+<div style="display:flex;gap:5px;margin-top:8px;"><button class="btn-add" style="flex:1;background:#222;" onclick="showAddPasaran('bt')">➕ Baru</button><button class="btn-reset" style="flex:1;" onclick="clearBtSelection()">🔄 Clear</button></div>
+</div>
+<div class="grid-3"><div><label>Algo</label><select id="btRumus"></select></div><div><label>Putaran</label><select id="btPutaran"><option value="10">10</option><option value="30">30</option><option value="50">50</option></select></div><div><label>Mode</label><select id="btMode"><option value="2">2D</option><option value="3">3D</option><option value="4">4D</option></select></div></div>
+<label>Result History:</label><textarea id="btInput" rows="8" oninput="onBtInput()"></textarea>
+<div class="last-result-box"><div><div class="last-result-label">Result Terakhir</div><div class="last-result-sublabel" id="btLastResultCount">-</div></div><div class="last-result-value empty" id="btLastResultValue">-</div></div>
+<div class="btn-group-3"><button class="btn-backtest" onclick="runBacktest()">🔍 JALANKAN</button><button class="btn-excel" onclick="downloadBacktestExcel()" id="btnDownloadExcel" style="display:none;">📥 EXCEL</button><button class="btn-reset" onclick="resetBacktest()">🔄 RESET</button></div>
+<div style="margin-top:10px;"><button class="btn-gen" style="width:100%;background:linear-gradient(135deg,#cc0000,#8b0000);color:#fff;padding:14px;border:1px solid #ff1a1a;" onclick="autoSelectBestAlgorithm()">🏆 AUTO PILIH ALGO TERBAIK</button></div>
+<div id="autoAlgoResult" class="table-container" style="display:none;margin-top:12px;"></div>
+</div>
+<div id="btStats" style="display:none;"><div class="stats-grid"><div class="stat-card"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total</div></div><div class="stat-card"><div class="stat-value" id="statHit">0</div><div class="stat-label">HIT</div></div><div class="stat-card"><div class="stat-value" id="statMiss">0</div><div class="stat-label">ZONK</div></div><div class="stat-card"><div class="stat-value" id="statRate">0%</div><div class="stat-label">Akurasi</div></div></div></div>
+<div id="btTableContainer" class="table-container" style="display:none;"><table><thead><tr><th>No</th><th>Result N</th><th>BBFS 8</th><th>Target N+1</th><th>Status</th></tr></thead><tbody id="btTableBody"></tbody></table></div>
+<div id="btOutput" class="output"></div>
+</div>
+
+<!-- JP TRACK -->
+<div id="jptrack-tab" class="content-section">
+<div class="card" style="border-color:#00c853;background:linear-gradient(135deg,#001a0a,#000);">
+<label>📊 JP TRACKER PRIBADI — SCROLL DROPDOWN FIX</label>
+<div style="font-size:10px;color:#00c853;margin-bottom:12px;">✅ FIX: Pasaran dropdown scroll + search — gak numpuk lagi!</div>
+<div class="grid-2">
+<div><label>📅 Tanggal</label><input type="date" id="jptDate"></div>
+<div>
+<label>📍 Pasaran (Scroll)</label>
+<div class="scroll-dropdown" id="jptDropdown">
+<div class="dropdown-trigger" onclick="toggleDropdown('jpt')"><span id="jptTriggerText">-- Pilih Pasaran --</span><span class="arrow">▼</span></div>
+<div class="dropdown-options" id="jptDropdownOptions"><div class="dropdown-search"><input type="text" id="jptSearch" placeholder="🔍 Cari pasaran..." oninput="filterDropdown('jpt')"></div><div id="jptOptionsList"></div></div>
+</div>
+<input type="hidden" id="jptPasaran">
+<div style="display:flex;gap:5px;margin-top:6px;"><input type="text" id="jptLokasiLainnya" placeholder="Pasaran baru..." style="display:none;flex:1;"><button class="btn-add" id="btnAddJptPasaran" onclick="addPasaran('jpt')" style="display:none;">💾</button></div>
+<div style="display:flex;gap:5px;margin-top:6px;"><button class="btn-add" style="flex:1;background:#222;border:1px solid #00c853;color:#00c853;" onclick="showAddPasaran('jpt')">➕ Baru</button><button class="btn-reset" style="flex:1;" onclick="clearJptSelection()">🔄 Clear</button></div>
+<div class="data-status" id="jptDataStatus" style="color:#00c853;">📁 Pilih pasaran dari dropdown</div>
+</div>
+<div><label>🎲 BBFS</label><input type="text" id="jptBBFS" placeholder="12345678" maxlength="8"></div>
+<div><label>🧮 Algo</label><input type="text" id="jptAlgo" placeholder="HY" maxlength="6"></div>
+<div><label>🎯 Result</label><input type="text" id="jptResult" placeholder="4471" maxlength="4"></div>
+<div><label>✅ Status</label><select id="jptStatus"><option value="JP">✓ JP</option><option value="ZONK">✗ ZONK</option><option value="MENUNGGU">⏳ MENUNGGU</option></select></div>
+</div>
+<label>📝 Catatan</label><input type="text" id="jptNotes" placeholder="Feeling bosq...">
+<div class="btn-group-3" style="margin-top:12px;"><button class="btn-gen" onclick="jptAdd()" style="background:linear-gradient(135deg,#00c853,#00701a);color:#fff;">➕ TAMBAH</button><button class="btn-excel" onclick="jptExport()">📥 CSV</button><button class="btn-reset" onclick="jptClearAll()" style="background:#7f0000;">🗑️ CLEAR</button></div>
+</div>
+<div id="jptStats" style="display:none;"><div class="stats-grid"><div class="stat-card"><div class="stat-value" id="jptStatTotal">0</div><div class="stat-label">Total</div></div><div class="stat-card"><div class="stat-value" id="jptStatJP" style="color:#00c853;">0</div><div class="stat-label">JP</div></div><div class="stat-card"><div class="stat-value" id="jptStatZonk" style="color:#ff1a1a;">0</div><div class="stat-label">ZONK</div></div><div class="stat-card"><div class="stat-value" id="jptStatRate">0%</div><div class="stat-label">Win Rate</div></div></div></div>
+<div class="table-container" id="jptTableWrap" style="display:none;"><table><thead><tr><th>No</th><th>Tgl</th><th>Pasaran</th><th>BBFS</th><th>Algo</th><th>Result</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="jptTableBody"></tbody></table></div>
+</div>
+
+<div id="backup-tab" class="content-section"><div class="card"><label>💾 BACKUP</label><button class="btn-excel" style="width:100%;" onclick="exportAllData()">📥 EXPORT</button><div id="exportStatus"></div><button class="btn-run" style="width:100%;margin-top:10px;" onclick="document.getElementById('importFile').click()">📤 RESTORE</button><input type="file" id="importFile" style="display:none;" onchange="importAllData(event)"><div id="importStatus"></div><div id="storageStats"></div></div></div>
+</div>
+
+<script>
+const MISTIK_TABLES = {
+  ix:{name:'INDEX',map:{'0':'5','1':'6','2':'7','3':'8','4':'9','5':'0','6':'1','7':'2','8':'3','9':'4'}},
+  ml:{name:'MISTIK LAMA',map:{'0':'1','1':'0','2':'5','3':'8','4':'7','5':'2','6':'9','7':'4','8':'3','9':'6'}},
+  mb:{name:'MISTIK BARU',map:{'0':'8','1':'7','2':'6','3':'9','4':'5','5':'4','6':'2','7':'1','8':'0','9':'3'}},
+  ty:{name:'TYSEN',map:{'0':'7','1':'4','2':'9','3':'6','4':'1','5':'8','6':'3','7':'0','8':'5','9':'2'}},
+  m0:{name:'M0',map:{'0':'6','1':'5','2':'8','3':'7','4':'9','5':'1','6':'0','7':'3','8':'2','9':'4'}},
+  m5:{name:'M5',map:{'0':'5','1':'4','2':'3','3':'2','4':'1','5':'0','6':'9','7':'8','8':'7','9':'6'}},
+  m10:{name:'M10',map:{'0':'4','1':'2','2':'1','3':'8','4':'0','5':'6','6':'5','7':'9','8':'3','9':'7'}},
+  m15:{name:'M15',map:{'0':'5','1':'6','2':'4','3':'9','4':'2','5':'0','6':'1','7':'8','8':'7','9':'3'}},
+  m19:{name:'M19',map:{'0':'7','1':'8','2':'3','3':'2','4':'9','5':'6','6':'5','7':'0','8':'1','9':'4'}},
+};
+let savedPasaran = JSON.parse(localStorage.getItem('tikam_pasaran_list'))||[];
+let currentAiPasaran = localStorage.getItem('tikam_current_ai')||null;
+let currentBtPasaran = localStorage.getItem('tikam_current_bt')||null;
+let currentJptPasaran = localStorage.getItem('tikam_current_jpt')||null;
+let internalSeed = 0, lastBacktestData = null;
+const MAX_AI = 50, MAX_BT = 100;
+
+function getMarketKey(p,m){ if(!m) return null; return 'tikam_'+p+'_'+m.toUpperCase().replace(/\s+/g,'_'); }
+function saveMarketData(p,m,d){ const k=getMarketKey(p,m); if(!k) return; localStorage.setItem(k,JSON.stringify(d)); }
+function loadMarketData(p,m){ const k=getMarketKey(p,m); if(!k) return null; const d=localStorage.getItem(k); return d?JSON.parse(d):null; }
+function autoTrim(ta,max){
+  const lines=ta.value.split('\n');
+  const valid=[], idxs=[];
+  lines.forEach((l,i)=>{
+    const t=l.trim();
+    if(/^\d{4}$/.test(t)){ valid.push(t); idxs.push(i); }
+  });
+  if(valid.length>max){
+    const c=valid.length-max;
+    const rem=idxs.slice(0,c);
+    ta.value=lines.filter((_,i)=>!rem.includes(i)).join('\n').trim();
+    const toast=document.getElementById('trimToast');
+    if(toast){ toast.innerHTML='✂️ '+c+' data ter-trim'; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2500); }
+    return true;
+  }
+  return false;
+}
+function onAIInput(){ autoTrim(document.getElementById('inputAI'),MAX_AI); updateIndicator(); autoSaveData(); }
+function onBtInput(){ autoTrim(document.getElementById('btInput'),MAX_BT); updateBtIndicator(); autoSaveBtData(); }
+function autoSaveData(){ if(!currentAiPasaran) return; saveMarketData('ai',currentAiPasaran,{history:document.getElementById('inputAI').value, algorithm:document.getElementById('rumus').value, putaran:document.getElementById('putaran').value, kombinasi:document.getElementById('kombinasiMode').value, shioOff:document.getElementById('shioOff').checked, timestamp:Date.now()}); }
+function autoSaveBtData(){ if(!currentBtPasaran) return; saveMarketData('bt',currentBtPasaran,{history:document.getElementById('btInput').value, algorithm:document.getElementById('btRumus').value, putaran:document.getElementById('btPutaran').value, mode:document.getElementById('btMode').value, timestamp:Date.now()}); }
+function loadAIData(){ if(!currentAiPasaran) return; const d=loadMarketData('ai',currentAiPasaran); if(d){ document.getElementById('inputAI').value=d.history||''; document.getElementById('rumus').value=d.algorithm||'hy'; document.getElementById('putaran').value=d.putaran||'10'; document.getElementById('kombinasiMode').value=d.kombinasi||'single'; document.getElementById('shioOff').checked=d.shioOff||false; updateIndicator(); onAlgoChange(); } }
+function loadBtData(){ if(!currentBtPasaran) return; const d=loadMarketData('bt',currentBtPasaran); if(d){ document.getElementById('btInput').value=d.history||''; document.getElementById('btRumus').value=d.algorithm||'hy'; document.getElementById('btPutaran').value=d.putaran||'10'; document.getElementById('btMode').value=d.mode||'2'; updateBtIndicator(); } }
+
+function toggleDropdown(type){
+  const opts=document.getElementById(type+'DropdownOptions');
+  const trig=document.querySelector('#'+type+'Dropdown .dropdown-trigger');
+  if(!opts||!trig) return;
+  const isShow=opts.classList.contains('show');
+  closeAllDropdowns();
+  if(!isShow){ opts.classList.add('show'); trig.classList.add('active'); }
+}
+function closeAllDropdowns(){ document.querySelectorAll('.dropdown-options').forEach(o=>o.classList.remove('show')); document.querySelectorAll('.dropdown-trigger').forEach(t=>t.classList.remove('active')); }
+document.addEventListener('click',(e)=>{ if(!e.target.closest('.scroll-dropdown')) closeAllDropdowns(); });
+function filterDropdown(type){
+  const searchEl=document.getElementById(type+'Search');
+  const listEl=document.getElementById(type+'OptionsList');
+  if(!searchEl||!listEl) return;
+  const q=searchEl.value.toLowerCase();
+  listEl.querySelectorAll('.dropdown-item').forEach(item=>{
+    item.style.display=item.dataset.name.toLowerCase().includes(q)?'flex':'none';
+  });
+}
+function populateDropdowns(){
+  const aiList=document.getElementById('aiOptionsList');
+  const btList=document.getElementById('btOptionsList');
+  const jptList=document.getElementById('jptOptionsList');
+  if(aiList){
+    aiList.innerHTML='';
+    if(savedPasaran.length===0) aiList.innerHTML='<div class="dropdown-empty">Belum ada pasaran</div>';
+    else savedPasaran.forEach(p=>{
+      const k=getMarketKey('ai',p); const d=localStorage.getItem(k); let cnt=0; if(d){ try{ const j=JSON.parse(d); cnt=(j.history||'').split(/\s+/).filter(x=>/^\d{4}$/.test(x)).length; }catch{} }
+      const item=document.createElement('div'); item.className='dropdown-item'; if(currentAiPasaran===p) item.classList.add('active'); item.dataset.name=p; item.innerHTML='<span>'+p+'</span><span class="count">'+cnt+'</span>'; item.onclick=function(){ selectPasaranDropdown('ai',p); }; aiList.appendChild(item);
+    });
+    document.getElementById('aiTriggerText').textContent=currentAiPasaran||'-- Pilih --';
+  }
+  if(btList){
+    btList.innerHTML='';
+    if(savedPasaran.length===0) btList.innerHTML='<div class="dropdown-empty">Belum ada</div>';
+    else savedPasaran.forEach(p=>{
+      const item=document.createElement('div'); item.className='dropdown-item'; if(currentBtPasaran===p) item.classList.add('active'); item.dataset.name=p; item.innerHTML='<span>'+p+'</span><span class="count">BT</span>'; item.onclick=function(){ selectPasaranDropdown('bt',p); }; btList.appendChild(item);
+    });
+    document.getElementById('btTriggerText').textContent=currentBtPasaran||'-- Pilih --';
+  }
+  if(jptList){
+    jptList.innerHTML='';
+    if(savedPasaran.length===0) jptList.innerHTML='<div class="dropdown-empty">Belum ada pasaran bosq!</div>';
+    else savedPasaran.forEach(p=>{
+      let cnt=0; try{ const data=JSON.parse(localStorage.getItem('tikam_jp_tracker')||'[]'); cnt=data.filter(e=>e.pasaran===p).length; }catch{}
+      const item=document.createElement('div'); item.className='dropdown-item'; if(currentJptPasaran===p) item.classList.add('active'); item.dataset.name=p; item.innerHTML='<span>'+p+'</span><span class="count">'+cnt+' JP</span>'; item.onclick=function(){ selectJptPasaran(p); }; jptList.appendChild(item);
+    });
+    document.getElementById('jptTriggerText').textContent=currentJptPasaran||'-- Pilih Pasaran --';
+    document.getElementById('jptPasaran').value=currentJptPasaran||'';
+  }
+  renderTagList();
+}
+function selectPasaranDropdown(type,name){
+  closeAllDropdowns();
+  if(type==='ai'){ currentAiPasaran=name; localStorage.setItem('tikam_current_ai',name); document.getElementById('aiTriggerText').textContent=name; document.getElementById('hasilAI').style.display='none'; loadAIData(); updateIndicator(); populateDropdowns(); }
+  else { currentBtPasaran=name; localStorage.setItem('tikam_current_bt',name); document.getElementById('btTriggerText').textContent=name; document.getElementById('btTableBody').innerHTML=''; document.getElementById('btStats').style.display='none'; document.getElementById('btTableContainer').style.display='none'; document.getElementById('btOutput').style.display='none'; lastBacktestData=null; loadBtData(); updateBtIndicator(); populateDropdowns(); }
+}
+function selectJptPasaran(name){
+  closeAllDropdowns();
+  currentJptPasaran=name; localStorage.setItem('tikam_current_jpt',name);
+  document.getElementById('jptTriggerText').textContent=name;
+  document.getElementById('jptPasaran').value=name;
+  document.getElementById('jptDataStatus').innerHTML='✅ Aktif: <b style="color:#fff;">'+name+'</b>';
+  populateDropdowns();
+}
+function clearJptSelection(){
+  currentJptPasaran=null; localStorage.removeItem('tikam_current_jpt');
+  document.getElementById('jptTriggerText').textContent='-- Pilih Pasaran --';
+  document.getElementById('jptPasaran').value='';
+  document.getElementById('jptDataStatus').innerHTML='📁 Pilih pasaran dari dropdown';
+  populateDropdowns();
+}
+function renderTagList(){ const list=document.getElementById('pasaranList'); if(!list) return; list.innerHTML=''; if(!savedPasaran.length){ list.innerHTML='<span style="color:#777;font-size:10px;">Belum ada pasaran</span>'; return; } savedPasaran.forEach(p=>{ const tag=document.createElement('div'); tag.className='pasaran-tag'; if(currentAiPasaran===p) tag.classList.add('active'); tag.innerHTML=p+' <span class="btn-delete" onclick="deletePasaran(\''+p+'\',event)">✕</span>'; tag.onclick=function(e){ if(!e.target.classList.contains('btn-delete')) selectPasaranDropdown('ai',p); }; list.appendChild(tag); }); }
+function showAddPasaran(type){ const inp=document.getElementById(type==='ai'?'lokasiLainnya':type==='jpt'?'jptLokasiLainnya':'btLokasiLainnya'); const btn=document.getElementById(type==='ai'?'btnAddPasaran':type==='jpt'?'btnAddJptPasaran':'btnAddBtPasaran'); if(inp) inp.style.display='block'; if(btn) btn.style.display='block'; if(inp) inp.focus(); }
+function addPasaran(type){ const id=type==='ai'?'lokasiLainnya':type==='jpt'?'jptLokasiLainnya':'btLokasiLainnya'; const el=document.getElementById(id); if(!el) return; const nv=el.value.trim().toUpperCase(); if(!nv) return alert('⚠️ Kosong bosq!'); if(savedPasaran.includes(nv)) return alert('⚠️ Sudah ada bosq!'); savedPasaran.push(nv); localStorage.setItem('tikam_pasaran_list',JSON.stringify(savedPasaran)); el.value=''; el.style.display='none'; const btn=document.getElementById(type==='ai'?'btnAddPasaran':type==='jpt'?'btnAddJptPasaran':'btnAddBtPasaran'); if(btn) btn.style.display='none'; if(type==='ai') selectPasaranDropdown('ai',nv); else if(type==='jpt') selectJptPasaran(nv); else selectPasaranDropdown('bt',nv); populateDropdowns(); }
+function deletePasaran(name,e){ if(e) e.stopPropagation(); if(!confirm('Hapus '+name+'?')) return; savedPasaran=savedPasaran.filter(p=>p!==name); localStorage.setItem('tikam_pasaran_list',JSON.stringify(savedPasaran)); ['ai','bt'].forEach(pre=>{ const k=getMarketKey(pre,name); if(k) localStorage.removeItem(k); }); if(currentAiPasaran===name){ currentAiPasaran=null; localStorage.removeItem('tikam_current_ai'); } if(currentBtPasaran===name){ currentBtPasaran=null; localStorage.removeItem('tikam_current_bt'); } if(currentJptPasaran===name){ currentJptPasaran=null; localStorage.removeItem('tikam_current_jpt'); } populateDropdowns(); renderTagList(); }
+function clearAiSelection(){ currentAiPasaran=null; localStorage.removeItem('tikam_current_ai'); document.getElementById('aiTriggerText').textContent='-- Pilih --'; document.getElementById('inputAI').value=''; document.getElementById('hasilAI').style.display='none'; updateIndicator(); populateDropdowns(); }
+function clearBtSelection(){ currentBtPasaran=null; localStorage.removeItem('tikam_current_bt'); document.getElementById('btTriggerText').textContent='-- Pilih --'; document.getElementById('btInput').value=''; document.getElementById('btTableBody').innerHTML=''; updateBtIndicator(); populateDropdowns(); }
+function showTab(tabId,el){
+  document.querySelectorAll('.content-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if(el) el.classList.add('active');
+  if(['ai-tab','backtest-tab','jptrack-tab'].includes(tabId)) populateDropdowns();
+  if(tabId==='jptrack-tab'){ const jd=document.getElementById('jptDate'); if(jd && !jd.value) jd.value=new Date().toISOString().slice(0,10); jptRender(); }
+}
+
+function applyMistik(d,a){ const t=MISTIK_TABLES[a]; return t?(t.map[d]||d):d; }
+function transformNumber(numStr,algo,mode){
+  if(!numStr) return '';
+  const dig=numStr.split('');
+  if(algo==='hy'){
+    let r=[]; dig.forEach(d=>{ r.push(MISTIK_TABLES.ix.map[d]); r.push(MISTIK_TABLES.ml.map[d]); r.push(MISTIK_TABLES.mb.map[d]); r.push(MISTIK_TABLES.ty.map[d]); });
+    return [...new Set(r)].join('');
+  }
+  return dig.map(d=>applyMistik(d,algo)).join('');
+}
+function generateBBFSFromMistik(lastResults,algo,kombi){
+  const recent=lastResults.slice(-3); let pool=new Set();
+  recent.forEach(r=>{ r.split('').forEach(d=>pool.add(d)); const t=transformNumber(r,algo,kombi); t.split('').forEach(d=>{ if(/\d/.test(d)) pool.add(d); }); });
+  if(algo==='hy'){ recent.forEach(r=>{ ['m0','m5','m10','m15','m19'].forEach(k=>{ transformNumber(r,k,'single').split('').forEach(d=>pool.add(d)); }); }); }
+  let arr=Array.from(pool); const all='0123456789'.split(''); while(arr.length<8){ const rem=all.filter(d=>!arr.includes(d)); if(!rem.length) break; arr.push(rem[Math.floor(Math.random()*rem.length)]); }
+  arr=arr.sort(()=>0.5-(internalSeed++%2)); return {full:arr.slice(0,8).join('')};
+}
+function sRand(){ let x=Math.sin(internalSeed++)*10000; return x-Math.floor(x); }
+function generateTop(pool,len,count,off){ internalSeed+=off; let res=[]; for(let i=0;i<count;i++){ let pArr=pool.split(''), t=""; for(let j=0;j<len;j++){ let idx=Math.floor(sRand()*pArr.length); t+=pArr.splice(idx,1);} res.push(t);} return res.join('*'); }
+function onAlgoChange(){ const a=document.getElementById('rumus').value; document.getElementById('algoBadge').textContent=a.toUpperCase(); const tbl=MISTIK_TABLES[a]; const prev=document.getElementById('mistikPreview'); if(!tbl){ prev.innerHTML='🔥 HYBRID'; return; } let h='<strong>'+tbl.name+'</strong><div class="mistik-grid">'; Object.entries(tbl.map).forEach(([k,v])=>{ h+='<div class="mistik-cell"><b>'+k+'</b><span>'+v+'</span></div>'; }); h+='</div>'; prev.innerHTML=h; autoSaveData(); }
+function updateIndicator(){ const el=document.getElementById('inputAI'); const rs=el.value.trim().split(/\s+/).filter(x=>/^\d{4}$/.test(x)); const c=rs.length; const lv=document.getElementById('lastResultValue'); const lc=document.getElementById('lastResultCount'); if(c>0){ lv.textContent=rs[rs.length-1]; lv.classList.remove('empty'); lc.textContent='#'+c; } else { lv.textContent='-'; lv.classList.add('empty'); lc.textContent='-'; } }
+function updateBtIndicator(){ const el=document.getElementById('btInput'); const rs=el.value.trim().split(/\s+/).filter(x=>/^\d{4}$/.test(x)); const c=rs.length; const lv=document.getElementById('btLastResultValue'); const lc=document.getElementById('btLastResultCount'); lv.textContent=c>0?rs[rs.length-1]:'-'; lv.classList.toggle('empty',c===0); lc.textContent=c>0?'#'+c:'-'; }
+function copyFullAI(){ const t=document.getElementById('hasilAI').innerText; if(!t) return alert("⚠️ Generate dulu!"); navigator.clipboard.writeText(t); alert("✅ DISALIN!"); }
+function prosesAI(){ if(!currentAiPasaran) return alert("⚠️ Pilih pasaran AI dulu!"); const input=document.getElementById('inputAI').value.trim(); const raw=input.split(/\s+/).filter(x=>/^\d{4}$/.test(x)); if(raw.length<3) return alert("⚠️ Minimal 3!"); const algo=document.getElementById('rumus').value; const putaran=parseInt(document.getElementById('putaran').value); const kombi=document.getElementById('kombinasiMode').value; const shioOff=document.getElementById('shioOff').checked; let base=putaran; raw.forEach(v=>{ for(let i=0;i<4;i++) base+=v.charCodeAt(i); }); base+=algo.split('').reduce((a,b)=>a+b.charCodeAt(0),0); const bbfs=generateBBFSFromMistik(raw, algo, kombi).full; const last=raw[raw.length-1]; const transLast=transformNumber(last, algo, kombi); const ai1=transLast.slice(0,4).padEnd(4, bbfs[0]); const ai2=transformNumber(raw[raw.length-2]||last, algo, kombi).slice(0,4).padEnd(4, bbfs[1]); const tbl=MISTIK_TABLES[algo]||MISTIK_TABLES.ix; const k1=parseInt(last[2])||0; const e1=parseInt(last[3])||0; const lk=parseInt(tbl.map[k1.toString()]||k1); const le=parseInt(tbl.map[e1.toString()]||e1); const biji=(lk+le)%10; const ske=Math.abs(lk-le); let shio=shioOff?'OFF':((parseInt(last.slice(-2))+base+putaran)%12)||12; const top2=generateTop(bbfs,2,8,base); const top3=generateTop(bbfs,3,6,base+10); const top4=generateTop(bbfs,4,5,base+20); const res='🔮 V.53 BBFS 8 - '+currentAiPasaran+'\n🧮 ALGO: '+(MISTIK_TABLES[algo]?.name||algo)+' ('+algo.toUpperCase()+') - '+kombi+'\n🎲 BBFS 8: '+bbfs+'\nAI-1: '+ai1+' | AI-2: '+ai2+'\nOFF LK:'+lk+' LE:'+le+' BIJI:'+biji+' SKE:'+ske+' SHIO:'+shio+'\n━━━━━━━━━━━━━━━\nTOP 2D:\n'+top2+'\n\nTOP 3D:\n'+top3+'\n\nTOP 4D:\n'+top4; document.getElementById('hasilAI').innerText=res; document.getElementById('hasilAI').style.display='block'; autoSaveData(); }
+function resetAI(){ document.getElementById('inputAI').value=''; document.getElementById('hasilAI').style.display='none'; updateIndicator(); autoSaveData(); }
+function runBacktest(){ if(!currentBtPasaran) return alert("⚠️ Pilih pasaran BT!"); const input=document.getElementById('btInput').value.trim(); const results=input.split(/\s+/).filter(x=>/^\d{4}$/.test(x)); if(results.length<4) return alert("⚠️ Minimal 4!"); const algo=document.getElementById('btRumus').value; const mode=parseInt(document.getElementById('btMode').value); let tb=document.getElementById('btTableBody'); tb.innerHTML=''; let hits=0, zonk=0, rows=[]; for(let i=0;i<results.length;i++){ if(i<2) continue; const history=results.slice(0,i+1); const bbfs8=generateBBFSFromMistik(history,algo,'single').full; const target=results[i+1]; let status, cls; if(!target){ status='⏳ MENUNGGU'; cls='wait'; } else { let td=mode===2?target.slice(-2).split(''):mode===3?target.slice(-3).split(''):target.split(''); const isHit=td.every(d=>bbfs8.includes(d)); if(isHit){ status='✓ HIT'; cls='hit'; hits++; } else { status='✗ ZONK'; cls='miss'; zonk++; } } rows.push({putaran:i+1, result:results[i], bbfs8, target:target||'-', status, cls}); tb.innerHTML+='<tr class="'+cls+'"><td>'+(i+1)+'</td><td><strong>'+results[i]+'</strong></td><td>'+bbfs8+'</td><td>'+(target||'-')+'</td><td class="'+cls+'">'+status+'</td></tr>'; } lastBacktestData={pasaran:currentBtPasaran, algorithm:algo, rows, hits, zonk}; const total=hits+zonk; document.getElementById('statTotal').textContent=total; document.getElementById('statHit').textContent=hits; document.getElementById('statMiss').textContent=zonk; document.getElementById('statRate').textContent= total?Math.round((hits/total)*100)+'%':'0%'; document.getElementById('btStats').style.display='grid'; document.getElementById('btTableContainer').style.display='block'; document.getElementById('btnDownloadExcel').style.display='block'; document.getElementById('btOutput').innerText='📈 BACKTEST '+currentBtPasaran+'\nTotal:'+total+' HIT:'+hits+' ZONK:'+zonk+' Akurasi:'+document.getElementById('statRate').textContent; document.getElementById('btOutput').style.display='block'; autoSaveBtData(); }
+function downloadBacktestExcel(){ if(!lastBacktestData) return alert("⚠️ Jalankan dulu!"); let csv='No,Result,BBFS,Target,Status\n'; lastBacktestData.rows.forEach(r=>{ csv+=r.putaran+','+r.result+','+r.bbfs8+','+r.target+','+r.status+'\n'; }); const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='Backtest_'+lastBacktestData.pasaran+'.csv'; a.click(); }
+function resetBacktest(){ document.getElementById('btInput').value=''; document.getElementById('btTableBody').innerHTML=''; document.getElementById('btStats').style.display='none'; document.getElementById('btTableContainer').style.display='none'; document.getElementById('btOutput').style.display='none'; document.getElementById('btnDownloadExcel').style.display='none'; document.getElementById('autoAlgoResult').style.display='none'; lastBacktestData=null; updateBtIndicator(); }
+function initMistikDropdowns(){ const s1=document.getElementById('btRumus'); if(!s1) return; s1.innerHTML=''; Object.keys(MISTIK_TABLES).forEach(k=>{ const o=document.createElement('option'); o.value=k; o.textContent=k.toUpperCase()+' - '+MISTIK_TABLES[k].name; s1.appendChild(o); }); }
+
+// === AUTO PILIH ALGO TERBAIK - FIXED ===
+const ALGO_LIST = ['ix','ml','mb','ty','m0','m5','m10','m15','m19','hy'];
+function evaluateAlgo(algo, results, mode){
+  let hits=0, zonk=0;
+  internalSeed = algo.split('').reduce((a,b)=>a+b.charCodeAt(0),0);
+  for(let i=2; i<results.length-1; i++){
+    const history = results.slice(0,i+1);
+    const bbfs8 = generateBBFSFromMistik(history, algo, 'single').full;
+    const target = results[i+1];
+    if(!target) continue;
+    let td = mode===2?target.slice(-2).split(''):mode===3?target.slice(-3).split(''):target.split('');
+    if(td.every(d=>bbfs8.includes(d))) hits++; else zonk++;
+  }
+  const total = hits+zonk;
+  return {algo, hits, zonk, total, acc: total?(hits/total*100):0};
+}
+function autoSelectBestAlgorithm(){
+  console.log('AUTO BT CLICKED');
+  if(!currentBtPasaran){
+    alert("⚠️ Pilih pasaran BT dulu bosq! (dropdown di atas)");
+    return;
+  }
+  const inputEl = document.getElementById('btInput');
+  const results = inputEl.value.trim().split(/\s+/).filter(x=>/^\d{4}$/.test(x));
+  if(results.length < 5){
+    alert("⚠️ Minimal 5 result di history bosq! Sekarang cuma "+results.length);
+    return;
+  }
+  const mode = parseInt(document.getElementById('btMode').value);
+  const container = document.getElementById('autoAlgoResult');
+  container.style.display='block';
+  container.innerHTML = '<div style="padding:15px;text-align:center;color:#cc0000;">⏳ Menghitung '+ALGO_LIST.length+' algo...</div>';
+  setTimeout(function(){
+    const scores = ALGO_LIST.map(function(algo){ return evaluateAlgo(algo, results, mode); });
+    scores.sort(function(a,b){ return b.acc - a.acc || b.hits - a.hits; });
+    let html = '<table><thead><tr><th>#</th><th>Algo</th><th>Akurasi</th><th>HIT</th><th>ZONK</th><th>Aksi</th></tr></thead><tbody>';
+    scores.forEach(function(s, idx){
+      const isBest = idx===0;
+      html += '<tr class="'+(isBest?'hit':'')+'"><td>'+(isBest?'🏆':idx+1)+'</td><td><b>'+s.algo.toUpperCase()+'</b></td><td><b style="color:'+(isBest?'#00ff88':'#cc0000')+'">'+s.acc.toFixed(1)+'%</b></td><td>'+s.hits+'</td><td>'+s.zonk+'</td><td><button class="btn-copy" style="padding:5px 8px;font-size:9px;" onclick="applyBestAlgo(\''+s.algo+'\')">PAKAI</button></td></tr>';
+    });
+    html += '</tbody></table>';
+    html += '<div style="padding:8px;font-size:10px;color:#00c853;">✅ Algo terbaik: <b style="color:#fff;">'+scores[0].algo.toUpperCase()+'</b> ('+scores[0].acc.toFixed(1)+'%) - otomatis dipasang!</div>';
+    container.innerHTML = html;
+    applyBestAlgo(scores[0].algo);
+  }, 100);
+}
+function applyBestAlgo(algo){
+  document.getElementById('btRumus').value = algo;
+  document.getElementById('rumus').value = algo;
+  onAlgoChange();
+  autoSaveBtData(); autoSaveData();
+  const toast=document.getElementById('trimToast');
+  if(toast){ toast.innerHTML='🏆 Algo terbaik: '+algo.toUpperCase(); toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); },2500); }
+}
+function autoSelectBestFromAI(){
+  console.log('AUTO AI CLICKED');
+  if(!currentAiPasaran){
+    alert("⚠️ Pilih pasaran AI dulu bosq!");
+    return;
+  }
+  const results = document.getElementById('inputAI').value.trim().split(/\s+/).filter(x=>/^\d{4}$/.test(x));
+  if(results.length < 5){
+    alert("⚠️ Minimal 5 result bosq! Sekarang cuma "+results.length);
+    return;
+  }
+  const container = document.getElementById('aiAutoResult');
+  container.innerHTML = '<div style="padding:8px;text-align:center;color:#cc0000;">⏳ Menghitung...</div>';
+  setTimeout(function(){
+    const scores = ALGO_LIST.map(function(algo){ return evaluateAlgo(algo, results, 2); });
+    scores.sort(function(a,b){ return b.acc - a.acc || b.hits - a.hits; });
+    let html = '<div style="background:#0a0000;border:1px solid #cc0000;border-radius:8px;padding:10px;">';
+    html += '<div style="font-size:11px;color:#00c853;margin-bottom:6px;">🏆 RANKING ALGO:</div>';
+    scores.slice(0,3).forEach(function(s,idx){
+      html += '<div style="font-size:11px;color:#fff;padding:2px 0;">'+(idx+1)+'. <b>'+s.algo.toUpperCase()+'</b> - '+s.acc.toFixed(1)+'% ('+s.hits+' HIT) '+(idx===0?'⭐ TERBAIK':'')+'</div>';
+    });
+    html += '<div style="margin-top:8px;font-size:10px;color:#00c853;">✅ Otomatis dipasang: <b style="color:#fff;">'+scores[0].algo.toUpperCase()+'</b></div>';
+    html += '</div>';
+    container.innerHTML = html;
+    applyBestAlgo(scores[0].algo);
+  }, 100);
+}
+
+// JP TRACKER
+function jptGetData(){ try{ return JSON.parse(localStorage.getItem('tikam_jp_tracker')||'[]'); }catch(e){ return []; } }
+function jptSaveData(arr){ localStorage.setItem('tikam_jp_tracker', JSON.stringify(arr)); }
+function jptAdd(){
+  const date=document.getElementById('jptDate').value||new Date().toISOString().slice(0,10);
+  const pasaran=(document.getElementById('jptPasaran').value||currentJptPasaran||'').trim().toUpperCase();
+  const bbfs=document.getElementById('jptBBFS').value.trim().replace(/\D/g,'');
+  const algo=document.getElementById('jptAlgo').value.trim().toUpperCase();
+  const result=document.getElementById('jptResult').value.trim().replace(/\D/g,'');
+  const status=document.getElementById('jptStatus').value;
+  const notes=document.getElementById('jptNotes').value.trim();
+  if(!pasaran) return alert('⚠️ Pilih pasaran dulu bosq!');
+  if(!bbfs) return alert('⚠️ Isi BBFS bosq!');
+  const data=jptGetData(); data.push({id:Date.now(), date, pasaran, bbfs, algo, result, status, notes}); jptSaveData(data); jptRender();
+  ['jptBBFS','jptAlgo','jptResult','jptNotes'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  const t=document.getElementById('trimToast'); if(t){ t.innerHTML='✅ Ditambahkan!'; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },2000); }
+  populateDropdowns();
+}
+function jptDelete(id){ if(!confirm('Hapus?')) return; jptSaveData(jptGetData().filter(e=>e.id!==id)); jptRender(); populateDropdowns(); }
+function jptClearAll(){ if(!confirm('⚠️ Hapus SEMUA?')) return; jptSaveData([]); jptRender(); populateDropdowns(); }
+function jptRender(){
+  const data=jptGetData().slice().reverse(); const total=data.length; const jp=data.filter(e=>e.status==='JP').length; const zonk=data.filter(e=>e.status==='ZONK').length; const decided=jp+zonk; const rate=decided?Math.round((jp/decided)*100):0;
+  const st=document.getElementById('jptStatTotal'); if(st) st.textContent=total;
+  const sj=document.getElementById('jptStatJP'); if(sj) sj.textContent=jp;
+  const sz=document.getElementById('jptStatZonk'); if(sz) sz.textContent=zonk;
+  const sr=document.getElementById('jptStatRate'); if(sr) sr.textContent=rate+'%';
+  if(total>0){ document.getElementById('jptStats').style.display='block'; document.getElementById('jptTableWrap').style.display='block'; } else { document.getElementById('jptStats').style.display='none'; document.getElementById('jptTableWrap').style.display='none'; }
+  const tbody=document.getElementById('jptTableBody'); if(!tbody) return; tbody.innerHTML=''; data.forEach(function(e,i){ const cls=e.status==='JP'?'hit':e.status==='ZONK'?'miss':'wait'; const icon=e.status==='JP'?'✓':e.status==='ZONK'?'✗':'⏳'; tbody.innerHTML+='<tr class="'+cls+'"><td>'+(data.length-i)+'</td><td>'+e.date+'</td><td><b>'+e.pasaran+'</b></td><td style="color:#00c853;">'+(e.bbfs||'-')+'</td><td>'+(e.algo||'-')+'</td><td>'+(e.result||'-')+'</td><td>'+icon+' '+e.status+'</td><td><button class="btn-delete" onclick="jptDelete('+e.id+')">✕</button></td></tr>'; });
+}
+function jptExport(){ const data=jptGetData(); if(!data.length) return alert('⚠️ Belum ada data!'); let csv='No,Tanggal,Pasaran,BBFS,Algo,Result,Status\n'; data.forEach(function(e,i){ csv+=(i+1)+','+e.date+','+e.pasaran+','+(e.bbfs||'')+','+(e.algo||'')+','+(e.result||'')+','+e.status+'\n'; }); const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='JP_Tracker_'+new Date().toISOString().slice(0,10)+'.csv'; a.click(); }
+function exportAllData(){ const data={}; let count=0; for(let i=0;i<localStorage.length;i++){ const key=localStorage.key(i); if(key && key.startsWith('tikam_')){ data[key]=localStorage.getItem(key); count++; } } data['_meta']={app:'MASTER TIKAM V.53', date:new Date().toISOString(), pasaran:savedPasaran}; const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='MASTER_TIKAM_BACKUP_'+new Date().toISOString().slice(0,10)+'.json'; a.click(); }
+function importAllData(event){ const file=event.target.files[0]; if(!file) return; const reader=new FileReader(); reader.onload=function(e){ try{ const data=JSON.parse(e.target.result); let imported=0; Object.keys(data).forEach(k=>{ if(k.startsWith('tikam_')){ localStorage.setItem(k, data[k]); imported++; } }); if(data._meta && data._meta.pasaran){ savedPasaran=data._meta.pasaran; localStorage.setItem('tikam_pasaran_list', JSON.stringify(savedPasaran)); } alert('✅ '+imported+' data direstore!'); location.reload(); }catch(err){ alert('❌ Gagal: '+err.message); } }; reader.readAsText(file); }
+
+window.addEventListener('load', function(){
+  initMistikDropdowns();
+  populateDropdowns();
+  if(currentAiPasaran){ loadAIData(); updateIndicator(); }
+  if(currentBtPasaran){ loadBtData(); updateBtIndicator(); }
+  if(currentJptPasaran){ document.getElementById('jptTriggerText').textContent=currentJptPasaran; document.getElementById('jptPasaran').value=currentJptPasaran; }
+  onAlgoChange();
+  const jd=document.getElementById('jptDate'); if(jd && !jd.value) jd.value=new Date().toISOString().slice(0,10);
+  jptRender();
+});
+console.log('🔥 V.53 FINAL WORKING - AUTO ALGO FIXED!');
+</script>
+</body>
+</html>
